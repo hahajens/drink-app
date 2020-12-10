@@ -1,5 +1,7 @@
+
 import 'package:AlkoApp/views/AgeView.dart';
 import 'package:AlkoApp/views/ObjectInfoView.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:AlkoApp/views/MyDrinksView.dart';
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
@@ -25,5 +28,6 @@ class MyApp extends StatelessWidget {
         '/ObjectInfoview': (context) => ObjectInfoview(),
       },
     );
+
   }
 }
