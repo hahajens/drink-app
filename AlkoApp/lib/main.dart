@@ -1,6 +1,10 @@
-import 'package:AlkoApp/views/DrinkView.dart';
+
+import 'package:AlkoApp/views/AgeView.dart';
+import 'package:AlkoApp/views/ObjectInfoView.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:AlkoApp/views/MyDrinksView.dart';
 
 import 'package:AlkoApp/views/MyHomeListview.dart';
 import 'package:AlkoApp/model/Model.dart';
@@ -16,9 +20,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        //ÄNDRA TILLBAKA SEN!!
-        home: DrinkView()
-        //MyHomeListview(),
-        );
+
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomeListview(),
+        '/ObjectInfoview': (context) => ObjectInfoview(),
+      },
+    );
+
   }
 }
