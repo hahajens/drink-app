@@ -71,11 +71,7 @@ class MyCustomListview extends StatelessWidget {
               trailing: Text("${state.alkoList[index].strAlcoholic}"),
               onTap: () {
                 state.index = index;
-                //NAVIGATOR till infosida
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ObjectInfoview()),
-                );
+                Navigator.pushNamed(context, '/ObjectInfoview');
               });
         },
       ),
