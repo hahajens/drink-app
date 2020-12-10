@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:AlkoApp/views/ObjectInfoView.dart';
 import 'package:AlkoApp/views/MyHomeListview.dart';
 import 'package:AlkoApp/model/Model.dart';
+import 'package:AlkoApp/model/NavigationBar.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => MyHomeListview(),
+        '/': (context) => NavigationBar(),
         '/ObjectInfoview': (context) => ObjectInfoview(),
       },
     );
