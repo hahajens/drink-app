@@ -15,10 +15,6 @@ class AgeView extends StatelessWidget {
         children: [
           Text(
             'Drink App',
-            // style: GoogleFonts.sansita(
-            //   color: Colors.white,
-            //   fontSize: 70,
-            // )
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
