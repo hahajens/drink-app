@@ -5,7 +5,7 @@ class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70,
+      backgroundColor: Colors.white60,
       body: ListView(
         children: [
           Container(
