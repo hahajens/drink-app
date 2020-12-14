@@ -1,9 +1,11 @@
+import 'package:AlkoApp/model/AlkoObject.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AlkoObject obj = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: Colors.white60,
       body: ListView(
@@ -39,7 +41,7 @@ class DrinkView extends StatelessWidget {
           Row(
             children: [
               _titleWidget(//strDrink
-                  "Koala Paradise"),
+                  obj.strDrink),
               IconButton(
                 icon: Icon(Icons.favorite_border_outlined),
                 iconSize: 34,

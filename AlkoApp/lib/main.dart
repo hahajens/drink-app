@@ -1,3 +1,4 @@
+import 'package:AlkoApp/views/DrinkView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => MyHomeListview(),
-        '/ObjectInfoview': (context) => ObjectInfoview(),
+        '/DrinkView': (context) => DrinkView(),
       },
     );
   }
