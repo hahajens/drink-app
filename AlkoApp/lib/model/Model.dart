@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:AlkoApp/DB/DB.dart';
 
 class Model extends ChangeNotifier {
-  List<AlkoObject> alkoList = new List();
-  List<String> listToFilterOn = new List();
+  List<AlkoObject> _alkoList = new List();
+  List listToFilterOn = new List();
 
-  bool filterList = false;
   int index;
+
+  List get alkoList => _alkoList;
 
   Model() {
     syncLists();
@@ -15,8 +16,18 @@ class Model extends ChangeNotifier {
 
   void syncLists() async {
     print("Loading...");
-    alkoList = await DB.getData();
+    _alkoList = await DB.getData();
     notifyListeners();
     print("DONE!");
+  }
+
+  void setListByFilter(List input) async {
+    if (listToFilterOn.length > 0) {
+      _alkoList = await DB.getDataByIngredient(input);
+      notifyListeners();
+    } else {
+      _alkoList = await DB.getData();
+      notifyListeners();
+    }
   }
 }

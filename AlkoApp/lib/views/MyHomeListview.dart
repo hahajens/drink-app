@@ -1,7 +1,9 @@
+import 'package:AlkoApp/DB/DB.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:AlkoApp/model/Model.dart';
+import 'package:AlkoApp/model/AlkoObject.dart';
 
 //TODO ändra hur height och width sätts
 class MyHomeListview extends StatelessWidget {
@@ -51,23 +53,13 @@ class MyHomeListview extends StatelessWidget {
     );
   }
 
-  //TODO '
-  //1. fyll en lista med alla spritsorter i model och fyll filtret
-  //3. Hur gör man query för "hela" db? alt hur gör man en query för bara spritstorterna?
-  //4. gör färdigt _filterList()
+  // //TODO
+  // //1. fyll en lista med alla spritsorter i model och fyll filtret
+  // //3. Hur gör man query för "hela" db? alt hur gör man en query för bara spritstorterna?
+  // //4. gör klart filtreringen, flytta listtofilter on till lokalt
+  // //5. bestäm vad vi ska kunna sortera med i gruppen
 
-  //Ska returnera en lista som filtrerats på listToFilterOn
-  _filterList(state, alkoList) {
-    List returnList;
-    if (state.listToFilterOn.length > 0) {
-      return returnList = alkoList
-          .where((i) => i.strIngredient1 == state.listToFilterOn)
-          .toList();
-    } else {
-      return alkoList;
-    }
-  }
-
+//skapar en lista med strängar att sortera på
   Widget _filterButton(BuildContext context, state) {
     return FlatButton(
       color: Colors.blueAccent,
@@ -80,23 +72,24 @@ class MyHomeListview extends StatelessWidget {
   }
 
   _showAlertDialog(BuildContext context, state) {
-    List listOfLiqour = [
-      "vodka"
-    ]; //<-- ska komma ifrån model eller DB kanske? //TODO ska den vara statisk?
-    //Lista med strängar att sortera på
-    List listToFilterOn = [];
+    //Lista med spritsorter att filtrera på. Ska fyllas baserat på vad DB har.
+    List<String> listOfLiqour = ["vodka", "gin"];
 
     Widget okButton = FlatButton(
       child: Text("Filtrera"),
       onPressed: () {
         Navigator.pop(context);
+        state.setListByFilter(state.listToFilterOn);
       },
     );
 
     Widget cancelButton = FlatButton(
-      child: Text("Avbryt"),
+      child: Text("Rensa filter"),
       onPressed: () {
         Navigator.pop(context);
+        state.listToFilterOn.clear();
+        state.setListByFilter(state.listToFilterOn);
+        print("Tapped: ${state.listToFilterOn}");
       },
     );
 
@@ -113,8 +106,8 @@ class MyHomeListview extends StatelessWidget {
                 return Container(
                   child: GestureDetector(
                     onTap: () {
-                      print("Tapped: ${listOfLiqour[index]}");
-                      listToFilterOn.add(listOfLiqour[index]);
+                      state.listToFilterOn.add(listOfLiqour[index]);
+                      print("Tapped: ${state.listToFilterOn}");
                     },
                     child: Card(
                       color: Colors.blue,
@@ -147,7 +140,8 @@ class MyHomeListview extends StatelessWidget {
               trailing: Text("${list[index].strAlcoholic}"),
               onTap: () {
                 state.index = index;
-                Navigator.pushNamed(context, '/ObjectInfoview');
+                Navigator.pushNamed(context, '/ObjectInfoview',
+                    arguments: list[index]);
               });
         },
       ),

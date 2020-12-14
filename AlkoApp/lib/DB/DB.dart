@@ -10,14 +10,35 @@ och visa närmaste system <-- kanske annat api?
 */
 
 class DB {
-  static const url =
+  static const urlRecent =
       //"https://www.thecocktaildb.com/api/json/v1/1/search.php?s=";
       "https://www.thecocktaildb.com/api/json/v2/9973533/recent.php";
 
   static getData() async {
     List<AlkoObject> list;
 
-    http.Response response = await http.get(url);
+    http.Response response = await http.get(urlRecent);
+
+    if (response.statusCode == 200) {
+      list = (json.decode(response.body)["drinks"] as List)
+          .map((data) => AlkoObject.fromJson(data))
+          .toList();
+
+      //print(list);
+      return list;
+    } else {
+      print("DETTA ÄR NIKLAS FEL");
+      print("fan med: ${response.statusCode}");
+    }
+  }
+
+  static getDataByIngredient(List input) async {
+    List<AlkoObject> list;
+
+    String queryURL =
+        "https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=";
+
+    http.Response response = await http.get(queryURL + input.join(","));
 
     if (response.statusCode == 200) {
       list = (json.decode(response.body)["drinks"] as List)
