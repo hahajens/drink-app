@@ -15,10 +15,6 @@ class AgeView extends StatelessWidget {
         children: [
           Text(
             'Drink App',
-            // style: GoogleFonts.sansita(
-            //   color: Colors.white,
-            //   fontSize: 70,
-            // )
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -28,7 +24,9 @@ class AgeView extends StatelessWidget {
                 child: RaisedButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/StartView');
+                  },
                   textColor: Colors.black,
                   child: Text('Jag har fyllt 20år'),
                   color: Colors.white,

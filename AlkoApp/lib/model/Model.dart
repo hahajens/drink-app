@@ -30,9 +30,20 @@ class Model extends ChangeNotifier {
     }
   }
 
+
   getIngredientsList() async {
     List<String> listOfIngredients = new List();
     listOfIngredients = await DB.getIngredientsList();
     return listOfIngredients;
+
+  //Kan bugga med den andra index högre upp/Olle
+  //Variabel, getter & setter för NavigationBar
+  int _currentIndex = 0;
+  get currentIndex => _currentIndex;
+
+  set currentIndex(int index) {
+    _currentIndex = index;
+    notifyListeners();
+
   }
 }

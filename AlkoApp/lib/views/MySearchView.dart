@@ -26,6 +26,19 @@ class MySearchView extends StatelessWidget {
             Expanded(child: _myCustomListview(state.alkoList)),
           ],
         ),
+
+
+class MySearchView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _myHomeAppbar(),
+      drawer: _myHomeDrawer(),
+      body: Column(
+        children: [
+          _mySearchBar(),
+          Expanded(child: MyCustomSearchView()),
+        ],
       ),
     );
   }
@@ -144,28 +157,9 @@ class MySearchView extends StatelessWidget {
                 state.index = index;
                 Navigator.pushNamed(context, '/DrinkView',
                     arguments: list[index]);
+
               });
         },
       ),
     );
   }
-}
-
-// Widget _mySearchBar() {
-//   TextEditingController controller = new TextEditingController();
-//   return Row(
-//     children: [
-//       Expanded(
-//         child: TextField(
-//           controller: controller,
-//           decoration: InputDecoration(
-//             contentPadding: EdgeInsets.all(8.0),
-//             border: InputBorder.none,
-//             hintText: 'Sök på Drinknamn:',
-//             hintStyle: TextStyle(color: Colors.grey),
-//           ),
-//         ),
-//       ),
-//     ],
-//   );
-// }
