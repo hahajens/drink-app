@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => MySearchView(),
+        '/': (context) => AgeView(),
         '/StartView': (context) => StartView(),
         '/DrinkView': (context) => DrinkView(),
         '/MySearchView': (context) => MySearchView(),
