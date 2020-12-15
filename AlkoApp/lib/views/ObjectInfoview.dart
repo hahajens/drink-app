@@ -24,11 +24,11 @@ class ObjectView extends StatelessWidget {
     return Consumer<Model>(
       builder: (context, state, child) => Column(
         children: [
-          Text("${state.alkoList[state.index].strIngredient1}"),
-          Text("${state.alkoList[state.index].strIngredient2}"),
-          Text("${state.alkoList[state.index].strIngredient3}"),
-          Text("${state.alkoList[state.index].strIngredient4}"),
-          Text("${state.alkoList[state.index].strIngredient5}"),
+          Text("strIngredient1: ${state.alkoList[state.index].strIngredient1}"),
+          Text("strIngredient2: ${state.alkoList[state.index].strIngredient2}"),
+          Text("strIngredient3: ${state.alkoList[state.index].strIngredient3}"),
+          Text("strIngredient4: ${state.alkoList[state.index].strIngredient4}"),
+          Text("strIngredient5: ${state.alkoList[state.index].strIngredient5}"),
         ],
       ),
     );

@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:AlkoApp/DB/DB.dart';
 
 class Model extends ChangeNotifier {
-  List<AlkoObject> alkoList = new List();
-  List<AlkoObject> filteredList = new List();
+  List<AlkoObject> _alkoList = new List();
 
-  bool returnFiltered = false;
   int index;
+
+  List get alkoList => _alkoList;
 
   Model() {
     syncLists();
@@ -15,25 +15,28 @@ class Model extends ChangeNotifier {
 
   void syncLists() async {
     print("Loading...");
-    alkoList = await DB.getData();
+    _alkoList = await DB.getData();
     notifyListeners();
     print("DONE!");
   }
 
-//TODO
-  List<AlkoObject> getList({input}) {
-    if (returnFiltered == true) {
-      returnFiltered = false;
-      //where-funktion
-      filteredList =
-          alkoList.where((element) => element.getStrDrink == input).toList();
-      return filteredList;
+  void setListByIngredient(List listToFilterOn) async {
+    if (listToFilterOn.length > 0) {
+      _alkoList = await DB.getDataByIngredient(listToFilterOn);
+      notifyListeners();
     } else {
-      returnFiltered = true;
-      return alkoList;
+      _alkoList = await DB.getData();
+      notifyListeners();
     }
   }
 
+
+  getIngredientsList() async {
+    List<String> listOfIngredients = new List();
+    listOfIngredients = await DB.getIngredientsList();
+    return listOfIngredients;
+
+  //Kan bugga med den andra index högre upp/Olle
   //Variabel, getter & setter för NavigationBar
   int _currentIndex = 0;
   get currentIndex => _currentIndex;
@@ -41,5 +44,6 @@ class Model extends ChangeNotifier {
   set currentIndex(int index) {
     _currentIndex = index;
     notifyListeners();
+
   }
 }

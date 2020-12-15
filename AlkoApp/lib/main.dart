@@ -5,8 +5,7 @@ import 'package:AlkoApp/views/MyFavoritesView.dart';
 import 'package:AlkoApp/views/StartView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:AlkoApp/views/MySearchView.dart';
-import 'package:AlkoApp/model/Model.dart';
+
 
 
 
@@ -29,7 +28,6 @@ class MyApp extends StatelessWidget {
         '/DrinkView': (context) => DrinkView(),
         '/MySearchView': (context) => MySearchView(),
         '/MyFavoritesView': (context) => MyFavoritesView(),
-        '/MyDrinksView': (context) => MyDrinksView(),
       },
     );
   }
