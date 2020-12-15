@@ -30,7 +30,7 @@ class Model extends ChangeNotifier {
     }
   }
 
-  getListWithIngredients() async {
+  getIngredientsList() async {
     List<String> listOfIngredients = new List();
     listOfIngredients = await DB.getIngredientsList();
     return listOfIngredients;

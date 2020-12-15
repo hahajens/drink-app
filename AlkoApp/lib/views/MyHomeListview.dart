@@ -73,7 +73,7 @@ class MyHomeListview extends StatelessWidget {
   }
 
   _filterDialog(BuildContext context, state) async {
-    List<String> listOfIngredients = await state.getListWithIngredients();
+    List<String> listOfIngredients = await state.getIngredientsList();
     //List<String> listOfIngredients = ["vodka", "gin"];
     List listToFilterOn = new List();
 
