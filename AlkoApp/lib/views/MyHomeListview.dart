@@ -71,7 +71,8 @@ class MyCustomListview extends StatelessWidget {
               trailing: Text("${state.alkoList[index].strAlcoholic}"),
               onTap: () {
                 state.index = index;
-                Navigator.pushNamed(context, '/ObjectInfoview');
+                Navigator.pushNamed(context, '/DrinkView',
+                    arguments: state.alkoList[index]);
               });
         },
       ),

@@ -1,3 +1,4 @@
+import 'package:AlkoApp/views/DrinkView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +20,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => NavigationBar(),
-        '/ObjectInfoview': (context) => ObjectInfoview(),
+        '/': (context) => MyHomeListview(),
+        '/DrinkView': (context) => DrinkView(),
+
       },
     );
   }
