@@ -6,7 +6,7 @@ import 'package:AlkoApp/model/Model.dart';
 import 'package:AlkoApp/model/AlkoObject.dart';
 
 //TODO ändra hur height och width sätts
-class MyHomeListview extends StatelessWidget {
+class MySearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<Model>(

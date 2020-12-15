@@ -2,8 +2,7 @@ import 'package:AlkoApp/views/DrinkView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:AlkoApp/views/ObjectInfoView.dart';
-import 'package:AlkoApp/views/MyHomeListview.dart';
+import 'package:AlkoApp/views/MySearchView.dart';
 import 'package:AlkoApp/model/Model.dart';
 
 void main() {
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => MyHomeListview(),
+        '/': (context) => MySearchView(),
         '/DrinkView': (context) => DrinkView(),
       },
     );
