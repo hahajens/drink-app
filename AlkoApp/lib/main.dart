@@ -20,9 +20,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => MyHomeListview(),
+        '/': (context) => AgeView(),
+        '/StartView': (context) => StartView(), 
         '/DrinkView': (context) => DrinkView(),
-
+        '/MyHomeListView': (context) => MyHomeListView(),
+        '/MyFavoritesView': (context) => MyFavoritesView(),
+        '/MyDrinksView': (context) => MyDrinksView(),
       },
     );
   }
