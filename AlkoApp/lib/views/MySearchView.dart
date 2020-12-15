@@ -26,22 +26,24 @@ class MySearchView extends StatelessWidget {
             Expanded(child: _myCustomListview(state.alkoList)),
           ],
         ),
-
-
-class MySearchView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _myHomeAppbar(),
-      drawer: _myHomeDrawer(),
-      body: Column(
-        children: [
-          _mySearchBar(),
-          Expanded(child: MyCustomSearchView()),
-        ],
       ),
     );
   }
+
+// class MySearchView extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: _myHomeAppbar(),
+//       drawer: _myHomeDrawer(),
+//       body: Column(
+//         children: [
+//           _mySearchBar(),
+//           Expanded(child: MyCustomSearchView()),
+//         ],
+//       ),
+//     );
+//   }
 
   Widget _myHomeAppbar() {
     return AppBar(
@@ -144,22 +146,20 @@ class MySearchView extends StatelessWidget {
 
   Widget _myCustomListview(list) {
     return Consumer<Model>(
-      builder: (context, state, child) => ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(list[index].strDrinkThumb),
-              ),
-              title: Text("${list[index].strDrink}"),
-              trailing: Text("${list[index].strAlcoholic}"),
-              onTap: () {
-                state.index = index;
-                Navigator.pushNamed(context, '/DrinkView',
-                    arguments: list[index]);
-
-              });
-        },
-      ),
-    );
+        builder: (context, state, child) => ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(list[index].strDrinkThumb),
+                  ),
+                  title: Text("${list[index].strDrink}"),
+                  trailing: Text("${list[index].strAlcoholic}"),
+                  onTap: () {
+                    state.index = index;
+                    Navigator.pushNamed(context, '/DrinkView',
+                        arguments: list[index]);
+                  });
+            }));
   }
+}
