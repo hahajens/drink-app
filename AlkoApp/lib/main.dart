@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => MyHomeListview(),
-        '/ObjectInfoview': (context) => ObjectInfoview(),
+        '/DrinkView': (context) => DrinkView(),
       },
     );
   }

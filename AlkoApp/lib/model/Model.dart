@@ -4,7 +4,6 @@ import 'package:AlkoApp/DB/DB.dart';
 
 class Model extends ChangeNotifier {
   List<AlkoObject> _alkoList = new List();
-  List listToFilterOn = new List();
 
   int index;
 
@@ -21,13 +20,19 @@ class Model extends ChangeNotifier {
     print("DONE!");
   }
 
-  void setListByFilter(List input) async {
+  void setListByIngredient(List listToFilterOn) async {
     if (listToFilterOn.length > 0) {
-      _alkoList = await DB.getDataByIngredient(input);
+      _alkoList = await DB.getDataByIngredient(listToFilterOn);
       notifyListeners();
     } else {
       _alkoList = await DB.getData();
       notifyListeners();
     }
+  }
+
+  getListWithIngredients() async {
+    List<String> listOfIngredients = new List();
+    listOfIngredients = await DB.getIngredientsList();
+    return listOfIngredients;
   }
 }

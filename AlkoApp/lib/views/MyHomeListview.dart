@@ -56,8 +56,9 @@ class MyHomeListview extends StatelessWidget {
   // //TODO
   // //1. fyll en lista med alla spritsorter i model och fyll filtret
   // //3. Hur gör man query för "hela" db? alt hur gör man en query för bara spritstorterna?
-  // //4. gör klart filtreringen, flytta listtofilter on till lokalt
+  // //4. gör klart filtreringen, flytta listtofilteron till lokalt
   // //5. bestäm vad vi ska kunna sortera med i gruppen
+  // //6. VIKTIG kolla om kombo inte finns ska den inte krascha
 
 //skapar en lista med strängar att sortera på
   Widget _filterButton(BuildContext context, state) {
@@ -65,21 +66,22 @@ class MyHomeListview extends StatelessWidget {
       color: Colors.blueAccent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
       onPressed: () {
-        _showAlertDialog(context, state);
+        _filterDialog(context, state);
       },
       child: Text("Filtrera"),
     );
   }
 
-  _showAlertDialog(BuildContext context, state) {
-    //Lista med spritsorter att filtrera på. Ska fyllas baserat på vad DB har.
-    List<String> listOfLiqour = ["vodka", "gin"];
+  _filterDialog(BuildContext context, state) async {
+    List<String> listOfIngredients = await state.getListWithIngredients();
+    //List<String> listOfIngredients = ["vodka", "gin"];
+    List listToFilterOn = new List();
 
     Widget okButton = FlatButton(
       child: Text("Filtrera"),
       onPressed: () {
         Navigator.pop(context);
-        state.setListByFilter(state.listToFilterOn);
+        state.setListByIngredient(listToFilterOn);
       },
     );
 
@@ -87,9 +89,9 @@ class MyHomeListview extends StatelessWidget {
       child: Text("Rensa filter"),
       onPressed: () {
         Navigator.pop(context);
-        state.listToFilterOn.clear();
-        state.setListByFilter(state.listToFilterOn);
-        print("Tapped: ${state.listToFilterOn}");
+        listToFilterOn.clear();
+        state.setListByIngredient(listToFilterOn);
+        print("Tapped: ${listToFilterOn}");
       },
     );
 
@@ -102,16 +104,16 @@ class MyHomeListview extends StatelessWidget {
             width: MediaQuery.of(context).size.width * .7,
             child: GridView.count(
               crossAxisCount: 3,
-              children: List.generate(listOfLiqour.length, (index) {
+              children: List.generate(listOfIngredients.length, (index) {
                 return Container(
                   child: GestureDetector(
                     onTap: () {
-                      state.listToFilterOn.add(listOfLiqour[index]);
-                      print("Tapped: ${state.listToFilterOn}");
+                      listToFilterOn.add(listOfIngredients[index]);
+                      print("Tapped: ${listToFilterOn}");
                     },
                     child: Card(
                       color: Colors.blue,
-                      child: Text("${listOfLiqour[index]}"),
+                      child: Text("${listOfIngredients[index]}"),
                     ),
                   ),
                 );
@@ -140,7 +142,7 @@ class MyHomeListview extends StatelessWidget {
               trailing: Text("${list[index].strAlcoholic}"),
               onTap: () {
                 state.index = index;
-                Navigator.pushNamed(context, '/ObjectInfoview',
+                Navigator.pushNamed(context, '/DrinkView',
                     arguments: list[index]);
               });
         },
