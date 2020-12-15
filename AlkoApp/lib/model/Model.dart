@@ -33,4 +33,13 @@ class Model extends ChangeNotifier {
       return alkoList;
     }
   }
+
+  //Variabel, getter & setter för NavigationBar
+  int _currentIndex = 0;
+  get currentIndex => _currentIndex;
+
+  set currentIndex(int index) {
+    _currentIndex = index;
+    notifyListeners();
+  }
 }

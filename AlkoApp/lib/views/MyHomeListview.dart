@@ -1,4 +1,4 @@
-import 'package:AlkoApp/views/ObjectInfoView.dart';
+import 'package:AlkoApp/views/ObjectInfoview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
