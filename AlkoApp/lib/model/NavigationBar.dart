@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:AlkoApp/views/AgeView.dart';
 import 'package:AlkoApp/views/DrinkView.dart';
 import 'package:AlkoApp/views/MyDrinksView.dart';
-import 'package:AlkoApp/views/ObjectInfoview.dart';
-import 'package:AlkoApp/views/MyHomeListview.dart';
+import 'package:AlkoApp/views/MySearchView.dart';
 import 'package:AlkoApp/model/Model.dart';
 
 //Klassem för NavigationBar
@@ -15,7 +14,7 @@ class NavigationBar extends StatelessWidget {
     var provider = Provider.of<Model>(context);
     //Innehållet i currentTab avgör vilka sidor som baren består av
     var currentTab = [
-      MyHomeListview(),
+      MySearchView(),
       AgeView(),
       DrinkView(),
       MyDrinksView(),

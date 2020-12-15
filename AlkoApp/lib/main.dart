@@ -1,11 +1,15 @@
+import 'package:AlkoApp/views/AgeView.dart';
 import 'package:AlkoApp/views/DrinkView.dart';
+import 'package:AlkoApp/views/MyDrinksView.dart';
+import 'package:AlkoApp/views/MyFavoritesView.dart';
+import 'package:AlkoApp/views/StartView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:AlkoApp/views/ObjectInfoView.dart';
-import 'package:AlkoApp/views/MyHomeListview.dart';
+import 'package:AlkoApp/views/MySearchView.dart';
 import 'package:AlkoApp/model/Model.dart';
-import 'package:AlkoApp/model/NavigationBar.dart';
+
+
+
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -23,7 +27,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => AgeView(),
         '/StartView': (context) => StartView(), 
         '/DrinkView': (context) => DrinkView(),
-        '/MyHomeListView': (context) => MyHomeListView(),
+        '/MySearchView': (context) => MySearchView(),
         '/MyFavoritesView': (context) => MyFavoritesView(),
         '/MyDrinksView': (context) => MyDrinksView(),
       },

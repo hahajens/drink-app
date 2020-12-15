@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:AlkoApp/model/Model.dart';
 
-class MyHomeListview extends StatelessWidget {
+class MySearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +13,7 @@ class MyHomeListview extends StatelessWidget {
       body: Column(
         children: [
           _mySearchBar(),
-          Expanded(child: MyCustomListview()),
+          Expanded(child: MyCustomSearchView()),
         ],
       ),
     );
@@ -55,7 +55,7 @@ class MyHomeListview extends StatelessWidget {
   }
 }
 
-class MyCustomListview extends StatelessWidget {
+class MyCustomSearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<Model>(
