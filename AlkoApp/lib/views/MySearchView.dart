@@ -109,7 +109,8 @@ class MySearchView extends StatelessWidget {
                 return Container(
                   child: GestureDetector(
                     onTap: () {
-                      listToFilterOn.add(listOfIngredients[index]);
+                      listToFilterOn
+                          .add(listOfIngredients[index].strIngredient1);
                       print("Tapped: ${listToFilterOn}");
                     },
                     child: Card(
