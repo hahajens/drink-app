@@ -4,10 +4,12 @@ import 'package:AlkoApp/DB/DB.dart';
 
 class Model extends ChangeNotifier {
   List<AlkoObject> _alkoList = new List();
+  List<AlkoObject> _favoriteList = new List();
 
   int index;
 
   List get alkoList => _alkoList;
+  List get favoriteList => _favoriteList;
 
   Model() {
     syncLists();
@@ -45,5 +47,10 @@ class Model extends ChangeNotifier {
     //   notifyListeners();
 
     // }
+  }
+
+  void addFavorite(AlkoObject drink) {
+    favoriteList.add(drink);
+    notifyListeners();
   }
 }

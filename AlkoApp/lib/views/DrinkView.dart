@@ -1,12 +1,15 @@
 import 'package:AlkoApp/model/AlkoObject.dart';
+import 'package:AlkoApp/model/Model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
 class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AlkoObject drink = ModalRoute.of(context).settings.arguments;
     return Scaffold(
+      appBar: AppBar(),
       backgroundColor: Colors.white70,
       body: ListView(
         children: [
@@ -41,7 +44,12 @@ class DrinkView extends StatelessWidget {
                       icon: Icon(Icons.favorite_border_outlined),
                       iconSize: 34,
                       onPressed: () {
-                        // Lägg till i favoritlista
+                        Provider.of<Model>(context, listen: false)
+                            .addFavorite(drink);
+                        Navigator.pushNamed(context, '/MyFavoritesView'); //ta bort navigator när alla routes funkar
+                        //fixa så att man inte kan lägga till 2 av samma, if sats
+                        //ska kunna ta bort favoriter
+                        //se värde på knapp
                       },
                     )
                   ],
