@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../model/Model.dart';
-
+import 'package:AlkoApp/model/NavigationBar.dart';
 class MyDrinksView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class MyDrinksView extends StatelessWidget {
         label: Text('Add new Drink'),
         icon: Icon(Icons.add),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      /*bottomNavigationBar: BottomNavigationBar(
           currentIndex: 0,
           type: BottomNavigationBarType.fixed,
           items: [
@@ -40,7 +40,8 @@ class MyDrinksView extends StatelessWidget {
               icon: Icon(Icons.local_drink),
               title: Text('My Drinks'),
             ),
-          ]),
+          ]),*/
+          bottomNavigationBar: CustomNavigationBar()
     );
   }
 }

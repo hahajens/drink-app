@@ -2,7 +2,12 @@ import 'package:AlkoApp/model/AlkoObject.dart';
 import 'package:AlkoApp/model/Model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
 import 'package:provider/provider.dart';
+import 'package:AlkoApp/model/NavigationBar.dart';
+
+
+
 
 class DrinkView extends StatelessWidget {
   @override
@@ -74,6 +79,7 @@ class DrinkView extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: CustomNavigationBar(),
     );
   }
 }

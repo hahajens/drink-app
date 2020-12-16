@@ -1,4 +1,9 @@
+
+import 'package:AlkoApp/DB/DB.dart';
+import 'package:AlkoApp/model/NavigationBar.dart';
+
 import 'package:AlkoApp/model/IngredientObject.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +30,7 @@ class MySearchView extends StatelessWidget {
             Expanded(child: _myCustomListview(state.alkoList)),
           ],
         ),
+        bottomNavigationBar: CustomNavigationBar(),
       ),
     );
   }

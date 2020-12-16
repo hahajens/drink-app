@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/DrinkView': (context) => DrinkView(),
         '/MySearchView': (context) => MySearchView(),
         '/MyFavoritesView': (context) => MyFavoritesView(),
+        '/MyDrinksView': (context) => MyDrinksView(),
       },
     );
   }

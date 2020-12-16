@@ -39,6 +39,7 @@ class Model extends ChangeNotifier {
     return listOfIngredients;
   }
 
+
   myFlutterToast(input) {
     return Fluttertoast.showToast(
       msg: input,
