@@ -38,12 +38,12 @@ class Model extends ChangeNotifier {
     //Kan bugga med den andra index högre upp/Olle
     //Variabel, getter & setter för NavigationBar
     // int _currentIndex = 0;
-    // get currentIndex => _currentIndex;
+     //getCurrentIndex => _currentIndex;
 
-    // set currentIndex(int index) {
-    //   _currentIndex = index;
-    //   notifyListeners();
+     /*set currentIndex(int index) {
+       _currentIndex = index;
+       notifyListeners();
 
-    // }
+     }*/
   }
 }
