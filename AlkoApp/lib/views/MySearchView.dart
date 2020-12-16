@@ -1,9 +1,8 @@
-import 'package:AlkoApp/DB/DB.dart';
+import 'package:AlkoApp/model/IngredientObject.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:AlkoApp/model/Model.dart';
-import 'package:AlkoApp/model/AlkoObject.dart';
 
 //TODO ändra hur height och width sätts
 class MySearchView extends StatelessWidget {
@@ -30,21 +29,6 @@ class MySearchView extends StatelessWidget {
     );
   }
 
-// class MySearchView extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: _myHomeAppbar(),
-//       drawer: _myHomeDrawer(),
-//       body: Column(
-//         children: [
-//           _mySearchBar(),
-//           Expanded(child: MyCustomSearchView()),
-//         ],
-//       ),
-//     );
-//   }
-
   Widget _myHomeAppbar() {
     return AppBar(
       title: Text("Söksida/filtrering"),
@@ -69,13 +53,9 @@ class MySearchView extends StatelessWidget {
   }
 
   // //TODO
-  // //1. fyll en lista med alla spritsorter i model och fyll filtret
   // //3. Hur gör man query för "hela" db? alt hur gör man en query för bara spritstorterna?
-  // //4. gör klart filtreringen, flytta listtofilteron till lokalt
   // //5. bestäm vad vi ska kunna sortera med i gruppen
-  // //6. VIKTIG kolla om kombo inte finns ska den inte krascha
 
-//skapar en lista med strängar att sortera på
   Widget _filterButton(BuildContext context, state) {
     return FlatButton(
       color: Colors.blueAccent,
@@ -88,15 +68,16 @@ class MySearchView extends StatelessWidget {
   }
 
   _filterDialog(BuildContext context, state) async {
-    List<String> listOfIngredients = await state.getIngredientsList();
-    //List<String> listOfIngredients = ["vodka", "gin"];
+    List<IngredientObject> listOfIngredients = await state.getIngredientsList();
     List listToFilterOn = new List();
 
-    Widget okButton = FlatButton(
+    Widget filterButton = FlatButton(
       child: Text("Filtrera"),
       onPressed: () {
         Navigator.pop(context);
-        state.setListByIngredient(listToFilterOn);
+        //Tar bort dubletter
+        listToFilterOn = Set.of(listToFilterOn).toList();
+        state.setListByIngredient(listToFilterOn, context);
       },
     );
 
@@ -105,8 +86,7 @@ class MySearchView extends StatelessWidget {
       onPressed: () {
         Navigator.pop(context);
         listToFilterOn.clear();
-        state.setListByIngredient(listToFilterOn);
-        print("Tapped: ${listToFilterOn}");
+        state.setListByIngredient(listToFilterOn, context);
       },
     );
 
@@ -127,8 +107,8 @@ class MySearchView extends StatelessWidget {
                       print("Tapped: ${listToFilterOn}");
                     },
                     child: Card(
-                      color: Colors.blue,
-                      child: Text("${listOfIngredients[index]}"),
+                      color: Colors.green[300],
+                      child: Text("${listOfIngredients[index].strIngredient1}"),
                     ),
                   ),
                 );
@@ -137,7 +117,7 @@ class MySearchView extends StatelessWidget {
           ),
           actions: [
             cancelButton,
-            okButton,
+            filterButton,
           ],
         );
       },
@@ -156,7 +136,6 @@ class MySearchView extends StatelessWidget {
                   title: Text("${list[index].strDrink}"),
                   trailing: Text("${list[index].strAlcoholic}"),
                   onTap: () {
-                    state.index = index;
                     Navigator.pushNamed(context, '/DrinkView',
                         arguments: list[index]);
                   });
