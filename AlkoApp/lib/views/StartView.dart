@@ -5,7 +5,11 @@ class StartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       bottomNavigationBar: CustomNavigationBar(),
+
+      body: Text('Hej'),
+
     );
   }
 }

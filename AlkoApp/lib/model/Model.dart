@@ -1,13 +1,16 @@
 import 'package:AlkoApp/model/AlkoObject.dart';
+import 'package:AlkoApp/model/IngredientObject.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:AlkoApp/DB/DB.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Model extends ChangeNotifier {
   List<AlkoObject> _alkoList = new List();
-
-  int index;
+  List<AlkoObject> _favoriteList = new List();
 
   List get alkoList => _alkoList;
+  List get favoriteList => _favoriteList;
 
   Model() {
     syncLists();
@@ -20,9 +23,9 @@ class Model extends ChangeNotifier {
     print("DONE!");
   }
 
-  void setListByIngredient(List listToFilterOn) async {
+  void setListByIngredient(List listToFilterOn, context) async {
     if (listToFilterOn.length > 0) {
-      _alkoList = await DB.getDataByIngredient(listToFilterOn);
+      _alkoList = await DB.getDataByIngredient(listToFilterOn, context);
       notifyListeners();
     } else {
       _alkoList = await DB.getData();
@@ -31,19 +34,35 @@ class Model extends ChangeNotifier {
   }
 
   getIngredientsList() async {
-    List<String> listOfIngredients = new List();
+    List<IngredientObject> listOfIngredients = new List();
     listOfIngredients = await DB.getIngredientsList();
     return listOfIngredients;
+  }
 
-    //Kan bugga med den andra index högre upp/Olle
-    //Variabel, getter & setter för NavigationBar
-    // int _currentIndex = 0;
-     //getCurrentIndex => _currentIndex;
 
-     /*set currentIndex(int index) {
-       _currentIndex = index;
-       notifyListeners();
+  myFlutterToast(input) {
+    return Fluttertoast.showToast(
+      msg: input,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.grey.shade300,
+      textColor: Colors.black,
+      fontSize: 16.0,
+    );
+  }
 
-     }*/
+  //Kan bugga med den andra index högre upp/Olle
+  //Variabel, getter & setter för NavigationBar
+  int _currentIndex = 0;
+  get currentIndex => _currentIndex;
+
+  set currentIndex(int index) {
+    _currentIndex = index;
+    notifyListeners();
+  }
+
+  void addFavorite(AlkoObject drink) {
+    favoriteList.add(drink);
+    notifyListeners();
   }
 }
