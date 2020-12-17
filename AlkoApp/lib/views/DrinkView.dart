@@ -91,37 +91,37 @@ Widget _ingredientsWidget({
   String ingredient7,
 }) {
   Map<String, String> parameterList = {};
-  if (measure1 == "" && ingredient1 == "") {
+  if (measure1 == "" || ingredient1 == "") {
     print("null");
   } else {
     parameterList[measure1] = ingredient1;
   }
-  if (measure2 == "" && ingredient2 == "") {
+  if (measure2 == "" || ingredient2 == "") {
     print("null");
   } else {
     parameterList[measure2] = ingredient2;
   }
-  if (measure3 == "" && ingredient3 == "") {
+  if (measure3 == "" || ingredient3 == "") {
     print("null");
   } else {
     parameterList[measure3] = ingredient3;
   }
-  if (measure4 == "" && ingredient4 == "") {
+  if (measure4 == "" || ingredient4 == "") {
     print("null");
   } else {
     parameterList[measure4] = ingredient4;
   }
-  if (measure5 == "" && ingredient5 == "") {
+  if (measure5 == "" || ingredient5 == "") {
     print("null");
   } else {
     parameterList[measure5] = ingredient5;
   }
-  if (measure6 == "" && ingredient6 == "") {
+  if (measure6 == "" || ingredient6 == "") {
     print("null");
   } else {
     parameterList[measure6] = ingredient6;
   }
-  if (measure7 == "" && ingredient7 == "") {
+  if (measure7 == "" || ingredient7 == "") {
     print("null");
   } else {
     parameterList[measure7] = ingredient7;
