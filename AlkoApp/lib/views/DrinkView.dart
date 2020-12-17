@@ -10,23 +10,21 @@ class DrinkView extends StatelessWidget {
       backgroundColor: Colors.white70,
       body: ListView(
         children: [
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.white70, borderRadius: BorderRadius.circular(25)),
-            child: Column(
-              children: [
-                Image(
-                  image: NetworkImage(drink.strDrinkThumb
-                      //bild finns i strDrinkThumb
-                      ),
-                ),
-                Row(
-                  children: [
-                    _tagWidget(//strTags
-                        drink.strTags),
-                  ],
-                ),
-              ],
+          SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white70,
+                  borderRadius: BorderRadius.circular(25)),
+              child: Column(
+                children: [
+                  Image(image: NetworkImage(drink.strDrinkThumb)),
+                  Row(
+                    children: [
+                      _tagWidget(drink.strTags),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
@@ -35,8 +33,7 @@ class DrinkView extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    _titleWidget(//strDrink
-                        drink.strDrink),
+                    _titleWidget(drink.strDrink),
                     IconButton(
                       icon: Icon(Icons.favorite_border_outlined),
                       iconSize: 34,
@@ -46,21 +43,28 @@ class DrinkView extends StatelessWidget {
                     )
                   ],
                 ),
-                _categoryWidget(//strCategory
-                    drink.strCategory),
-                _alcoholWidget(//strAlcoholic
-                    drink.strAlcoholic),
-                _glassWidget(//strGlass
-                    drink.strGlass),
+                _categoryWidget(drink.strCategory),
+                _alcoholWidget(drink.strAlcoholic),
+                _glassWidget(drink.strGlass),
                 _customDivider(),
                 _ingredientsWidget(
-                    ingredient1: "4cl of Tequila",
-                    ingredient2: "2cl of Triple sec",
-                    ingredient3: "4cl of Lime juice",
-                    ingredient4: "Salt"),
+                  measure1: drink.strMeasure1,
+                  ingredient1: drink.strIngredient1,
+                  measure2: drink.strMeasure2,
+                  ingredient2: drink.strIngredient2,
+                  measure3: drink.strMeasure3,
+                  ingredient3: drink.strIngredient3,
+                  measure4: drink.strMeasure4,
+                  ingredient4: drink.strIngredient4,
+                  measure5: drink.strMeasure5,
+                  ingredient5: drink.strIngredient5,
+                  measure6: drink.strMeasure6,
+                  ingredient6: drink.strIngredient6,
+                  measure7: drink.strMeasure7,
+                  ingredient7: drink.strIngredient7,
+                ),
                 _customDivider(),
-                _instructionWidget(//strInstructions
-                    drink.strInstructions),
+                _instructionWidget(drink.strInstructions),
               ],
             ),
           ),
@@ -71,66 +75,95 @@ class DrinkView extends StatelessWidget {
 }
 
 Widget _ingredientsWidget({
+  String measure1,
   String ingredient1,
+  String measure2,
   String ingredient2,
+  String measure3,
   String ingredient3,
+  String measure4,
   String ingredient4,
+  String measure5,
   String ingredient5,
+  String measure6,
+  String ingredient6,
+  String measure7,
+  String ingredient7,
 }) {
-  return Column(
-    children: [
-      Container(
-        alignment: Alignment.topLeft,
-        child: Text(
-          "Ingredients",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
+  Map<String, String> parameterList = {};
+  if (measure1 == "" && ingredient1 == "") {
+    print("null");
+  } else {
+    parameterList[measure1] = ingredient1;
+  }
+  if (measure2 == "" && ingredient2 == "") {
+    print("null");
+  } else {
+    parameterList[measure2] = ingredient2;
+  }
+  if (measure3 == "" && ingredient3 == "") {
+    print("null");
+  } else {
+    parameterList[measure3] = ingredient3;
+  }
+  if (measure4 == "" && ingredient4 == "") {
+    print("null");
+  } else {
+    parameterList[measure4] = ingredient4;
+  }
+  if (measure5 == "" && ingredient5 == "") {
+    print("null");
+  } else {
+    parameterList[measure5] = ingredient5;
+  }
+  if (measure6 == "" && ingredient6 == "") {
+    print("null");
+  } else {
+    parameterList[measure6] = ingredient6;
+  }
+  if (measure7 == "" && ingredient7 == "") {
+    print("null");
+  } else {
+    parameterList[measure7] = ingredient7;
+  }
+
+  return Column(children: [
+    Container(
+      alignment: Alignment.topLeft,
+      child: Text(
+        "Ingredients",
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
         ),
       ),
+    ),
+    for (var s in parameterList.keys)
       Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.only(top: 10),
-        child: Text(
-          ingredient1,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
-      ),
-      Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.only(top: 5),
-        child: Text(
-          ingredient2,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
-      ),
-      Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.only(top: 5),
-        child: Text(
-          ingredient3,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
-      ),
-      Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.only(top: 5),
-        child: Text(
-          ingredient4,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
-      ),
-    ],
-  );
+          alignment: Alignment.topLeft,
+          child: ListTile(
+            visualDensity: VisualDensity(horizontal: 0, vertical: 0),
+            title: Text(
+              "${parameterList[s]}",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.3),
+            ),
+            subtitle: Text(
+              "$s",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ))
+  ]);
 }
 
 Widget _customDivider() {
   return Divider(
     height: 25,
     thickness: 1,
-    indent: 15,
-    endIndent: 15,
+    indent: 10,
+    endIndent: 10,
     color: Colors.grey[600],
   );
 }
@@ -222,8 +255,10 @@ Widget _instructionWidget(String instruction) {
 }
 
 Widget _titleWidget(String title) {
+  print(title);
   return Expanded(
     child: Container(
+      padding: EdgeInsets.only(top: 10),
       alignment: Alignment.topLeft,
       child: Text(
         title,
@@ -248,12 +283,12 @@ Widget _tagWidget(String tag) {
             color: Colors.grey,
           ),
           borderRadius: BorderRadius.circular(15)),
-      margin: EdgeInsets.only(left: 15, bottom: 20, top: 20),
-      padding: EdgeInsets.all(4),
+      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 17),
+      padding: EdgeInsets.all(5),
       // TAGGAR, finns i strTags.
       child: Text(tag,
           style: TextStyle(
-            fontSize: 14,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
             color: Colors.grey[600],
           )),
