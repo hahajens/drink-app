@@ -1,4 +1,3 @@
-
 import 'package:AlkoApp/DB/DB.dart';
 
 import 'package:AlkoApp/model/AlkoObject.dart';
@@ -214,7 +213,6 @@ class MySearchView extends StatelessWidget {
     return Expanded(
       child: Consumer<Model>(
         builder: (context, state, child) => ListView.builder(
-
           itemCount: list.length,
           itemBuilder: (context, index) {
             return Container(
@@ -242,8 +240,11 @@ class MySearchView extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image(
-                image: NetworkImage(list[index].strDrinkThumb),
+              child: Hero(
+                tag: list[index].strDrinkThumb,
+                child: Image(
+                  image: NetworkImage(list[index].strDrinkThumb),
+                ),
               ),
             ),
           ),
@@ -281,6 +282,5 @@ class MySearchView extends StatelessWidget {
         ],
       ),
     );
-
   }
 }
