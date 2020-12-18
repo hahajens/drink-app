@@ -1,5 +1,9 @@
+
+import 'package:AlkoApp/DB/DB.dart';
+
 import 'package:AlkoApp/model/AlkoObject.dart';
 import 'package:AlkoApp/model/Model.dart';
+
 import 'package:AlkoApp/model/NavigationBar.dart';
 import 'package:AlkoApp/model/IngredientObject.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
@@ -210,6 +214,7 @@ class MySearchView extends StatelessWidget {
     return Expanded(
       child: Consumer<Model>(
         builder: (context, state, child) => ListView.builder(
+
           itemCount: list.length,
           itemBuilder: (context, index) {
             return Container(
@@ -276,5 +281,6 @@ class MySearchView extends StatelessWidget {
         ],
       ),
     );
+
   }
 }

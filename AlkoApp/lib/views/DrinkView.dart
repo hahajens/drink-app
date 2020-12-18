@@ -12,36 +12,50 @@ class DrinkView extends StatelessWidget {
     final AlkoObject drink = ModalRoute.of(context).settings.arguments;
     String id = drink.idDrink; //<--såhär fattar du niklas
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Colors.white70,
-      body: ListView(
-        children: [
-          SingleChildScrollView(
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white70,
-                  borderRadius: BorderRadius.circular(25)),
-              child: Column(
-                children: [
-                  Image(image: NetworkImage(drink.strDrinkThumb)),
-                  Row(
-                    children: [
-                      _tagWidget(drink.strTags),
-                    ],
+      backgroundColor: Color(0xFFF4F4F4),
+      body: Column(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              Container(
+                // height: 100,
+                // width: 100,
+                height: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0.0, 2.0),
+                      blurRadius: 6.0,
+                    ),
+                  ],
+                ),
+                child: Hero(
+                  tag: drink.strDrinkThumb,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: Image(
+                      image: NetworkImage(drink.strDrinkThumb),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    _titleWidget(drink.strDrink),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
                     IconButton(
-                      icon: Icon(Icons.favorite_border_outlined),
+                      icon: Icon(Icons.arrow_back),
+                      iconSize: 30.0,
+                      color: Colors.white,
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.favorite_border_outlined,
+                          color: Colors.white),
                       iconSize: 34,
                       onPressed: () {
                         Provider.of<Model>(context, listen: false)
@@ -55,31 +69,79 @@ class DrinkView extends StatelessWidget {
                     )
                   ],
                 ),
-                _categoryWidget(drink.strCategory),
-                _alcoholWidget(drink.strAlcoholic),
-                _glassWidget(drink.strGlass),
-                _customDivider(),
-                _ingredientsWidget(
-                  measure1: drink.strMeasure1,
-                  ingredient1: drink.strIngredient1,
-                  measure2: drink.strMeasure2,
-                  ingredient2: drink.strIngredient2,
-                  measure3: drink.strMeasure3,
-                  ingredient3: drink.strIngredient3,
-                  measure4: drink.strMeasure4,
-                  ingredient4: drink.strIngredient4,
-                  measure5: drink.strMeasure5,
-                  ingredient5: drink.strIngredient5,
-                  measure6: drink.strMeasure6,
-                  ingredient6: drink.strIngredient6,
-                  measure7: drink.strMeasure7,
-                  ingredient7: drink.strIngredient7,
+              ),
+              Positioned(
+                left: 20.0,
+                bottom: 20.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      drink.strDrink,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 35.0,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1.2,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(4.0, 3.0),
+                            blurRadius: 15.0,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                _customDivider(),
-                _instructionWidget(drink.strInstructions),
+              ),
+            ],
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(bottom: 20, top: 15),
+                          child: Row(
+                            children: [
+                              _categoryWidget(drink.strCategory),
+                              _alcoholWidget(drink.strAlcoholic),
+                              _glassWidget(drink.strGlass),
+                            ],
+                          ),
+                        ),
+                      ),
+                      _ingredientsWidget(
+                        measure1: drink.strMeasure1,
+                        ingredient1: drink.strIngredient1,
+                        measure2: drink.strMeasure2,
+                        ingredient2: drink.strIngredient2,
+                        measure3: drink.strMeasure3,
+                        ingredient3: drink.strIngredient3,
+                        measure4: drink.strMeasure4,
+                        ingredient4: drink.strIngredient4,
+                        measure5: drink.strMeasure5,
+                        ingredient5: drink.strIngredient5,
+                        measure6: drink.strMeasure6,
+                        ingredient6: drink.strIngredient6,
+                        measure7: drink.strMeasure7,
+                        ingredient7: drink.strIngredient7,
+                      ),
+                      _customDivider(),
+                      _instructionWidget(drink.strInstructions),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
+          )
         ],
       ),
       bottomNavigationBar: CustomNavigationBar(),
@@ -104,41 +166,50 @@ Widget _ingredientsWidget({
   String ingredient7,
 }) {
   Map<String, String> parameterList = {};
-  if (measure1 == "" || ingredient1 == "") {
+
+  if (measure1 == null || ingredient1 == null) {
     print("null");
   } else {
     parameterList[measure1] = ingredient1;
   }
-  if (measure2 == "" || ingredient2 == "") {
+
+  if (measure2 == null || ingredient2 == null) {
     print("null");
   } else {
     parameterList[measure2] = ingredient2;
   }
-  if (measure3 == "" || ingredient3 == "") {
+
+  if (measure3 == null || ingredient3 == null) {
     print("null");
   } else {
     parameterList[measure3] = ingredient3;
   }
-  if (measure4 == "" || ingredient4 == "") {
+
+  if (measure4 == null || ingredient4 == null) {
     print("null");
   } else {
     parameterList[measure4] = ingredient4;
   }
-  if (measure5 == "" || ingredient5 == "") {
+
+  if (measure5 == null || ingredient5 == null) {
     print("null");
   } else {
     parameterList[measure5] = ingredient5;
   }
-  if (measure6 == "" || ingredient6 == "") {
+
+  if (measure6 == null || ingredient6 == null) {
     print("null");
   } else {
     parameterList[measure6] = ingredient6;
   }
-  if (measure7 == "" || ingredient7 == "") {
+
+  if (measure7 == null || ingredient7 == null) {
     print("null");
   } else {
     parameterList[measure7] = ingredient7;
   }
+
+  print(parameterList);
 
   return Column(children: [
     Container(
@@ -185,58 +256,86 @@ Widget _glassWidget(String glass) {
   return Column(
     children: [
       Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.only(top: 15),
         child: Text(
           "Serve in",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 14,
+            color: Colors.grey[600],
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+      Container(
+        alignment: Alignment.topLeft,
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Text(
+          glass,
+          style: TextStyle(
+            fontSize: 16,
             color: Colors.black,
             fontWeight: FontWeight.w700,
           ),
         ),
       ),
-      Container(
-          alignment: Alignment.topLeft,
-          child: Text(
-            glass,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[600],
-              fontWeight: FontWeight.w700,
-            ),
-          ))
     ],
   );
 }
 
 Widget _alcoholWidget(String alcohol) {
-  return Container(
-    alignment: Alignment.topLeft,
-    padding: EdgeInsets.only(top: 15),
-    child: Text(
-      alcohol,
-      style: TextStyle(
-        fontSize: 20,
-        color: Colors.black,
-        fontWeight: FontWeight.w700,
+  return Column(
+    children: [
+      Container(
+        child: Text(
+          "Type",
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey[600],
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
-    ),
+      Container(
+        alignment: Alignment.topLeft,
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Text(
+          alcohol,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    ],
   );
 }
 
 Widget _categoryWidget(String category) {
-  return Container(
-    alignment: Alignment.topLeft,
-    padding: EdgeInsets.only(top: 15),
-    child: Text(
-      category,
-      style: TextStyle(
-        fontSize: 20,
-        color: Colors.black,
-        fontWeight: FontWeight.w700,
+  return Column(
+    children: [
+      Container(
+        child: Text(
+          "Category",
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey[600],
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
-    ),
+      Container(
+        alignment: Alignment.topLeft,
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Text(
+          category,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    ],
   );
 }
 
@@ -268,7 +367,6 @@ Widget _instructionWidget(String instruction) {
 }
 
 Widget _titleWidget(String title) {
-  print(title);
   return Expanded(
     child: Container(
       padding: EdgeInsets.only(top: 10),
@@ -279,6 +377,13 @@ Widget _titleWidget(String title) {
         style: TextStyle(
           fontSize: 42,
           fontWeight: FontWeight.bold,
+          shadows: <Shadow>[
+            Shadow(
+              offset: Offset(10.0, 10.0),
+              blurRadius: 3.0,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+          ],
         ),
       ),
     ),
