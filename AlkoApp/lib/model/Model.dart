@@ -8,10 +8,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 class Model extends ChangeNotifier {
   List<AlkoObject> _alkoList = new List();
   List<AlkoObject> _favoriteList = new List();
+  List<AlkoObject> _popularList = new List();
+  List<AlkoObject> _randomList = new List();
   List listToFilterOn = new List();
 
   List get alkoList => _alkoList;
   List get favoriteList => _favoriteList;
+  List get popularList => _popularList;
+  List get randomList => _randomList;
 
   Color _filterColor;
 
@@ -37,6 +41,7 @@ class Model extends ChangeNotifier {
 
   Model() {
     syncLists();
+    popular();
   }
 
   void syncLists() async {
@@ -86,5 +91,19 @@ class Model extends ChangeNotifier {
   void addFavorite(AlkoObject drink) {
     favoriteList.add(drink);
     notifyListeners();
+  }
+
+  //Används för att hämta de mest populära, som visas på startView
+  void popular() async {
+    _popularList = await DB.getPopularDrinks();
+    notifyListeners();
+    print("test");
+  }
+
+  //Används för att hämta en random, används på startview
+  void random() async {
+    _randomList = await DB.getRandomDrink();
+    notifyListeners();
+    print("test");
   }
 }

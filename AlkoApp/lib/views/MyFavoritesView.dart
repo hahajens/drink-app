@@ -1,3 +1,4 @@
+import 'package:AlkoApp/model/NavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:AlkoApp/model/Model.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,8 @@ class MyFavoritesView extends StatelessWidget {
         title: Text('My Favorites', textAlign: TextAlign.center,),
         backgroundColor: Colors.black,
       ),
-    body: MyFavorites(),  
+    body: MyFavorites(),
+    bottomNavigationBar: CustomNavigationBar(),  
     );
   }
 }
