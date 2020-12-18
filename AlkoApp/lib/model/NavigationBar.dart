@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   final Color _mainColor = Colors.blue;
+  final Color _iconColor = Colors.black;
   final double _iconSize = 40;
   final double _fontSize = 18;
 
@@ -20,9 +21,10 @@ class CustomNavigationBar extends StatelessWidget {
             Column(
               children: [
                 IconButton(
-                    icon: Icon(Icons.home_outlined, size: _iconSize),
+                    icon: Icon(Icons.home_outlined,
+                        size: _iconSize, color: _iconColor),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/StartView');
+                      Navigator.pushReplacementNamed(context, '/StartView');
                     }),
                 Text(" Home", style: TextStyle(fontSize: _fontSize)),
               ],
@@ -30,9 +32,10 @@ class CustomNavigationBar extends StatelessWidget {
             Column(
               children: [
                 IconButton(
-                    icon: Icon(Icons.search, size: _iconSize),
+                    icon:
+                        Icon(Icons.search, size: _iconSize, color: _iconColor),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/MySearchView');
+                      Navigator.pushReplacementNamed(context, '/MySearchView');
                     }),
                 Text(" Search", style: TextStyle(fontSize: _fontSize)),
               ],
@@ -40,9 +43,11 @@ class CustomNavigationBar extends StatelessWidget {
             Column(
               children: [
                 IconButton(
-                    icon: Icon(Icons.star_border_outlined, size: _iconSize),
+                    icon: Icon(Icons.favorite_border_outlined,
+                        size: _iconSize, color: _iconColor),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/MyFavoritesView');
+                      Navigator.pushReplacementNamed(
+                          context, '/MyFavoritesView');
                     }),
                 Text(" Favorites", style: TextStyle(fontSize: _fontSize)),
               ],
@@ -50,9 +55,10 @@ class CustomNavigationBar extends StatelessWidget {
             Column(
               children: [
                 IconButton(
-                    icon: Icon(Icons.no_drinks_outlined, size: _iconSize),
+                    icon: Icon(Icons.no_drinks_outlined,
+                        size: _iconSize, color: _iconColor),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/MyDrinksView');
+                      Navigator.pushReplacementNamed(context, '/MyDrinksView');
                     }),
                 Text(" My Drinks", style: TextStyle(fontSize: _fontSize)),
               ],

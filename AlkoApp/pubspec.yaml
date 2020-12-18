@@ -31,7 +31,9 @@ dependencies:
   provider: any
   http: any
   fluttertoast: ^7.1.5
-  flutter_rating_bar: ^3.2.0+1
+
+  autocomplete_textfield: ^1.6.4
+
 
 dev_dependencies:
   flutter_test:

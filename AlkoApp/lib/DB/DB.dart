@@ -46,7 +46,7 @@ class DB {
       //print(list);
       return list;
     } else {
-      //print("ERROR Fel i getDataByIngredient() ERROR: ${response.statusCode}");
+      //Ska rethrowa så att allt hanteras där det bör
       Provider.of<Model>(context, listen: false).myFlutterToast(
           "Oj den mixen av ingredienser hittade vi inte i någon drink.");
       return Provider.of<Model>(context, listen: false).alkoList;
@@ -55,10 +55,49 @@ class DB {
 
   static getIngredientsList() async {
     List list;
-    List<IngredientObject> returnList = new List();
 
     String queryURL =
         "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list";
+    String picURL = "https://www.thecocktaildb.com/images/ingredients";
+
+    http.Response qResponse = await http.get(queryURL);
+
+    if (qResponse.statusCode == 200) {
+      list = (json.decode(qResponse.body)["drinks"] as List)
+          .map((data) => IngredientObject.fromJson(data))
+          .toList();
+
+      for (int i = 0; i < list.length; i++) {
+        list[i].setPic(picURL + "/${list[i].getStrIngredient1}.png");
+      }
+      return list;
+    } else {
+      print("ERROR Fel i getIngredientList() ERROR: ${qResponse.statusCode}");
+    }
+  }
+
+  static getPopularDrinks() async {
+    List<AlkoObject> list;
+
+    String queryURL = '/popular.php';
+
+    http.Response response = await http.get(url + queryURL);
+
+    if (response.statusCode == 200) {
+      list = (json.decode(response.body)["drinks"] as List)
+          .map((data) => AlkoObject.fromJson(data))
+          .toList();
+
+      return list;
+    } else {
+      print("Struuuul med att hämta populära");
+    }
+  }
+
+  static getRandomDrink() async {
+    List<AlkoObject> list;
+
+    String queryURL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
     http.Response response = await http.get(queryURL);
 
@@ -67,15 +106,9 @@ class DB {
           .map((data) => AlkoObject.fromJson(data))
           .toList();
 
-      for (int i = 0; i < list.length; i++) {
-        //print(list[i].strIngredient1);
-        returnList
-            .add(IngredientObject(strIngredient1: list[i].strIngredient1));
-      }
-      //print(returnList);
-      return returnList;
+      return list;
     } else {
-      print("ERROR Fel i getIngredientList() ERROR: ${response.statusCode}");
+      print("Struuuul med att hämta random");
     }
   }
 }

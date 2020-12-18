@@ -10,6 +10,7 @@ class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AlkoObject drink = ModalRoute.of(context).settings.arguments;
+    String id = drink.idDrink; //<--såhär fattar du niklas
     return Scaffold(
       backgroundColor: Color(0xFFF4F4F4),
       body: Column(
