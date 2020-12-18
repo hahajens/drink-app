@@ -8,9 +8,32 @@ import 'package:fluttertoast/fluttertoast.dart';
 class Model extends ChangeNotifier {
   List<AlkoObject> _alkoList = new List();
   List<AlkoObject> _favoriteList = new List();
+  List listToFilterOn = new List();
 
   List get alkoList => _alkoList;
   List get favoriteList => _favoriteList;
+
+  Color _filterColor;
+
+  void setFilterColor(object) {
+    if (object.getCheck == false) {
+      object.setCheck(true);
+      notifyListeners();
+    } else {
+      object.setCheck(false);
+      notifyListeners();
+    }
+  }
+
+  Color getFilterColor(object) {
+    if (object.getCheck == false) {
+      _filterColor = Colors.grey[300];
+      return _filterColor;
+    } else {
+      _filterColor = Colors.grey[600];
+      return _filterColor;
+    }
+  }
 
   Model() {
     syncLists();
@@ -38,7 +61,6 @@ class Model extends ChangeNotifier {
     listOfIngredients = await DB.getIngredientsList();
     return listOfIngredients;
   }
-
 
   myFlutterToast(input) {
     return Fluttertoast.showToast(
