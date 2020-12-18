@@ -1,4 +1,3 @@
-
 import 'package:AlkoApp/DB/DB.dart';
 import 'package:AlkoApp/model/NavigationBar.dart';
 
@@ -137,8 +136,11 @@ class MySearchView extends StatelessWidget {
             itemCount: list.length,
             itemBuilder: (context, index) {
               return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(list[index].strDrinkThumb),
+                  leading: Hero(
+                    tag: list[index].strDrinkThumb,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(list[index].strDrinkThumb),
+                    ),
                   ),
                   title: Text("${list[index].strDrink}"),
                   trailing: Text("${list[index].strAlcoholic}"),
