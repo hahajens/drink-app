@@ -10,11 +10,34 @@ class Model extends ChangeNotifier {
   List<AlkoObject> _favoriteList = new List();
   List<AlkoObject> _popularList = new List();
   List<AlkoObject> _randomList = new List();
+  List listToFilterOn = new List();
 
   List get alkoList => _alkoList;
   List get favoriteList => _favoriteList;
   List get popularList => _popularList;
   List get randomList => _randomList;
+
+  Color _filterColor;
+
+  void setFilterColor(object) {
+    if (object.getCheck == false) {
+      object.setCheck(true);
+      notifyListeners();
+    } else {
+      object.setCheck(false);
+      notifyListeners();
+    }
+  }
+
+  Color getFilterColor(object) {
+    if (object.getCheck == false) {
+      _filterColor = Colors.grey[300];
+      return _filterColor;
+    } else {
+      _filterColor = Colors.grey[600];
+      return _filterColor;
+    }
+  }
 
   Model() {
     syncLists();
@@ -43,7 +66,6 @@ class Model extends ChangeNotifier {
     listOfIngredients = await DB.getIngredientsList();
     return listOfIngredients;
   }
-
 
   myFlutterToast(input) {
     return Fluttertoast.showToast(
