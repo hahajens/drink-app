@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 class StartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Consumer<Model>(
       builder: (context, state, child) => Scaffold(
         body: Column(
@@ -57,5 +58,6 @@ class StartView extends StatelessWidget {
                         arguments: list[index]);
                   });
             }));
+
   }
 }
