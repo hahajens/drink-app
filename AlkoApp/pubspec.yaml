@@ -32,6 +32,9 @@ dependencies:
   http: any
   fluttertoast: ^7.1.5
 
+  autocomplete_textfield: ^1.6.4
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

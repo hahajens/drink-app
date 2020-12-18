@@ -8,12 +8,40 @@ import 'package:fluttertoast/fluttertoast.dart';
 class Model extends ChangeNotifier {
   List<AlkoObject> _alkoList = new List();
   List<AlkoObject> _favoriteList = new List();
+  List<AlkoObject> _popularList = new List();
+  List<AlkoObject> _randomList = new List();
+  List listToFilterOn = new List();
 
   List get alkoList => _alkoList;
   List get favoriteList => _favoriteList;
+  List get popularList => _popularList;
+  List get randomList => _randomList;
+
+  Color _filterColor;
+
+  void setFilterColor(object) {
+    if (object.getCheck == false) {
+      object.setCheck(true);
+      notifyListeners();
+    } else {
+      object.setCheck(false);
+      notifyListeners();
+    }
+  }
+
+  Color getFilterColor(object) {
+    if (object.getCheck == false) {
+      _filterColor = Colors.grey[300];
+      return _filterColor;
+    } else {
+      _filterColor = Colors.grey[600];
+      return _filterColor;
+    }
+  }
 
   Model() {
     syncLists();
+    popular();
   }
 
   void syncLists() async {
@@ -39,7 +67,6 @@ class Model extends ChangeNotifier {
     return listOfIngredients;
   }
 
-
   myFlutterToast(input) {
     return Fluttertoast.showToast(
       msg: input,
@@ -64,5 +91,19 @@ class Model extends ChangeNotifier {
   void addFavorite(AlkoObject drink) {
     favoriteList.add(drink);
     notifyListeners();
+  }
+
+  //Används för att hämta de mest populära, som visas på startView
+  void popular() async {
+    _popularList = await DB.getPopularDrinks();
+    notifyListeners();
+    print("test");
+  }
+
+  //Används för att hämta en random, används på startview
+  void random() async {
+    _randomList = await DB.getRandomDrink();
+    notifyListeners();
+    print("test");
   }
 }
