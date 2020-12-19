@@ -10,7 +10,6 @@ class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AlkoObject drink = ModalRoute.of(context).settings.arguments;
-    String id = drink.idDrink; //<--såhär fattar du niklas
     return Scaffold(
       backgroundColor: Color(0xFFF4F4F4),
       body: Column(
@@ -176,47 +175,6 @@ Widget _ingredientsWidget({
   };
 
   parameterList.removeWhere((String key, String value) => value == null);
-  // if (measure1 == null || ingredient1 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure1] = ingredient1;
-  // }
-
-  // if (measure2 == null || ingredient2 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure2] = ingredient2;
-  // }
-
-  // if (measure3 == null || ingredient3 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure3] = ingredient3;
-  // }
-
-  // if (measure4 == null || ingredient4 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure4] = ingredient4;
-  // }
-
-  // if (measure5 == null || ingredient5 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure4] = ingredient4;
-  // }
-
-  // if (measure6 == null || ingredient6 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure6] = ingredient6;
-  // }
-
-  // if (measure7 == null || ingredient7 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure7] = ingredient7;
-  // }
 
   print(parameterList);
 

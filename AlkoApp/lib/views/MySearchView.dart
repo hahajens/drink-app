@@ -8,6 +8,7 @@ import 'package:AlkoApp/model/IngredientObject.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 //TODO ändra hur height och width sätts
