@@ -165,49 +165,58 @@ Widget _ingredientsWidget({
   String measure7,
   String ingredient7,
 }) {
-  Map<String, String> parameterList = {};
+  Map<String, String> parameterList = {
+    measure1: ingredient1,
+    measure2: ingredient2,
+    measure3: ingredient3,
+    measure4: ingredient4,
+    measure5: ingredient5,
+    measure6: ingredient6,
+    measure7: ingredient7,
+  };
 
-  if (measure1 == null || ingredient1 == null) {
-    print("null");
-  } else {
-    parameterList[measure1] = ingredient1;
-  }
+  parameterList.removeWhere((String key, String value) => value == null);
+  // if (measure1 == null || ingredient1 == null) {
+  //   print("null");
+  // } else {
+  //   parameterList[measure1] = ingredient1;
+  // }
 
-  if (measure2 == null || ingredient2 == null) {
-    print("null");
-  } else {
-    parameterList[measure2] = ingredient2;
-  }
+  // if (measure2 == null || ingredient2 == null) {
+  //   print("null");
+  // } else {
+  //   parameterList[measure2] = ingredient2;
+  // }
 
-  if (measure3 == null || ingredient3 == null) {
-    print("null");
-  } else {
-    parameterList[measure3] = ingredient3;
-  }
+  // if (measure3 == null || ingredient3 == null) {
+  //   print("null");
+  // } else {
+  //   parameterList[measure3] = ingredient3;
+  // }
 
-  if (measure4 == null || ingredient4 == null) {
-    print("null");
-  } else {
-    parameterList[measure4] = ingredient4;
-  }
+  // if (measure4 == null || ingredient4 == null) {
+  //   print("null");
+  // } else {
+  //   parameterList[measure4] = ingredient4;
+  // }
 
-  if (measure5 == null || ingredient5 == null) {
-    print("null");
-  } else {
-    parameterList[measure5] = ingredient5;
-  }
+  // if (measure5 == null || ingredient5 == null) {
+  //   print("null");
+  // } else {
+  //   parameterList[measure4] = ingredient4;
+  // }
 
-  if (measure6 == null || ingredient6 == null) {
-    print("null");
-  } else {
-    parameterList[measure6] = ingredient6;
-  }
+  // if (measure6 == null || ingredient6 == null) {
+  //   print("null");
+  // } else {
+  //   parameterList[measure6] = ingredient6;
+  // }
 
-  if (measure7 == null || ingredient7 == null) {
-    print("null");
-  } else {
-    parameterList[measure7] = ingredient7;
-  }
+  // if (measure7 == null || ingredient7 == null) {
+  //   print("null");
+  // } else {
+  //   parameterList[measure7] = ingredient7;
+  // }
 
   print(parameterList);
 
