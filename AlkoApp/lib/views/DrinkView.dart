@@ -104,17 +104,15 @@ class DrinkView extends StatelessWidget {
                   child: Column(
                     //crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Center(
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.only(bottom: 20, top: 15),
-                          child: Row(
-                            children: [
-                              _categoryWidget(drink.strCategory),
-                              _alcoholWidget(drink.strAlcoholic),
-                              _glassWidget(drink.strGlass),
-                            ],
-                          ),
+                      Container(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _categoryWidget(drink.strCategory),
+                            _alcoholWidget(drink.strAlcoholic),
+                            _glassWidget(drink.strGlass),
+                          ],
                         ),
                       ),
                       _ingredientsWidget(
@@ -220,89 +218,89 @@ Widget _customDivider() {
 }
 
 Widget _glassWidget(String glass) {
-  return Column(
-    children: [
-      Container(
-        child: Text(
-          "Serve in",
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w500,
+  return Expanded(
+    child: Column(
+      children: [
+        Container(
+          child: Text(
+            "Serve in",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-      ),
-      Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Text(
-          glass,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
+        Container(
+          child: Text(
+            glass,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 
 Widget _alcoholWidget(String alcohol) {
-  return Column(
-    children: [
-      Container(
-        child: Text(
-          "Type",
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w500,
+  return Expanded(
+    child: Column(
+      children: [
+        Container(
+          child: Text(
+            "Type",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-      ),
-      Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Text(
-          alcohol,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
+        Container(
+          child: Text(
+            alcohol,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 
 Widget _categoryWidget(String category) {
-  return Column(
-    children: [
-      Container(
-        child: Text(
-          "Category",
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w500,
+  return Expanded(
+    child: Column(
+      children: [
+        Container(
+          child: Text(
+            "Category",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-      ),
-      Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Text(
-          category,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
+        Container(
+          child: Text(
+            category,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 
