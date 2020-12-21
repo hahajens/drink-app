@@ -131,6 +131,7 @@ class DrinkView extends StatelessWidget {
                                 ),
                               ),
                               _ingredientsWidget(
+                                context,
                                 measure1: drink.data.strMeasure1,
                                 ingredient1: drink.data.strIngredient1,
                                 measure2: drink.data.strMeasure2,
@@ -170,7 +171,8 @@ Future<AlkoObject> _getDrink(context, id) async {
   return drink;
 }
 
-Widget _ingredientsWidget({
+Widget _ingredientsWidget(
+  context, {
   String measure1,
   String ingredient1,
   String measure2,
@@ -197,7 +199,7 @@ Widget _ingredientsWidget({
   };
 
   parameterList.removeWhere((String key, String value) => value == null);
-
+  parameterList.removeWhere((String key, String value) => value == "");
   print(parameterList);
 
   return Column(children: [
@@ -215,6 +217,9 @@ Widget _ingredientsWidget({
       Container(
           alignment: Alignment.topLeft,
           child: ListTile(
+            leading: Image(
+                image: NetworkImage(
+                    "https://www.thecocktaildb.com/images/ingredients/${parameterList[s]}-Small.png")), //Provider.of<Model>(context, listen: false).getIngredientImage(parameterList[s]))),
             visualDensity: VisualDensity(horizontal: 0, vertical: 0),
             title: Text(
               "${parameterList[s]}",
