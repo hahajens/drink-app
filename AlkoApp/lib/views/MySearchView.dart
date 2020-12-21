@@ -21,7 +21,10 @@ class MySearchView extends StatelessWidget {
         drawer: _myHomeDrawer(),
         body: Column(
           children: [
-            //_mySearchBar(),
+            _searchBar(context, state),
+            Divider(
+              color: Colors.black,
+            ),
             _filterButton(context, state),
             _myCustomListView(state.alkoList),
           ],
@@ -56,7 +59,23 @@ class MySearchView extends StatelessWidget {
 
   //TODO
   //1. lägg till spinner
-  //2. lägg till sök i filtervy
+  //2. lägg till sökfunktionalitet
+
+  Widget _searchBar(BuildContext context, state) {
+    TextEditingController editingController = TextEditingController();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(3, 5, 3, 0),
+      child: TextField(
+        controller: editingController,
+        decoration: InputDecoration(
+            labelText: "Search",
+            hintText: "Search",
+            prefixIcon: Icon(Icons.search),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+      ),
+    );
+  }
 
   Widget _filterButton(BuildContext context, state) {
     return Column(
