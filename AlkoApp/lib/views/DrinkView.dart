@@ -1,5 +1,6 @@
 import 'package:AlkoApp/model/AlkoObject.dart';
 import 'package:AlkoApp/model/Model.dart';
+import 'package:AlkoApp/widgets/Spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -9,143 +10,164 @@ import 'package:AlkoApp/model/NavigationBar.dart';
 class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final AlkoObject drink = ModalRoute.of(context).settings.arguments;
-    return Scaffold(
-      backgroundColor: Color(0xFFF4F4F4),
-      body: Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Container(
-                // height: 100,
-                // width: 100,
-                height: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0.0, 2.0),
-                      blurRadius: 6.0,
-                    ),
-                  ],
-                ),
-                child: Hero(
-                  tag: drink.strDrinkThumb,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30.0),
-                    child: Image(
-                      image: NetworkImage(drink.strDrinkThumb),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      iconSize: 30.0,
-                      color: Colors.white,
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    Consumer<Model>(
-                      builder: (context, state, child) =>
-                        IconButton(
-                        icon: 
-                            state.getFavoriteIcon(drink),
-                        iconSize: 34,
-                        onPressed: () {
-                              state.setFavoriteIcon(drink);
-                              state.editFavorite(drink);
-                          //ta bort navigator när alla routes funkar
-                          //fixa så att man inte kan lägga till 2 av samma, if sats
-                          //ska kunna ta bort favoriter
-                          //se värde på knapp
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Positioned(
-                left: 20.0,
-                bottom: 20.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      drink.strDrink,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 35.0,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(4.0, 3.0),
-                            blurRadius: 15.0,
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    //crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+    String id = ModalRoute.of(context).settings.arguments;
+
+//Objektet heter nu drink.data
+    return FutureBuilder<AlkoObject>(
+      future: _getDrink(context, id),
+      builder: (BuildContext context, AsyncSnapshot<AlkoObject> drink) {
+        if (drink.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            body: Spinner(),
+          );
+        } else {
+          if (drink.hasError)
+            return Center(child: Text('Error: ${drink.error}'));
+          else
+            return Scaffold(
+              backgroundColor: Color(0xFFF4F4F4),
+              body: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
                       Container(
-                        padding: EdgeInsets.only(bottom: 20),
+                        // height: 100,
+                        // width: 100,
+                        height: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(0.0, 2.0),
+                              blurRadius: 6.0,
+                            ),
+                          ],
+                        ),
+                        child: Hero(
+                          tag: drink.data.strDrinkThumb,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30.0),
+                            child: Image(
+                              image: NetworkImage(drink.data.strDrinkThumb),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 40.0),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _categoryWidget(drink.strCategory),
-                            _alcoholWidget(drink.strAlcoholic),
-                            _glassWidget(drink.strGlass),
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(Icons.arrow_back),
+                              iconSize: 30.0,
+                              color: Colors.white,
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            Consumer<Model>(
+                              builder: (context, state, child) => IconButton(
+                                icon: state.getFavoriteIcon(drink.data),
+                                iconSize: 34,
+                                onPressed: () {
+                                  state.setFavoriteIcon(drink.data);
+                                  state.editFavorite(drink.data);
+                                  //ta bort navigator när alla routes funkar
+                                  //fixa så att man inte kan lägga till 2 av samma, if sats
+                                  //ska kunna ta bort favoriter
+                                  //se värde på knapp
+                                },
+                              ),
+                            )
                           ],
                         ),
                       ),
-                      _ingredientsWidget(
-                        measure1: drink.strMeasure1,
-                        ingredient1: drink.strIngredient1,
-                        measure2: drink.strMeasure2,
-                        ingredient2: drink.strIngredient2,
-                        measure3: drink.strMeasure3,
-                        ingredient3: drink.strIngredient3,
-                        measure4: drink.strMeasure4,
-                        ingredient4: drink.strIngredient4,
-                        measure5: drink.strMeasure5,
-                        ingredient5: drink.strIngredient5,
-                        measure6: drink.strMeasure6,
-                        ingredient6: drink.strIngredient6,
-                        measure7: drink.strMeasure7,
-                        ingredient7: drink.strIngredient7,
+                      Positioned(
+                        left: 20.0,
+                        bottom: 20.0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              drink.data.strDrink,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 35.0,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.2,
+                                shadows: <Shadow>[
+                                  Shadow(
+                                    offset: Offset(4.0, 3.0),
+                                    blurRadius: 15.0,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      _customDivider(),
-                      _instructionWidget(drink.strInstructions),
                     ],
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-      bottomNavigationBar: CustomNavigationBar(),
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            //crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(bottom: 20),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _categoryWidget(drink.data.strCategory),
+                                    _alcoholWidget(drink.data.strAlcoholic),
+                                    _glassWidget(drink.data.strGlass),
+                                  ],
+                                ),
+                              ),
+                              _ingredientsWidget(
+                                measure1: drink.data.strMeasure1,
+                                ingredient1: drink.data.strIngredient1,
+                                measure2: drink.data.strMeasure2,
+                                ingredient2: drink.data.strIngredient2,
+                                measure3: drink.data.strMeasure3,
+                                ingredient3: drink.data.strIngredient3,
+                                measure4: drink.data.strMeasure4,
+                                ingredient4: drink.data.strIngredient4,
+                                measure5: drink.data.strMeasure5,
+                                ingredient5: drink.data.strIngredient5,
+                                measure6: drink.data.strMeasure6,
+                                ingredient6: drink.data.strIngredient6,
+                                measure7: drink.data.strMeasure7,
+                                ingredient7: drink.data.strIngredient7,
+                              ),
+                              _customDivider(),
+                              _instructionWidget(drink.data.strInstructions),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              bottomNavigationBar: CustomNavigationBar(),
+            );
+        }
+      },
     );
   }
+}
+
+Future<AlkoObject> _getDrink(context, id) async {
+  AlkoObject drink =
+      await Provider.of<Model>(context, listen: false).getSingleObjectByID(id);
+  return drink;
 }
 
 Widget _ingredientsWidget({

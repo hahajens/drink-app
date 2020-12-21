@@ -152,10 +152,10 @@ class MySearchView extends StatelessWidget {
                                 state.setFilterColor(listOfIngredients[index]);
 
                                 //lägger till eller tar bort ur listan beroende på om den redan finns
-                                if (state.listToFilterOn
-                                    .contains(listOfIngredients[index])) {
-                                  state.listToFilterOn
-                                      .remove(listOfIngredients[index]);
+                                if (state.listToFilterOn.contains(
+                                    listOfIngredients[index].strIngredient1)) {
+                                  state.listToFilterOn.remove(
+                                      listOfIngredients[index].strIngredient1);
                                 } else {
                                   state.listToFilterOn.add(
                                       listOfIngredients[index].strIngredient1);
@@ -220,7 +220,7 @@ class MySearchView extends StatelessWidget {
               child: GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, '/DrinkView',
-                        arguments: list[index]);
+                        arguments: list[index].idDrink);
                   },
                   child: _myCustomListTile(list, index)),
             );
@@ -256,7 +256,10 @@ class MySearchView extends StatelessWidget {
               height: 50,
               child: Text(
                 "${list[index].strDrink}",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24.0,
+                ),
               ),
             ),
           )
