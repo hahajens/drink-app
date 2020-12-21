@@ -53,14 +53,12 @@ class DrinkView extends StatelessWidget {
                       onPressed: () => Navigator.pop(context),
                     ),
                     Consumer<Model>(
-                      builder: (context, state, child) =>
-                        IconButton(
-                        icon: 
-                            state.getFavoriteIcon(drink),
+                      builder: (context, state, child) => IconButton(
+                        icon: state.getFavoriteIcon(drink),
                         iconSize: 34,
                         onPressed: () {
-                              state.setFavoriteIcon(drink);
-                              state.editFavorite(drink);
+                          state.setFavoriteIcon(drink);
+                          state.editFavorite(drink);
                           //ta bort navigator när alla routes funkar
                           //fixa så att man inte kan lägga till 2 av samma, if sats
                           //ska kunna ta bort favoriter
@@ -193,6 +191,9 @@ Widget _ingredientsWidget({
       Container(
           alignment: Alignment.topLeft,
           child: ListTile(
+            leading: Image(
+                image: NetworkImage(
+                    "https://www.thecocktaildb.com/images/ingredients/${parameterList[s]}-Small.png")),
             visualDensity: VisualDensity(horizontal: 0, vertical: 0),
             title: Text(
               "${parameterList[s]}",
