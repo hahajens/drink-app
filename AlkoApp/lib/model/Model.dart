@@ -21,6 +21,21 @@ class Model extends ChangeNotifier {
 
   Color _filterColor;
 
+  Model() {
+    syncLists();
+    popular();
+  }
+
+  void syncLists() async {
+    print("Loading...");
+    _isLoading = true;
+    notifyListeners();
+    _alkoList = await DB.getData();
+    _isLoading = false;
+    notifyListeners();
+    print("DONE!");
+  }
+
   void setFilterColor(object) {
     if (object.getCheck == false) {
       object.setCheck(true);
@@ -39,21 +54,6 @@ class Model extends ChangeNotifier {
       _filterColor = Colors.grey[600];
       return _filterColor;
     }
-  }
-
-  Model() {
-    syncLists();
-    popular();
-  }
-
-  void syncLists() async {
-    print("Loading...");
-    _isLoading = true;
-    notifyListeners();
-    _alkoList = await DB.getData();
-    _isLoading = false;
-    notifyListeners();
-    print("DONE!");
   }
 
   void setListByIngredient(List listToFilterOn, context) async {
@@ -90,18 +90,42 @@ class Model extends ChangeNotifier {
     );
   }
 
-  //Kan bugga med den andra index högre upp/Olle
-  //Variabel, getter & setter för NavigationBar
-  int _currentIndex = 0;
-  get currentIndex => _currentIndex;
-
-  set currentIndex(int index) {
-    _currentIndex = index;
+  void editFavorite(AlkoObject drink) {
+    if (favoriteList.contains(drink)) {
+      drink.isFavorite = false;
+      removeFavorite(drink);
+      myFlutterToast('Removed from favorites');
+    } else {
+      drink.isFavorite = true;
+      favoriteList.add(drink);
+      myFlutterToast('Added to favorites');
+    }
     notifyListeners();
   }
 
-  void addFavorite(AlkoObject drink) {
-    favoriteList.add(drink);
+  void removeFavorite(AlkoObject drink) {
+    drink.isFavorite = false;
+    favoriteList.remove(drink);
+    notifyListeners();
+  }
+
+  Icon getFavoriteIcon(AlkoObject drink) {
+    if (drink.isFavorite == true) {
+      var filledIcon = Icon(Icons.favorite, color: Colors.white);
+      return filledIcon;
+    } else {
+      var outLinedIcon =
+          Icon(Icons.favorite_border_outlined, color: Colors.white);
+      return outLinedIcon;
+    }
+  }
+
+  void setFavoriteIcon(AlkoObject drink) {
+    if (drink.isFavorite == false) {
+      drink.isFavorite = true;
+    } else {
+      drink.isFavorite = false;
+    }
     notifyListeners();
   }
 

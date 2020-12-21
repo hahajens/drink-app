@@ -23,7 +23,7 @@ class MySearchView extends StatelessWidget {
           children: [
             //_mySearchBar(),
             _filterButton(context, state),
-            _myCustomListview(state.alkoList),
+            _myCustomListView(state.alkoList),
           ],
         ),
         bottomNavigationBar: CustomNavigationBar(),
@@ -69,7 +69,7 @@ class MySearchView extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                 child: FlatButton(
-                  color: Colors.blueAccent,
+                  color: Colors.blueGrey,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0)),
                   child: Text("Filtrera"),
@@ -85,7 +85,7 @@ class MySearchView extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                 child: FlatButton(
-                  color: Colors.blueAccent,
+                  color: Colors.blueGrey,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0)),
                   child: Icon(Icons.close),
@@ -152,10 +152,10 @@ class MySearchView extends StatelessWidget {
                                 state.setFilterColor(listOfIngredients[index]);
 
                                 //lägger till eller tar bort ur listan beroende på om den redan finns
-                                if (state.listToFilterOn.contains(
-                                    listOfIngredients[index].strIngredient1)) {
-                                  state.listToFilterOn.remove(
-                                      listOfIngredients[index].strIngredient1);
+                                if (state.listToFilterOn
+                                    .contains(listOfIngredients[index])) {
+                                  state.listToFilterOn
+                                      .remove(listOfIngredients[index]);
                                 } else {
                                   state.listToFilterOn.add(
                                       listOfIngredients[index].strIngredient1);
@@ -210,23 +210,21 @@ class MySearchView extends StatelessWidget {
     );
   }
 
-  Widget _myCustomListview(list) {
+  Widget _myCustomListView(list) {
     return Expanded(
       child: Consumer<Model>(
-        builder: (context, state, child) => ListView.builder(
-          itemCount: list.length,
-          itemBuilder: (context, index) {
+        builder: (context, state, child) => GridView.count(
+          crossAxisCount: 2,
+          children: List.generate(list.length, (index) {
             return Container(
-              height: 150,
               child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/DrinkView',
-                      arguments: list[index]);
-                },
-                child: _myCustomListTile(list, index),
-              ),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/DrinkView',
+                        arguments: list[index]);
+                  },
+                  child: _myCustomListTile(list, index)),
             );
-          },
+          }),
         ),
       ),
     );
@@ -234,8 +232,7 @@ class MySearchView extends StatelessWidget {
 
   Widget _myCustomListTile(list, index) {
     return Card(
-      color: Colors.blueGrey[300],
-      child: Row(
+      child: Stack(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -249,39 +246,23 @@ class MySearchView extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(3, 5, 0, 0),
+          Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
-              width: 200,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${list[index].strDrink}",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Text(
-                      "${list[index].strGlass}",
-                      style: TextStyle(fontSize: 17),
-                    ),
-                    Divider(
-                      color: Colors.black,
-                    ),
-                    Expanded(
-                      child: Text(
-                        "${list[index].strInstructions}",
-                        style: TextStyle(fontSize: 13),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )
-                  ]),
+              width: 500,
+              decoration: BoxDecoration(
+                color: const Color(0xFF607D8B).withOpacity(0.7),
+              ),
+              height: 50,
+              child: Text(
+                "${list[index].strDrink}",
+                style: TextStyle(fontSize: 20),
+              ),
             ),
-          ),
-          Container(
-            color: Colors.black,
-          ),
+          )
         ],
       ),
+      color: Colors.grey[300],
     );
   }
 }

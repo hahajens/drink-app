@@ -17,10 +17,89 @@ class DrinkView extends StatelessWidget {
       body: Column(
         children: [
           Stack(
+
             children: [
               _imageContainer(drink, context),
               _customAppBar(drink, context),
               _titleWidget(drink),
+
+            children: <Widget>[
+              Container(
+                // height: 100,
+                // width: 100,
+                height: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0.0, 2.0),
+                      blurRadius: 6.0,
+                    ),
+                  ],
+                ),
+                child: Hero(
+                  tag: drink.strDrinkThumb,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: Image(
+                      image: NetworkImage(drink.strDrinkThumb),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      iconSize: 30.0,
+                      color: Colors.white,
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    Consumer<Model>(
+                      builder: (context, state, child) =>
+                        IconButton(
+                        icon: 
+                            state.getFavoriteIcon(drink),
+                        iconSize: 34,
+                        onPressed: () {
+                              state.setFavoriteIcon(drink);
+                              state.editFavorite(drink);
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                left: 20.0,
+                bottom: 20.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      drink.strDrink,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 35.0,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1.2,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(4.0, 3.0),
+                            blurRadius: 15.0,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           Expanded(

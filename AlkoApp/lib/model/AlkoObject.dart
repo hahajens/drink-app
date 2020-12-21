@@ -56,6 +56,7 @@ class AlkoObject {
   var strImageAttribution;
   var strCreativeCommonsConfirmed;
   var dateModified;
+  bool isFavorite;
 
   String get getStrDrink => strDrink;
 
@@ -114,7 +115,8 @@ class AlkoObject {
       this.strImageSource,
       this.strImageAttribution,
       this.strCreativeCommonsConfirmed,
-      this.dateModified});
+      this.dateModified,
+      this.isFavorite = false});
 
   AlkoObject.fromJson(Map<dynamic, dynamic> json) {
     idDrink = json['idDrink'];
@@ -173,6 +175,8 @@ class AlkoObject {
     strCreativeCommonsConfirmed = json['strCreativeCommonsConfirmed'];
     dateModified = json['dateModified'];
   }
+
+  
 
   Map<dynamic, dynamic> toJson() {
     final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
