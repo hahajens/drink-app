@@ -23,11 +23,15 @@ class Model extends ChangeNotifier {
 
   Model() {
     syncLists();
+    popular();
   }
 
   void syncLists() async {
     print("Loading...");
+    _isLoading = true;
+    notifyListeners();
     _alkoList = await DB.getData();
+    _isLoading = false;
     notifyListeners();
     print("DONE!");
   }
@@ -51,23 +55,6 @@ class Model extends ChangeNotifier {
       return _filterColor;
     }
   }
-
-
-  Model() {
-    syncLists();
-    popular();
-  }
-
-  void syncLists() async {
-    print("Loading...");
-    _isLoading = true;
-    notifyListeners();
-    _alkoList = await DB.getData();
-    _isLoading = false;
-    notifyListeners();
-    print("DONE!");
-  }
-
 
   void setListByIngredient(List listToFilterOn, context) async {
     _isLoading = true;
@@ -103,20 +90,6 @@ class Model extends ChangeNotifier {
     );
   }
 
-  //Kan bugga med den andra index högre upp/Olle
-  //Variabel, getter & setter för NavigationBar
-  int _currentIndex = 0;
-  get currentIndex => _currentIndex;
-
-  set currentIndex(int index) {
-    _currentIndex = index;
-    notifyListeners();
-  }
-
-  // bool getFavorite(index) {
-  //   return favoriteList[index].isFavorite;
-  // }
-
   void editFavorite(AlkoObject drink) {
     if (favoriteList.contains(drink)) {
       drink.isFavorite = false;
@@ -141,7 +114,8 @@ class Model extends ChangeNotifier {
       var filledIcon = Icon(Icons.favorite, color: Colors.white);
       return filledIcon;
     } else {
-      var outLinedIcon = Icon(Icons.favorite_border_outlined, color: Colors.white);
+      var outLinedIcon =
+          Icon(Icons.favorite_border_outlined, color: Colors.white);
       return outLinedIcon;
     }
   }
@@ -154,11 +128,6 @@ class Model extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  // void setFavorite(AlkoObject drink, bool input) {
-  //   drink.isFavorite = input;
-  //   getFavorite(drink);
-  // }
 
   //Används för att hämta de mest populära, som visas på startView
   void popular() async {

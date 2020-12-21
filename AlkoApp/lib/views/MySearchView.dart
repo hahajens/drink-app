@@ -234,10 +234,6 @@ class MySearchView extends StatelessWidget {
     return Card(
       child: Stack(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: Image(
-              image: NetworkImage(list[index].strDrinkThumb),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
@@ -248,7 +244,6 @@ class MySearchView extends StatelessWidget {
                   image: NetworkImage(list[index].strDrinkThumb),
                 ),
               ),
-
             ),
           ),
           Align(
@@ -270,3 +265,4 @@ class MySearchView extends StatelessWidget {
       color: Colors.grey[300],
     );
   }
+}
