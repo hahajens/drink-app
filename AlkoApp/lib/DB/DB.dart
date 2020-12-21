@@ -130,4 +130,22 @@ class DB {
       print("Struuuul med att hämta random");
     }
   }
+
+  static getLatestDrinks() async {
+    List<AlkoObject> list;
+
+    String queryURL = '/latest.php';
+
+    http.Response response = await http.get(url + queryURL);
+
+    if (response.statusCode == 200) {
+      list = (json.decode(response.body)["drinks"] as List)
+          .map((data) => AlkoObject.fromJson(data))
+          .toList();
+
+      return list;
+    } else {
+      print("Struuuul med att hämta senaste");
+    }
+  }
 }

@@ -2,9 +2,10 @@ import 'package:AlkoApp/model/Model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PopularDrinkCarousel extends StatelessWidget {
+class LatestDrinksCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //Provider.of<Model>(context, listen: false).latestDrinks();
     return Column(
       children: <Widget>[
         Padding(
@@ -12,7 +13,7 @@ class PopularDrinkCarousel extends StatelessWidget {
           child: Container(
             alignment: Alignment.topLeft,
             child: Text(
-              'Popular Drinks',
+              'Recently added drinks',
               style: TextStyle(
                 fontSize: 26.0,
                 fontWeight: FontWeight.bold,
@@ -26,13 +27,13 @@ class PopularDrinkCarousel extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount:
-                Provider.of<Model>(context, listen: false).alkoList.length,
+                Provider.of<Model>(context, listen: false).latestList.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/DrinkView',
                       arguments: Provider.of<Model>(context, listen: false)
-                          .alkoList[index]); //lägg till .drinkId
+                          .latestList[index]); //lägg till .drinkId
                 },
                 child: Container(
                   margin: EdgeInsets.all(10.0),
@@ -67,7 +68,7 @@ class PopularDrinkCarousel extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  "${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient1}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient2}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient3}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient4}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient5}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient6}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient7}",
+                                  "${Provider.of<Model>(context, listen: false).latestList[index].strIngredient1}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient2}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient3}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient4}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient5}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient6}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient7}",
                                   style: TextStyle(
                                     color: Colors.grey,
                                   ),
@@ -93,7 +94,7 @@ class PopularDrinkCarousel extends StatelessWidget {
                           children: <Widget>[
                             Hero(
                               tag: Provider.of<Model>(context, listen: false)
-                                  .alkoList[index]
+                                  .latestList[index]
                                   .strDrinkThumb,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20.0),
@@ -102,7 +103,7 @@ class PopularDrinkCarousel extends StatelessWidget {
                                   width: 180.0,
                                   image: NetworkImage(
                                       Provider.of<Model>(context, listen: false)
-                                          .alkoList[index]
+                                          .latestList[index]
                                           .strDrinkThumb),
                                   fit: BoxFit.cover,
                                 ),
@@ -117,7 +118,7 @@ class PopularDrinkCarousel extends StatelessWidget {
                                   Container(
                                     width: 170,
                                     child: Text(
-                                      "${Provider.of<Model>(context, listen: false).alkoList[index].strDrink}",
+                                      "${Provider.of<Model>(context, listen: false).latestList[index].strDrink}",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 24.0,

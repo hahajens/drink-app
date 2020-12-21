@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 class PopularIngredientsCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List list = Provider.of<Model>(context, listen: false).getIngredientsList();
+    Provider.of<Model>(context, listen: false).latestDrinks();
+    List list = Provider.of<Model>(context, listen: false).latestList;
     return Column(
       children: <Widget>[
         Padding(
@@ -30,9 +31,9 @@ class PopularIngredientsCarousel extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  // Navigator.pushNamed(context, '/DrinkView',
-                  //     arguments: Provider.of<Model>(context, listen: false)
-                  //         .alkoList[index]);
+                  Navigator.pushNamed(context, '/DrinkView',
+                      arguments: Provider.of<Model>(context, listen: false)
+                          .latestList[index]); // .drinkId
                 },
                 child: Container(
                   margin: EdgeInsets.all(10.0),
@@ -67,7 +68,7 @@ class PopularIngredientsCarousel extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  "${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient1}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient2}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient3}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient4}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient5}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient6}, ${Provider.of<Model>(context, listen: false).alkoList[index].strIngredient7}",
+                                  "${Provider.of<Model>(context, listen: false).latestList[index].strIngredient1}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient2}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient3}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient4}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient5}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient6}, ${Provider.of<Model>(context, listen: false).latestList[index].strIngredient7}",
                                   style: TextStyle(
                                     color: Colors.grey,
                                   ),
@@ -93,7 +94,7 @@ class PopularIngredientsCarousel extends StatelessWidget {
                           children: <Widget>[
                             Hero(
                               tag: Provider.of<Model>(context, listen: false)
-                                  .alkoList[index]
+                                  .latestList[index]
                                   .strDrinkThumb,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20.0),
@@ -102,7 +103,7 @@ class PopularIngredientsCarousel extends StatelessWidget {
                                   width: 180.0,
                                   image: NetworkImage(
                                       Provider.of<Model>(context, listen: false)
-                                          .alkoList[index]
+                                          .latestList[index]
                                           .strDrinkThumb),
                                   fit: BoxFit.cover,
                                 ),
@@ -117,7 +118,7 @@ class PopularIngredientsCarousel extends StatelessWidget {
                                   Container(
                                     width: 170,
                                     child: Text(
-                                      "${Provider.of<Model>(context, listen: false).alkoList[index].strDrink}",
+                                      "${Provider.of<Model>(context, listen: false).latestList[index].strDrink}",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 24.0,
