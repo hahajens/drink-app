@@ -7,6 +7,7 @@ class IngredientObject {
   IngredientObject({this.strIngredient1, this.checked = false, this.pic});
 
   get getStrIngredient1 => this.strIngredient1;
+
   void setPic(String pic) {
     this.pic = pic;
     if (this.checked == null) {
