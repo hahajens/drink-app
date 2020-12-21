@@ -8,10 +8,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 class Model extends ChangeNotifier {
   List<AlkoObject> _alkoList = new List();
   List<AlkoObject> _favoriteList = new List();
+  List<AlkoObject> _popularList = new List();
+  List<AlkoObject> _randomList = new List();
   List listToFilterOn = new List();
+  bool _isLoading = false;
 
   List get alkoList => _alkoList;
   List get favoriteList => _favoriteList;
+  List get popularList => _popularList;
+  List get randomList => _randomList;
+  bool get isLoading => _isLoading;
 
   Color _filterColor;
 
@@ -46,9 +52,29 @@ class Model extends ChangeNotifier {
     }
   }
 
+
+  Model() {
+    syncLists();
+    popular();
+  }
+
+  void syncLists() async {
+    print("Loading...");
+    _isLoading = true;
+    notifyListeners();
+    _alkoList = await DB.getData();
+    _isLoading = false;
+    notifyListeners();
+    print("DONE!");
+  }
+
+
   void setListByIngredient(List listToFilterOn, context) async {
+    _isLoading = true;
+    notifyListeners();
     if (listToFilterOn.length > 0) {
       _alkoList = await DB.getDataByIngredient(listToFilterOn, context);
+      _isLoading = false;
       notifyListeners();
     } else {
       _alkoList = await DB.getData();
@@ -57,8 +83,12 @@ class Model extends ChangeNotifier {
   }
 
   getIngredientsList() async {
+    _isLoading = true;
+    notifyListeners();
     List<IngredientObject> listOfIngredients = new List();
     listOfIngredients = await DB.getIngredientsList();
+    _isLoading = false;
+    notifyListeners();
     return listOfIngredients;
   }
 
@@ -83,8 +113,70 @@ class Model extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addFavorite(AlkoObject drink) {
-    favoriteList.add(drink);
+  // bool getFavorite(index) {
+  //   return favoriteList[index].isFavorite;
+  // }
+
+  void editFavorite(AlkoObject drink) {
+    if (favoriteList.contains(drink)) {
+      drink.isFavorite = false;
+      removeFavorite(drink);
+      myFlutterToast('Removed from favorites');
+    } else {
+      drink.isFavorite = true;
+      favoriteList.add(drink);
+      myFlutterToast('Added to favorites');
+    }
     notifyListeners();
+  }
+
+  void removeFavorite(AlkoObject drink) {
+    drink.isFavorite = false;
+    favoriteList.remove(drink);
+    notifyListeners();
+  }
+
+  Icon getFavoriteIcon(AlkoObject drink) {
+    if (drink.isFavorite == true) {
+      var filledIcon = Icon(Icons.favorite, color: Colors.white);
+      return filledIcon;
+    } else {
+      var outLinedIcon = Icon(Icons.favorite_border_outlined, color: Colors.white);
+      return outLinedIcon;
+    }
+  }
+
+  void setFavoriteIcon(AlkoObject drink) {
+    if (drink.isFavorite == false) {
+      drink.isFavorite = true;
+    } else {
+      drink.isFavorite = false;
+    }
+    notifyListeners();
+  }
+
+  // void setFavorite(AlkoObject drink, bool input) {
+  //   drink.isFavorite = input;
+  //   getFavorite(drink);
+  // }
+
+  //Används för att hämta de mest populära, som visas på startView
+  void popular() async {
+    _isLoading = true;
+    notifyListeners();
+    _popularList = await DB.getPopularDrinks();
+    _isLoading = false;
+    notifyListeners();
+    print("test");
+  }
+
+  //Används för att hämta en random, används på startview
+  void random() async {
+    _isLoading = true;
+    notifyListeners();
+    _randomList = await DB.getRandomDrink();
+    _isLoading = false;
+    notifyListeners();
+    print("test");
   }
 }

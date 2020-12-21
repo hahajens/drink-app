@@ -75,4 +75,40 @@ class DB {
       print("ERROR Fel i getIngredientList() ERROR: ${qResponse.statusCode}");
     }
   }
+
+  static getPopularDrinks() async {
+    List<AlkoObject> list;
+
+    String queryURL = '/popular.php';
+
+    http.Response response = await http.get(url + queryURL);
+
+    if (response.statusCode == 200) {
+      list = (json.decode(response.body)["drinks"] as List)
+          .map((data) => AlkoObject.fromJson(data))
+          .toList();
+
+      return list;
+    } else {
+      print("Struuuul med att hämta populära");
+    }
+  }
+
+  static getRandomDrink() async {
+    List<AlkoObject> list;
+
+    String queryURL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+
+    http.Response response = await http.get(queryURL);
+
+    if (response.statusCode == 200) {
+      list = (json.decode(response.body)["drinks"] as List)
+          .map((data) => AlkoObject.fromJson(data))
+          .toList();
+
+      return list;
+    } else {
+      print("Struuuul med att hämta random");
+    }
+  }
 }

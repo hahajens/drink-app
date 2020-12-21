@@ -1,10 +1,14 @@
+import 'package:AlkoApp/DB/DB.dart';
+
 import 'package:AlkoApp/model/AlkoObject.dart';
 import 'package:AlkoApp/model/Model.dart';
+
 import 'package:AlkoApp/model/NavigationBar.dart';
 import 'package:AlkoApp/model/IngredientObject.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 //TODO ändra hur height och width sätts
@@ -234,6 +238,17 @@ class MySearchView extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             child: Image(
               image: NetworkImage(list[index].strDrinkThumb),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Hero(
+                tag: list[index].strDrinkThumb,
+                child: Image(
+                  image: NetworkImage(list[index].strDrinkThumb),
+                ),
+              ),
+
             ),
           ),
           Align(
@@ -255,76 +270,3 @@ class MySearchView extends StatelessWidget {
       color: Colors.grey[300],
     );
   }
-
-//   Widget _myCustomListView(list) {
-//     return Expanded(
-//       child: Consumer<Model>(
-//         builder: (context, state, child) => ListView.builder(
-//           itemCount: list.length,
-//           itemBuilder: (context, index) {
-//             return Container(
-//               height: 150,
-//               child: GestureDetector(
-//                 onTap: () {
-//                   Navigator.pushNamed(context, '/DrinkView',
-//                       arguments: list[index]);
-//                 },
-//                 child: _myCustomListTile(list, index),
-//               ),
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _myCustomListTile(list, index) {
-//     return Card(
-//       color: Colors.blueGrey[300],
-//       child: Row(
-//         children: [
-//           Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: ClipRRect(
-//               borderRadius: BorderRadius.circular(5),
-//               child: Image(
-//                 image: NetworkImage(list[index].strDrinkThumb),
-//               ),
-//             ),
-//           ),
-//           Padding(
-//             padding: const EdgeInsets.fromLTRB(3, 5, 0, 0),
-//             child: Container(
-//               width: 200,
-//               child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       "${list[index].strDrink}",
-//                       style: TextStyle(fontSize: 20),
-//                     ),
-//                     Text(
-//                       "${list[index].strGlass}",
-//                       style: TextStyle(fontSize: 17),
-//                     ),
-//                     Divider(
-//                       color: Colors.black,
-//                     ),
-//                     Expanded(
-//                       child: Text(
-//                         "${list[index].strInstructions}",
-//                         style: TextStyle(fontSize: 13),
-//                         overflow: TextOverflow.ellipsis,
-//                       ),
-//                     )
-//                   ]),
-//             ),
-//           ),
-//           Container(
-//             color: Colors.black,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-}
