@@ -1,4 +1,3 @@
-import 'package:AlkoApp/model/AlkoObject.dart';
 import 'package:AlkoApp/model/NavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:AlkoApp/model/Model.dart';
@@ -31,14 +30,14 @@ class MyFavorites extends StatelessWidget {
               return ListTile(
                 leading: CircleAvatar(
                   backgroundImage:
-                      NetworkImage(state.alkoList[index].strDrinkThumb),
+                      NetworkImage(state.favoriteList[index].strDrinkThumb),
                 ),
                 title: Text("${state.favoriteList[index].strDrink}"),
                 trailing: IconButton(
                   icon: Icon(Icons.favorite, color: Colors.black),
                   onPressed: () {
-                        state.removeFavorite(state.favoriteList[index]);
-                        state.myFlutterToast('Removed drink from favorites');
+                    state.removeFavorite(state.favoriteList[index]);
+                    state.myFlutterToast('Removed drink from favorites');
                   },
                 ),
               );

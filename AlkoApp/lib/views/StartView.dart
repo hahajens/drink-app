@@ -1,4 +1,7 @@
 import 'package:AlkoApp/model/Model.dart';
+import 'package:AlkoApp/widgets/LatestDrinksCarousel.dart';
+import 'package:AlkoApp/widgets/PopularDrinkCarousel.dart';
+import 'package:AlkoApp/widgets/PopularIngredientsCarousel.dart';
 import 'package:flutter/material.dart';
 import 'package:AlkoApp/model/NavigationBar.dart';
 import 'package:provider/provider.dart';
@@ -6,24 +9,24 @@ import 'package:provider/provider.dart';
 class StartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return Consumer<Model>(
       builder: (context, state, child) => Scaffold(
-        body: Column(
+        body: ListView(
           children: [
             Container(
-              height: 100,
-              width: 500,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(50, 50, 50, 20),
-                child: _supriseButton(context, state),
-              ),
+            height: 100,
+            width: 500,
+            child: Padding(
+            padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+            child: _supriseButton(context, state),
             ),
-            Text("Populära",
-                style: TextStyle(
-                  fontSize: 30,
-                )),
-            Expanded(child: _popularListview(state.popularList)),
+            ),
+            
+            PopularDrinkCarousel(),
+            LatestDrinksCarousel(),
+            
+            //PopularIngredientsCarousel(),
+            //Expanded(child: _popularListview(state.popularList)),
           ],
         ),
         bottomNavigationBar: CustomNavigationBar(),
@@ -35,14 +38,14 @@ class StartView extends StatelessWidget {
     return RaisedButton(
         color: Colors.pinkAccent,
         onPressed: () {
-          state.random();
+          state.randomDrink();
           Navigator.pushNamed(context, '/DrinkView',
-              arguments: state.randomList[0]);
+              arguments: state.randomList[0]); // lägg till .drinkId
         },
         child: Text("Suprise Me!"));
   }
 
-  Widget _popularListview(list) {
+  /*Widget _popularListview(list) {
     return Consumer<Model>(
         builder: (context, state, child) => ListView.builder(
             itemCount: list.length,
@@ -58,6 +61,5 @@ class StartView extends StatelessWidget {
                         arguments: list[index]);
                   });
             }));
-
-  }
+  }*/
 }

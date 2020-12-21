@@ -32,7 +32,7 @@ class PopularDrinkCarousel extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, '/DrinkView',
                       arguments: Provider.of<Model>(context, listen: false)
-                          .alkoList[index]);
+                          .alkoList[index]); //lägg till .drinkId
                 },
                 child: Container(
                   margin: EdgeInsets.all(10.0),
