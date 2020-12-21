@@ -10,7 +10,6 @@ class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AlkoObject drink = ModalRoute.of(context).settings.arguments;
-    String id = drink.idDrink; //<--såhär fattar du niklas
     return Scaffold(
       backgroundColor: Color(0xFFF4F4F4),
       body: Column(
@@ -105,17 +104,15 @@ class DrinkView extends StatelessWidget {
                   child: Column(
                     //crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Center(
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.only(bottom: 20, top: 15),
-                          child: Row(
-                            children: [
-                              _categoryWidget(drink.strCategory),
-                              _alcoholWidget(drink.strAlcoholic),
-                              _glassWidget(drink.strGlass),
-                            ],
-                          ),
+                      Container(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _categoryWidget(drink.strCategory),
+                            _alcoholWidget(drink.strAlcoholic),
+                            _glassWidget(drink.strGlass),
+                          ],
                         ),
                       ),
                       _ingredientsWidget(
@@ -176,47 +173,6 @@ Widget _ingredientsWidget({
   };
 
   parameterList.removeWhere((String key, String value) => value == null);
-  // if (measure1 == null || ingredient1 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure1] = ingredient1;
-  // }
-
-  // if (measure2 == null || ingredient2 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure2] = ingredient2;
-  // }
-
-  // if (measure3 == null || ingredient3 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure3] = ingredient3;
-  // }
-
-  // if (measure4 == null || ingredient4 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure4] = ingredient4;
-  // }
-
-  // if (measure5 == null || ingredient5 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure4] = ingredient4;
-  // }
-
-  // if (measure6 == null || ingredient6 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure6] = ingredient6;
-  // }
-
-  // if (measure7 == null || ingredient7 == null) {
-  //   print("null");
-  // } else {
-  //   parameterList[measure7] = ingredient7;
-  // }
 
   print(parameterList);
 
@@ -262,89 +218,89 @@ Widget _customDivider() {
 }
 
 Widget _glassWidget(String glass) {
-  return Column(
-    children: [
-      Container(
-        child: Text(
-          "Serve in",
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w500,
+  return Expanded(
+    child: Column(
+      children: [
+        Container(
+          child: Text(
+            "Serve in",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-      ),
-      Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Text(
-          glass,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
+        Container(
+          child: Text(
+            glass,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 
 Widget _alcoholWidget(String alcohol) {
-  return Column(
-    children: [
-      Container(
-        child: Text(
-          "Type",
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w500,
+  return Expanded(
+    child: Column(
+      children: [
+        Container(
+          child: Text(
+            "Type",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-      ),
-      Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Text(
-          alcohol,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
+        Container(
+          child: Text(
+            alcohol,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 
 Widget _categoryWidget(String category) {
-  return Column(
-    children: [
-      Container(
-        child: Text(
-          "Category",
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w500,
+  return Expanded(
+    child: Column(
+      children: [
+        Container(
+          child: Text(
+            "Category",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-      ),
-      Container(
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Text(
-          category,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
+        Container(
+          child: Text(
+            category,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 
