@@ -12,18 +12,21 @@ class Model extends ChangeNotifier {
   List<AlkoObject> _randomList = new List();
   List listToFilterOn = new List();
   bool _isLoading = false;
+  List<AlkoObject> _latestList = new List();
 
   List get alkoList => _alkoList;
   List get favoriteList => _favoriteList;
   List get popularList => _popularList;
   List get randomList => _randomList;
   bool get isLoading => _isLoading;
+  List get latestList => _latestList;
 
   Color _filterColor;
 
   Model() {
     syncLists();
-    popular();
+    getPopularList();
+    latestDrinks();
   }
 
   void syncLists() async {
@@ -139,22 +142,30 @@ class Model extends ChangeNotifier {
   }
 
   //Används för att hämta de mest populära, som visas på startView
-  void popular() async {
+  void getPopularList() async {
     _isLoading = true;
     notifyListeners();
     _popularList = await DB.getPopularDrinks();
     _isLoading = false;
     notifyListeners();
-    print("test");
   }
 
   //Används för att hämta en random, används på startview
-  void random() async {
+  void randomDrink() async {
     _isLoading = true;
     notifyListeners();
     _randomList = await DB.getRandomDrink();
     _isLoading = false;
     notifyListeners();
-    print("test");
+  }
+
+    void latestDrinks() async {
+    _isLoading = true;
+    notifyListeners();
+    _latestList = await DB.getLatestDrinks();
+    _isLoading = false;
+    notifyListeners();
+    print("latest drinks");
+    print(_latestList[0].strDrink);
   }
 }
