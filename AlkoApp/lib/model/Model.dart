@@ -88,10 +88,52 @@ class Model extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addFavorite(AlkoObject drink) {
-    favoriteList.add(drink);
+  // bool getFavorite(index) {
+  //   return favoriteList[index].isFavorite;
+  // }
+
+  void editFavorite(AlkoObject drink) {
+    if (favoriteList.contains(drink)) {
+      drink.isFavorite = false;
+      removeFavorite(drink);
+      myFlutterToast('Removed from favorites');
+    } else {
+      drink.isFavorite = true;
+      favoriteList.add(drink);
+      myFlutterToast('Added to favorites');
+    }
     notifyListeners();
   }
+
+  void removeFavorite(AlkoObject drink) {
+    drink.isFavorite = false;
+    favoriteList.remove(drink);
+    notifyListeners();
+  }
+
+  Icon getFavoriteIcon(AlkoObject drink) {
+    if (drink.isFavorite == true) {
+      var filledIcon = Icon(Icons.favorite, color: Colors.white);
+      return filledIcon;
+    } else {
+      var outLinedIcon = Icon(Icons.favorite_border_outlined, color: Colors.white);
+      return outLinedIcon;
+    }
+  }
+
+  void setFavoriteIcon(AlkoObject drink) {
+    if (drink.isFavorite == false) {
+      drink.isFavorite = true;
+    } else {
+      drink.isFavorite = false;
+    }
+    notifyListeners();
+  }
+
+  // void setFavorite(AlkoObject drink, bool input) {
+  //   drink.isFavorite = input;
+  //   getFavorite(drink);
+  // }
 
   //Används för att hämta de mest populära, som visas på startView
   void popular() async {
