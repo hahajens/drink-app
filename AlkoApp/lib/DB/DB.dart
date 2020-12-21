@@ -53,15 +53,6 @@ class DB {
     }
   }
 
-  // static Future searchIngredient(String ingredient) async {
-  //   String queryUrl =
-  //       "https://www.thecocktaildb.com/images/ingredients/$ingredient-Small.png";
-
-  //   http.Response response = await http.get(queryUrl);
-  //   var json = jsonDecode(response.body);
-  //   return json.map((data) => IngredientObject.fromJson(data)).toList();
-  // }
-
   static getIngredientsList() async {
     List list;
 
