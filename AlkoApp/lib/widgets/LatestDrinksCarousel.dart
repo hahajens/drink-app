@@ -2,11 +2,10 @@ import 'package:AlkoApp/model/Model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PopularIngredientsCarousel extends StatelessWidget {
+class LatestDrinksCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<Model>(context, listen: false).latestDrinks();
-    List list = Provider.of<Model>(context, listen: false).latestList;
+    //Provider.of<Model>(context, listen: false).latestDrinks();
     return Column(
       children: <Widget>[
         Padding(
@@ -14,7 +13,7 @@ class PopularIngredientsCarousel extends StatelessWidget {
           child: Container(
             alignment: Alignment.topLeft,
             child: Text(
-              'Popular Ingredients',
+              'Recently added drinks',
               style: TextStyle(
                 fontSize: 26.0,
                 fontWeight: FontWeight.bold,
@@ -27,13 +26,14 @@ class PopularIngredientsCarousel extends StatelessWidget {
           height: 300.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: list.length,
+            itemCount:
+                Provider.of<Model>(context, listen: false).latestList.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/DrinkView',
                       arguments: Provider.of<Model>(context, listen: false)
-                          .latestList[index]); // .drinkId
+                          .latestList[index]); //lägg till .drinkId
                 },
                 child: Container(
                   margin: EdgeInsets.all(10.0),

@@ -1,10 +1,6 @@
 import 'package:AlkoApp/widgets/PopularDrinkCarousel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../model/Model.dart';
-import 'package:AlkoApp/model/NavigationBar.dart';
 
 class MyDrinksView extends StatelessWidget {
   @override
