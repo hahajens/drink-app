@@ -21,6 +21,17 @@ class Model extends ChangeNotifier {
 
   Color _filterColor;
 
+  Model() {
+    syncLists();
+  }
+
+  void syncLists() async {
+    print("Loading...");
+    _alkoList = await DB.getData();
+    notifyListeners();
+    print("DONE!");
+  }
+
   void setFilterColor(object) {
     if (object.getCheck == false) {
       object.setCheck(true);
@@ -41,6 +52,7 @@ class Model extends ChangeNotifier {
     }
   }
 
+
   Model() {
     syncLists();
     popular();
@@ -55,6 +67,7 @@ class Model extends ChangeNotifier {
     notifyListeners();
     print("DONE!");
   }
+
 
   void setListByIngredient(List listToFilterOn, context) async {
     _isLoading = true;
