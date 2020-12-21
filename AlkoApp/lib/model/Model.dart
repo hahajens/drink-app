@@ -15,6 +15,17 @@ class Model extends ChangeNotifier {
 
   Color _filterColor;
 
+  Model() {
+    syncLists();
+  }
+
+  void syncLists() async {
+    print("Loading...");
+    _alkoList = await DB.getData();
+    notifyListeners();
+    print("DONE!");
+  }
+
   void setFilterColor(object) {
     if (object.getCheck == false) {
       object.setCheck(true);
@@ -33,17 +44,6 @@ class Model extends ChangeNotifier {
       _filterColor = Colors.grey[600];
       return _filterColor;
     }
-  }
-
-  Model() {
-    syncLists();
-  }
-
-  void syncLists() async {
-    print("Loading...");
-    _alkoList = await DB.getData();
-    notifyListeners();
-    print("DONE!");
   }
 
   void setListByIngredient(List listToFilterOn, context) async {
