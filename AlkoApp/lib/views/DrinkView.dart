@@ -16,84 +16,9 @@ class DrinkView extends StatelessWidget {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              Container(
-                // height: 100,
-                // width: 100,
-                height: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0.0, 2.0),
-                      blurRadius: 6.0,
-                    ),
-                  ],
-                ),
-                child: Hero(
-                  tag: drink.strDrinkThumb,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30.0),
-                    child: Image(
-                      image: NetworkImage(drink.strDrinkThumb),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      iconSize: 30.0,
-                      color: Colors.white,
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    Consumer<Model>(
-                      builder: (context, state, child) => IconButton(
-                        icon: state.getFavoriteIcon(drink),
-                        iconSize: 34,
-                        onPressed: () {
-                          state.setFavoriteIcon(drink);
-                          state.editFavorite(drink);
-                          //ta bort navigator när alla routes funkar
-                          //fixa så att man inte kan lägga till 2 av samma, if sats
-                          //ska kunna ta bort favoriter
-                          //se värde på knapp
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Positioned(
-                left: 20.0,
-                bottom: 20.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      drink.strDrink,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 35.0,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(4.0, 3.0),
-                            blurRadius: 15.0,
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              _imageWidget(context, drink),
+              _fakeAppBar(context, drink),
+              _titleWidget(drink),
             ],
           ),
           Expanded(
@@ -115,7 +40,7 @@ class DrinkView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      _ingredientsWidget(
+                      _ingredientsList(
                         measure1: drink.strMeasure1,
                         ingredient1: drink.strIngredient1,
                         measure2: drink.strMeasure2,
@@ -146,7 +71,88 @@ class DrinkView extends StatelessWidget {
   }
 }
 
-Widget _ingredientsWidget({
+_titleWidget(AlkoObject drink) {
+  return Positioned(
+    left: 20.0,
+    bottom: 20.0,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          drink.strDrink,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 35.0,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1.2,
+            shadows: <Shadow>[
+              Shadow(
+                offset: Offset(4.0, 3.0),
+                blurRadius: 15.0,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+_fakeAppBar(BuildContext context, AlkoObject drink) {
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.arrow_back),
+          iconSize: 30.0,
+          color: Colors.white,
+          onPressed: () => Navigator.pop(context),
+        ),
+        Consumer<Model>(
+          builder: (context, state, child) => IconButton(
+            icon: state.getFavoriteIcon(drink),
+            iconSize: 34,
+            onPressed: () {
+              state.setFavoriteIcon(drink);
+              state.editFavorite(drink);
+            },
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+Widget _imageWidget(BuildContext context, AlkoObject drink) {
+  return Container(
+    height: MediaQuery.of(context).size.width,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(30.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black26,
+          offset: Offset(0.0, 10.0),
+          blurRadius: 10.0,
+        ),
+      ],
+    ),
+    child: Hero(
+      tag: drink.strDrinkThumb,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30.0),
+        child: Image(
+          image: NetworkImage(drink.strDrinkThumb),
+          fit: BoxFit.cover,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget _ingredientsList({
   String measure1,
   String ingredient1,
   String measure2,
@@ -176,12 +182,18 @@ Widget _ingredientsWidget({
 
   print(parameterList);
 
+  return _ingredientsWidget(parameterList);
+}
+
+Widget _ingredientsWidget(Map<String, String> parameterList) {
   return Column(children: [
     Container(
       alignment: Alignment.topLeft,
+      padding: EdgeInsets.only(bottom: 8),
       child: Text(
         "Ingredients",
         style: TextStyle(
+          letterSpacing: 1.0,
           fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
@@ -191,10 +203,11 @@ Widget _ingredientsWidget({
       Container(
           alignment: Alignment.topLeft,
           child: ListTile(
-            leading: Image(
-                image: NetworkImage(
-                    "https://www.thecocktaildb.com/images/ingredients/${parameterList[s]}-Small.png")),
-            visualDensity: VisualDensity(horizontal: 0, vertical: 0),
+            leading: Container(
+              child: Image(
+                  image: NetworkImage(
+                      "https://www.thecocktaildb.com/images/ingredients/${parameterList[s]}-Small.png")),
+            ),
             title: Text(
               "${parameterList[s]}",
               style: TextStyle(
@@ -331,30 +344,6 @@ Widget _instructionWidget(String instruction) {
         ),
       ),
     ],
-  );
-}
-
-Widget _titleWidget(String title) {
-  return Expanded(
-    child: Container(
-      padding: EdgeInsets.only(top: 10),
-      alignment: Alignment.topLeft,
-      child: Text(
-        title,
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontSize: 42,
-          fontWeight: FontWeight.bold,
-          shadows: <Shadow>[
-            Shadow(
-              offset: Offset(10.0, 10.0),
-              blurRadius: 3.0,
-              color: Color.fromARGB(255, 0, 0, 0),
-            ),
-          ],
-        ),
-      ),
-    ),
   );
 }
 
