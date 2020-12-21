@@ -79,6 +79,15 @@ class Model extends ChangeNotifier {
     return listOfIngredients;
   }
 
+  getSingleObjectByID(id) async {
+    _isLoading = true;
+    List<AlkoObject> list = await DB.getSingleObjectByID(id);
+    AlkoObject obj = list[0];
+    _isLoading = false;
+    //print(obj);
+    return obj;
+  }
+
   myFlutterToast(input) {
     return Fluttertoast.showToast(
       msg: input,

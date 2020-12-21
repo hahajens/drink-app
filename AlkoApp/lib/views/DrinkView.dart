@@ -1,5 +1,6 @@
 import 'package:AlkoApp/model/AlkoObject.dart';
 import 'package:AlkoApp/model/Model.dart';
+import 'package:AlkoApp/widgets/Spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -9,150 +10,167 @@ import 'package:AlkoApp/model/NavigationBar.dart';
 class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final AlkoObject drink = ModalRoute.of(context).settings.arguments;
-    return Scaffold(
-      backgroundColor: Color(0xFFF4F4F4),
-      body: Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              _imageWidget(context, drink),
-              _fakeAppBar(context, drink),
-              _titleWidget(drink),
-            ],
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    //crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+    String id = ModalRoute.of(context).settings.arguments;
+
+//Objektet heter nu drink.data
+    return FutureBuilder<AlkoObject>(
+      future: _getDrink(context, id),
+      builder: (BuildContext context, AsyncSnapshot<AlkoObject> drink) {
+        if (drink.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            body: Spinner(),
+          );
+        } else {
+          if (drink.hasError)
+            return Center(child: Text('Error: ${drink.error}'));
+          else
+            return Scaffold(
+              backgroundColor: Color(0xFFF4F4F4),
+              body: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
                       Container(
-                        padding: EdgeInsets.only(bottom: 20),
+                        // height: 100,
+                        // width: 100,
+                        height: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(0.0, 2.0),
+                              blurRadius: 6.0,
+                            ),
+                          ],
+                        ),
+                        child: Hero(
+                          tag: drink.data.strDrinkThumb,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30.0),
+                            child: Image(
+                              image: NetworkImage(drink.data.strDrinkThumb),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 40.0),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _categoryWidget(drink.strCategory),
-                            _alcoholWidget(drink.strAlcoholic),
-                            _glassWidget(drink.strGlass),
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(Icons.arrow_back),
+                              iconSize: 30.0,
+                              color: Colors.white,
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            Consumer<Model>(
+                              builder: (context, state, child) => IconButton(
+                                icon: state.getFavoriteIcon(drink.data),
+                                iconSize: 34,
+                                onPressed: () {
+                                  state.setFavoriteIcon(drink.data);
+                                  state.editFavorite(drink.data);
+                                  //ta bort navigator när alla routes funkar
+                                  //fixa så att man inte kan lägga till 2 av samma, if sats
+                                  //ska kunna ta bort favoriter
+                                  //se värde på knapp
+                                },
+                              ),
+                            )
                           ],
                         ),
                       ),
-                      _ingredientsList(
-                        measure1: drink.strMeasure1,
-                        ingredient1: drink.strIngredient1,
-                        measure2: drink.strMeasure2,
-                        ingredient2: drink.strIngredient2,
-                        measure3: drink.strMeasure3,
-                        ingredient3: drink.strIngredient3,
-                        measure4: drink.strMeasure4,
-                        ingredient4: drink.strIngredient4,
-                        measure5: drink.strMeasure5,
-                        ingredient5: drink.strIngredient5,
-                        measure6: drink.strMeasure6,
-                        ingredient6: drink.strIngredient6,
-                        measure7: drink.strMeasure7,
-                        ingredient7: drink.strIngredient7,
+                      Positioned(
+                        left: 20.0,
+                        bottom: 20.0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              drink.data.strDrink,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 35.0,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.2,
+                                shadows: <Shadow>[
+                                  Shadow(
+                                    offset: Offset(4.0, 3.0),
+                                    blurRadius: 15.0,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      _customDivider(),
-                      _instructionWidget(drink.strInstructions),
                     ],
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-      bottomNavigationBar: CustomNavigationBar(),
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            //crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(bottom: 20),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _categoryWidget(drink.data.strCategory),
+                                    _alcoholWidget(drink.data.strAlcoholic),
+                                    _glassWidget(drink.data.strGlass),
+                                  ],
+                                ),
+                              ),
+                              _ingredientsWidget(
+                                measure1: drink.data.strMeasure1,
+                                ingredient1: drink.data.strIngredient1,
+                                measure2: drink.data.strMeasure2,
+                                ingredient2: drink.data.strIngredient2,
+                                measure3: drink.data.strMeasure3,
+                                ingredient3: drink.data.strIngredient3,
+                                measure4: drink.data.strMeasure4,
+                                ingredient4: drink.data.strIngredient4,
+                                measure5: drink.data.strMeasure5,
+                                ingredient5: drink.data.strIngredient5,
+                                measure6: drink.data.strMeasure6,
+                                ingredient6: drink.data.strIngredient6,
+                                measure7: drink.data.strMeasure7,
+                                ingredient7: drink.data.strIngredient7,
+                              ),
+                              _customDivider(),
+                              _instructionWidget(drink.data.strInstructions),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              bottomNavigationBar: CustomNavigationBar(),
+            );
+        }
+      },
     );
   }
 }
 
-_titleWidget(AlkoObject drink) {
-  return Positioned(
-    left: 20.0,
-    bottom: 20.0,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          drink.strDrink,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 35.0,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1.2,
-            shadows: <Shadow>[
-              Shadow(
-                offset: Offset(4.0, 3.0),
-                blurRadius: 15.0,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
+Future<AlkoObject> _getDrink(context, id) async {
+  AlkoObject drink =
+      await Provider.of<Model>(context, listen: false).getSingleObjectByID(id);
+  return drink;
 }
 
-_fakeAppBar(BuildContext context, AlkoObject drink) {
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        IconButton(
-          icon: Icon(Icons.arrow_back),
-          iconSize: 30.0,
-          color: Colors.white,
-          onPressed: () => Navigator.pop(context),
-        ),
-        Consumer<Model>(
-          builder: (context, state, child) => IconButton(
-            icon: state.getFavoriteIcon(drink),
-            iconSize: 34,
-            onPressed: () {
-              state.setFavoriteIcon(drink);
-              state.editFavorite(drink);
-            },
-          ),
-        )
-      ],
-    ),
-  );
-}
-
-Widget _imageWidget(BuildContext context, AlkoObject drink) {
-  return Container(
-    height: MediaQuery.of(context).size.width,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(30.0),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black26,
-          offset: Offset(0.0, 10.0),
-          blurRadius: 10.0,
-        ),
-      ],
-    ),
-    child: Hero(
-      tag: drink.strDrinkThumb,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Image(
-          image: NetworkImage(drink.strDrinkThumb),
-          fit: BoxFit.cover,
-        ),
-      ),
-    ),
-  );
-}
-
-Widget _ingredientsList({
+Widget _ingredientsWidget({
   String measure1,
   String ingredient1,
   String measure2,
@@ -182,18 +200,12 @@ Widget _ingredientsList({
 
   print(parameterList);
 
-  return _ingredientsWidget(parameterList);
-}
-
-Widget _ingredientsWidget(Map<String, String> parameterList) {
   return Column(children: [
     Container(
       alignment: Alignment.topLeft,
-      padding: EdgeInsets.only(bottom: 8),
       child: Text(
         "Ingredients",
         style: TextStyle(
-          letterSpacing: 1.0,
           fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
@@ -203,11 +215,7 @@ Widget _ingredientsWidget(Map<String, String> parameterList) {
       Container(
           alignment: Alignment.topLeft,
           child: ListTile(
-            leading: Container(
-              child: Image(
-                  image: NetworkImage(
-                      "https://www.thecocktaildb.com/images/ingredients/${parameterList[s]}-Small.png")),
-            ),
+            visualDensity: VisualDensity(horizontal: 0, vertical: 0),
             title: Text(
               "${parameterList[s]}",
               style: TextStyle(
@@ -344,6 +352,30 @@ Widget _instructionWidget(String instruction) {
         ),
       ),
     ],
+  );
+}
+
+Widget _titleWidget(String title) {
+  return Expanded(
+    child: Container(
+      padding: EdgeInsets.only(top: 10),
+      alignment: Alignment.topLeft,
+      child: Text(
+        title,
+        textAlign: TextAlign.left,
+        style: TextStyle(
+          fontSize: 42,
+          fontWeight: FontWeight.bold,
+          shadows: <Shadow>[
+            Shadow(
+              offset: Offset(10.0, 10.0),
+              blurRadius: 3.0,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+          ],
+        ),
+      ),
+    ),
   );
 }
 

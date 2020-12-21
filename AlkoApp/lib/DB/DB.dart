@@ -94,6 +94,25 @@ class DB {
     }
   }
 
+  static getSingleObjectByID(id) async {
+    List<AlkoObject> list;
+
+    String queryURL =
+        'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=$id';
+
+    http.Response response = await http.get(queryURL);
+
+    if (response.statusCode == 200) {
+      list = (json.decode(response.body)["drinks"] as List)
+          .map((data) => AlkoObject.fromJson(data))
+          .toList();
+
+      return list;
+    } else {
+      print("ERROR Fel i getSingleObjectByID() ERROR: ${response.statusCode}");
+    }
+  }
+
   static getRandomDrink() async {
     List<AlkoObject> list;
 
