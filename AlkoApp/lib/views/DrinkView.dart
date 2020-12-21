@@ -1,4 +1,3 @@
-import 'package:AlkoApp/DB/DB.dart';
 import 'package:AlkoApp/model/AlkoObject.dart';
 import 'package:AlkoApp/model/Model.dart';
 import 'package:flutter/material.dart';
@@ -11,18 +10,11 @@ class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AlkoObject drink = ModalRoute.of(context).settings.arguments;
-
     return Scaffold(
       backgroundColor: Color(0xFFF4F4F4),
       body: Column(
-        children: [
+        children: <Widget>[
           Stack(
-
-            children: [
-              _imageContainer(drink, context),
-              _customAppBar(drink, context),
-              _titleWidget(drink),
-
             children: <Widget>[
               Container(
                 // height: 100,
@@ -69,6 +61,10 @@ class DrinkView extends StatelessWidget {
                         onPressed: () {
                               state.setFavoriteIcon(drink);
                               state.editFavorite(drink);
+                          //ta bort navigator när alla routes funkar
+                          //fixa så att man inte kan lägga till 2 av samma, if sats
+                          //ska kunna ta bort favoriter
+                          //se värde på knapp
                         },
                       ),
                     )
@@ -121,7 +117,7 @@ class DrinkView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      _ingredientsList(
+                      _ingredientsWidget(
                         measure1: drink.strMeasure1,
                         ingredient1: drink.strIngredient1,
                         measure2: drink.strMeasure2,
@@ -152,87 +148,7 @@ class DrinkView extends StatelessWidget {
   }
 }
 
-_titleWidget(AlkoObject drink) {
-  return Positioned(
-    left: 20.0,
-    bottom: 20.0,
-    child: Text(
-      drink.strDrink,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 35.0,
-        fontWeight: FontWeight.w600,
-        letterSpacing: 1.2,
-        shadows: <Shadow>[
-          Shadow(
-            offset: Offset(4.0, 3.0),
-            blurRadius: 15.0,
-            color: Color.fromARGB(255, 0, 0, 0),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-_customAppBar(AlkoObject drink, BuildContext context) {
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        IconButton(
-          icon: Icon(Icons.arrow_back),
-          iconSize: 30.0,
-          color: Colors.white,
-          onPressed: () => Navigator.pop(context),
-        ),
-        IconButton(
-          icon: Icon(Icons.favorite_border_outlined, color: Colors.white),
-          iconSize: 34,
-          onPressed: () {
-            Provider.of<Model>(context, listen: false).addFavorite(drink);
-            Navigator.pushNamed(context,
-                '/MyFavoritesView'); //ta bort navigator när alla routes funkar
-            //fixa så att man inte kan lägga till 2 av samma, if sats
-            //ska kunna ta bort favoriter
-            //se värde på knapp
-          },
-        )
-      ],
-    ),
-  );
-}
-
-_imageContainer(AlkoObject drink, BuildContext context) {
-  return Container(
-    // height: 100,
-    // width: 100,
-    height: MediaQuery.of(context).size.width,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(30.0),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey,
-          offset: Offset(0.0, 0.0),
-          blurRadius: 40.0,
-        ),
-      ],
-    ),
-    child: Hero(
-      tag: drink.strDrinkThumb,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Image(
-          image: NetworkImage(drink.strDrinkThumb),
-          fit: BoxFit.cover,
-        ),
-      ),
-    ),
-  );
-}
-
-Widget _ingredientsList({
+Widget _ingredientsWidget({
   String measure1,
   String ingredient1,
   String measure2,
@@ -260,50 +176,46 @@ Widget _ingredientsList({
 
   parameterList.removeWhere((String key, String value) => value == null);
 
-  return _ingredientWidget(parameterList);
-}
+  print(parameterList);
 
-Widget _ingredientWidget(Map<String, String> parameterList) {
-  return Container(
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(30.0),
-      color: Colors.white,
-    ),
-    child: Column(children: [
-      Container(
-        alignment: Alignment.topLeft,
-        child: Text(
-          "Ingredients",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
+  return Column(children: [
+    Container(
+      alignment: Alignment.topLeft,
+      child: Text(
+        "Ingredients",
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
         ),
       ),
-      for (var s in parameterList.keys)
-        Container(
-            alignment: Alignment.topLeft,
-            child: ListTile(
-              leading: Container(
-                  child: Image(
-                image: NetworkImage(
-                    "https://www.thecocktaildb.com/images/ingredients/${parameterList[s]}-Small.png"),
-              )),
-              visualDensity: VisualDensity(horizontal: 0, vertical: 0),
-              title: Text(
-                "${parameterList[s]}",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 0.3),
-              ),
-              subtitle: Text(
-                "$s",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-            ))
-    ]),
+    ),
+    for (var s in parameterList.keys)
+      Container(
+          alignment: Alignment.topLeft,
+          child: ListTile(
+            visualDensity: VisualDensity(horizontal: 0, vertical: 0),
+            title: Text(
+              "${parameterList[s]}",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.3),
+            ),
+            subtitle: Text(
+              "$s",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ))
+  ]);
+}
+
+Widget _customDivider() {
+  return Divider(
+    height: 25,
+    thickness: 1,
+    indent: 10,
+    endIndent: 10,
+    color: Colors.grey[600],
   );
 }
 
@@ -312,19 +224,15 @@ Widget _glassWidget(String glass) {
     child: Column(
       children: [
         Container(
-          height: 30,
-          width: 30,
-          child: Image(image: AssetImage("assets/icons/glass.png")),
-          // Text(
-          //   "Serve in",
-          //   style: TextStyle(
-          //     fontSize: 14,
-          //     color: Colors.grey[600],
-          //     fontWeight: FontWeight.w500,
-          //   ),
-          // ),
+          child: Text(
+            "Serve in",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
-        SizedBox(height: 8),
         Container(
           child: Text(
             glass,
@@ -345,19 +253,15 @@ Widget _alcoholWidget(String alcohol) {
     child: Column(
       children: [
         Container(
-            height: 30,
-            width: 30,
-            child: Image(image: AssetImage("assets/icons/cocktail.png"))
-            // Text(
-            //   "Type",
-            //   style: TextStyle(
-            //     fontSize: 14,
-            //     color: Colors.grey[600],
-            //     fontWeight: FontWeight.w500,
-            //   ),
-            // ),
+          child: Text(
+            "Type",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
             ),
-        SizedBox(height: 8),
+          ),
+        ),
         Container(
           child: Text(
             alcohol,
@@ -378,21 +282,15 @@ Widget _categoryWidget(String category) {
     child: Column(
       children: [
         Container(
-            height: 30,
-            width: 30,
-            child: Image(
-              image: AssetImage("assets/icons/category.png"),
-            )
-            // Text(
-            //   "Category",
-            //   style: TextStyle(
-            //     fontSize: 14,
-            //     color: Colors.grey[600],
-            //     fontWeight: FontWeight.w500,
-            //   ),
-            // ),
+          child: Text(
+            "Category",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
             ),
-        SizedBox(height: 8),
+          ),
+        ),
         Container(
           child: Text(
             category,
@@ -435,13 +333,27 @@ Widget _instructionWidget(String instruction) {
   );
 }
 
-Widget _customDivider() {
-  return Divider(
-    height: 25,
-    thickness: 1,
-    indent: 50,
-    endIndent: 50,
-    color: Colors.grey[600],
+Widget _titleWidget(String title) {
+  return Expanded(
+    child: Container(
+      padding: EdgeInsets.only(top: 10),
+      alignment: Alignment.topLeft,
+      child: Text(
+        title,
+        textAlign: TextAlign.left,
+        style: TextStyle(
+          fontSize: 42,
+          fontWeight: FontWeight.bold,
+          shadows: <Shadow>[
+            Shadow(
+              offset: Offset(10.0, 10.0),
+              blurRadius: 3.0,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+          ],
+        ),
+      ),
+    ),
   );
 }
 
