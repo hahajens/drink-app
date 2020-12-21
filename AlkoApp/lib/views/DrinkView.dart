@@ -52,19 +52,21 @@ class DrinkView extends StatelessWidget {
                       color: Colors.white,
                       onPressed: () => Navigator.pop(context),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.favorite_border_outlined,
-                          color: Colors.white),
-                      iconSize: 34,
-                      onPressed: () {
-                        Provider.of<Model>(context, listen: false)
-                            .addFavorite(drink);
-                        Navigator.pushNamed(context,
-                            '/MyFavoritesView'); //ta bort navigator när alla routes funkar
-                        //fixa så att man inte kan lägga till 2 av samma, if sats
-                        //ska kunna ta bort favoriter
-                        //se värde på knapp
-                      },
+                    Consumer<Model>(
+                      builder: (context, state, child) =>
+                        IconButton(
+                        icon: 
+                            state.getFavoriteIcon(drink),
+                        iconSize: 34,
+                        onPressed: () {
+                              state.setFavoriteIcon(drink);
+                              state.editFavorite(drink);
+                          //ta bort navigator när alla routes funkar
+                          //fixa så att man inte kan lägga till 2 av samma, if sats
+                          //ska kunna ta bort favoriter
+                          //se värde på knapp
+                        },
+                      ),
                     )
                   ],
                 ),
