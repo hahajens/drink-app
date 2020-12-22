@@ -35,7 +35,7 @@ class CustomNavigationBar extends StatelessWidget {
                     icon:
                         Icon(Icons.search, size: _iconSize, color: _iconColor),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/MySearchView');
+                      Navigator.pushReplacementNamed(context, '/MyFilterView');
                     }),
                 Text(" Search", style: TextStyle(fontSize: _fontSize)),
               ],

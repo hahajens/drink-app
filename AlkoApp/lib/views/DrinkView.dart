@@ -167,6 +167,7 @@ class DrinkView extends StatelessWidget {
 Future<AlkoObject> _getDrink(context, id) async {
   AlkoObject drink =
       await Provider.of<Model>(context, listen: false).getSingleObjectByID(id);
+
   return drink;
 }
 
