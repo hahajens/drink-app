@@ -27,6 +27,7 @@ class Model extends ChangeNotifier {
     syncLists();
     getPopularList();
     latestDrinks();
+    randomDrink();
   }
 
   void syncLists() async {
@@ -167,5 +168,12 @@ class Model extends ChangeNotifier {
     notifyListeners();
     print("latest drinks");
     print(_latestList[0].strDrink);
+  }
+
+   getIngredientImage(String ingredient) async {
+   
+    return await DB.getIngredientImage(ingredient);
+
+  
   }
 }

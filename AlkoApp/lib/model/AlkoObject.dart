@@ -59,6 +59,7 @@ class AlkoObject {
   bool isFavorite;
 
   String get getStrDrink => strDrink;
+  //String get drinkId => drinkId;
 
   AlkoObject(
       {this.idDrink,

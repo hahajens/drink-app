@@ -33,7 +33,7 @@ class LatestDrinksCarousel extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, '/DrinkView',
                       arguments: Provider.of<Model>(context, listen: false)
-                          .latestList[index]); //lägg till .drinkId
+                          .latestList[index].idDrink);
                 },
                 child: Container(
                   margin: EdgeInsets.all(10.0),
