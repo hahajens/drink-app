@@ -13,13 +13,19 @@ class Model extends ChangeNotifier {
   List listToFilterOn = new List();
   bool _isLoading = false;
   List<AlkoObject> _latestList = new List();
+  List _filteredList = List();
 
+  List get filteredList => _filteredList;
   List get alkoList => _alkoList;
   List get favoriteList => _favoriteList;
   List get popularList => _popularList;
   List get randomList => _randomList;
   bool get isLoading => _isLoading;
   List get latestList => _latestList;
+
+  void setFilteredList(List input) {
+    _filteredList = List.from(input);
+  }
 
   Color _filterColor;
 
@@ -31,13 +37,22 @@ class Model extends ChangeNotifier {
   }
 
   void syncLists() async {
-    print("Loading...");
+    //print("Loading...");
     _isLoading = true;
     notifyListeners();
     _alkoList = await DB.getData();
     _isLoading = false;
     notifyListeners();
-    print("DONE!");
+    //print("DONE!");
+  }
+
+  getCocktailsByString(String input, context) async {
+    List list = List();
+    _isLoading = true;
+    list = await DB.getCocktailsByString(input, context);
+    _isLoading = false;
+    _alkoList = List.from(list);
+    notifyListeners();
   }
 
   void setFilterColor(object) {
@@ -69,6 +84,7 @@ class Model extends ChangeNotifier {
       notifyListeners();
     } else {
       _alkoList = await DB.getData();
+      _isLoading = false;
       notifyListeners();
     }
   }
@@ -160,7 +176,7 @@ class Model extends ChangeNotifier {
     notifyListeners();
   }
 
-    void latestDrinks() async {
+  void latestDrinks() async {
     _isLoading = true;
     notifyListeners();
     _latestList = await DB.getLatestDrinks();

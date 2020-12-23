@@ -1,7 +1,9 @@
 import 'package:AlkoApp/views/AgeView.dart';
+import 'package:AlkoApp/views/ChooseFilterView.dart';
 import 'package:AlkoApp/views/DrinkView.dart';
 import 'package:AlkoApp/views/MyDrinksView.dart';
 import 'package:AlkoApp/views/MyFavoritesView.dart';
+import 'package:AlkoApp/views/MyFilterView.dart';
 import 'package:AlkoApp/views/MySearchView.dart';
 import 'package:AlkoApp/views/StartView.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +27,10 @@ class MyApp extends StatelessWidget {
         '/': (context) => AgeView(),
         '/StartView': (context) => StartView(),
         '/DrinkView': (context) => DrinkView(),
-        '/MySearchView': (context) => MySearchView(),
         '/MyFavoritesView': (context) => MyFavoritesView(),
-        '/MyDrinksView': (context) => MyDrinksView(),
+        '/ChooseFilterView': (context) => ChooseFilterView(),
+        '/MySearchView': (context) => MySearchView(),
+        '/MyFilterView': (context) => MyFilterView(),
       },
     );
   }
