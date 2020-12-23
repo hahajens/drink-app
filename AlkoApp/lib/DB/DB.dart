@@ -198,4 +198,18 @@ class DB {
       print("Struuuul med att hämta senaste");
     }
   }
+
+  static Future<String> getIngredientImage(String ingredient) async {
+    String queryURL =
+        "https://www.thecocktaildb.com/images/ingredients/$ingredient-Small.png";
+
+    http.Response response = await http.get(queryURL);
+
+    if (response.statusCode == 200) {
+      return queryURL;
+    } else {
+      return "https://www.thecocktaildb.com/images/ingredients/vodka-Small.png";
+      print("Knas med ingredient image");
+    }
+  }
 }

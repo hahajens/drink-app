@@ -12,15 +12,15 @@ class StartView extends StatelessWidget {
       builder: (context, state, child) => Scaffold(
         body: ListView(
           children: [
+            PopularDrinkCarousel(),
             Container(
-              height: 100,
+              height: 80,
               width: 500,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+                padding: EdgeInsets.fromLTRB(80, 0, 80, 20),
                 child: _supriseButton(context, state),
               ),
             ),
-            PopularDrinkCarousel(),
             LatestDrinksCarousel(),
           ],
         ),
@@ -30,13 +30,13 @@ class StartView extends StatelessWidget {
   }
 
   Widget _supriseButton(BuildContext context, state) {
-    return RaisedButton(
-        color: Colors.pinkAccent,
-        onPressed: () {
-          state.randomDrink();
-          Navigator.pushNamed(context, '/DrinkView',
-              arguments: state.randomList[0]); // lägg till .drinkId
-        },
-        child: Text("Suprise Me!"));
+    return ElevatedButton(
+      onPressed: () {
+        state.randomDrink();
+        Navigator.pushNamed(context, '/DrinkView',
+            arguments: state.randomList[0].idDrink);
+      },
+      child: Text("Surprise Me!", style: TextStyle(fontSize: 22.0)),
+    );
   }
 }
