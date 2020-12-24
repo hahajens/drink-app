@@ -23,16 +23,22 @@ class Model extends ChangeNotifier {
   bool get isLoading => _isLoading;
   List get latestList => _latestList;
 
-  void setFilteredList(List input) {
-    _filteredList = List.from(input);
-  }
-
   Color _filterColor;
 
   Model() {
     syncLists();
     getPopularList();
     latestDrinks();
+    getFavoriteListData();
+  }
+
+  void setFilteredList(List input) {
+    _filteredList = List.from(input);
+  }
+
+  getFavoriteListData() async {
+    _favoriteList = await DB.getFavoriteListData();
+    notifyListeners();
   }
 
   void syncLists() async {
@@ -126,6 +132,7 @@ class Model extends ChangeNotifier {
     } else {
       drink.isFavorite = true;
       favoriteList.add(drink);
+      DB.addToFavoriteListData(drink);
       myFlutterToast('Added to favorites');
     }
     notifyListeners();
@@ -134,6 +141,7 @@ class Model extends ChangeNotifier {
   void removeFavorite(AlkoObject drink) {
     drink.isFavorite = false;
     favoriteList.remove(drink);
+    DB.removeFromFavoriteListData(drink.idDrink);
     notifyListeners();
   }
 
