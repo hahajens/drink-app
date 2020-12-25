@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class IngredientObject {
   String strIngredient1;
   bool checked;

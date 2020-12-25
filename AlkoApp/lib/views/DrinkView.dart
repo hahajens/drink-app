@@ -11,7 +11,6 @@ class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String id = ModalRoute.of(context).settings.arguments;
-
 //Objektet heter nu drink.data
     return FutureBuilder<AlkoObject>(
       future: _getDrink(context, id),
@@ -131,6 +130,7 @@ class DrinkView extends StatelessWidget {
                                 ),
                               ),
                               _ingredientsWidget(
+                                context,
                                 measure1: drink.data.strMeasure1,
                                 ingredient1: drink.data.strIngredient1,
                                 measure2: drink.data.strMeasure2,
@@ -145,6 +145,10 @@ class DrinkView extends StatelessWidget {
                                 ingredient6: drink.data.strIngredient6,
                                 measure7: drink.data.strMeasure7,
                                 ingredient7: drink.data.strIngredient7,
+                                measure8: drink.data.strMeasure8,
+                                ingredient8: drink.data.strIngredient8,
+                                measure9: drink.data.strMeasure9,
+                                ingredient9: drink.data.strIngredient9,
                               ),
                               _customDivider(),
                               _instructionWidget(drink.data.strInstructions),
@@ -168,10 +172,14 @@ Future<AlkoObject> _getDrink(context, id) async {
   AlkoObject drink =
       await Provider.of<Model>(context, listen: false).getSingleObjectByID(id);
 
+  //print(drink.strIngredient1 + drink.strIngredient2 + drink.strIngredient3 + drink.strIngredient4 + drink.strIngredient5 + drink.strIngredient6);
+  print("id");
+
   return drink;
 }
 
-Widget _ingredientsWidget({
+Widget _ingredientsWidget(
+  context, {
   String measure1,
   String ingredient1,
   String measure2,
@@ -186,19 +194,25 @@ Widget _ingredientsWidget({
   String ingredient6,
   String measure7,
   String ingredient7,
+  String measure8,
+  String ingredient8,
+  String measure9,
+  String ingredient9,
 }) {
   Map<String, String> parameterList = {
-    measure1: ingredient1,
-    measure2: ingredient2,
-    measure3: ingredient3,
-    measure4: ingredient4,
-    measure5: ingredient5,
-    measure6: ingredient6,
-    measure7: ingredient7,
+    ingredient1: measure1,
+    ingredient2: measure2,
+    ingredient3: measure3,
+    ingredient4: measure4,
+    ingredient5: measure5,
+    ingredient6: measure6,
+    ingredient7: measure7,
+    ingredient8: measure8,
+    ingredient9: measure9,
   };
 
-  parameterList.removeWhere((String key, String value) => value == null);
-
+  parameterList.removeWhere((String value, String key) => value == null);
+  parameterList.removeWhere((String value, String key) => value == "");
   print(parameterList);
 
   return Column(children: [
@@ -212,20 +226,23 @@ Widget _ingredientsWidget({
         ),
       ),
     ),
-    for (var s in parameterList.keys)
+    for (var k in parameterList.keys)
       Container(
           alignment: Alignment.topLeft,
           child: ListTile(
+            leading: Image(
+                image: NetworkImage(
+                    "https://www.thecocktaildb.com/images/ingredients/${k}-Small.png")), //Provider.of<Model>(context, listen: false).getIngredientImage(parameterList[s]))),
             visualDensity: VisualDensity(horizontal: 0, vertical: 0),
             title: Text(
-              "${parameterList[s]}",
+              "$k",
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.3),
             ),
             subtitle: Text(
-              "$s",
+              "${parameterList[k]}",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ))
