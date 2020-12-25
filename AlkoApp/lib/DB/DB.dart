@@ -212,7 +212,6 @@ class DB {
           .toList();
 
       return list;
-      //print("APAPPAPAPAPPA: ${list[0].idDrink}");
     } else {
       print("ERROR Fel i getFavoriteListData() ERROR: ${response.statusCode}");
     }
