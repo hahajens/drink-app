@@ -290,24 +290,26 @@ class MyFilterView extends StatelessWidget {
   }
 
   Widget _myCustomListView(list) {
-    return Expanded(
-      child: Consumer<Model>(
-          builder: (context, state, child) => (state.isLoading == true)
-              ? Spinner()
-              : GridView.count(
-                  crossAxisCount: 2,
-                  children: List.generate(list.length, (index) {
-                    return Container(
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/DrinkView',
-                                arguments: list[index].idDrink);
-                          },
-                          child: _myCustomListTile(list, index)),
-                    );
-                  }),
-                )),
-    );
+    return (list.length == 0)
+        ? Center(child: Text("No results:(", style: TextStyle(fontSize: 20)))
+        : Expanded(
+            child: Consumer<Model>(
+                builder: (context, state, child) => (state.isLoading == true)
+                    ? Spinner()
+                    : GridView.count(
+                        crossAxisCount: 2,
+                        children: List.generate(list.length, (index) {
+                          return Container(
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/DrinkView',
+                                      arguments: list[index].idDrink);
+                                },
+                                child: _myCustomListTile(list, index)),
+                          );
+                        }),
+                      )),
+          );
   }
 
   Widget _myCustomListTile(list, index) {
