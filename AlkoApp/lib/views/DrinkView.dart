@@ -35,7 +35,9 @@ class DrinkView extends StatelessWidget {
 
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(30.0),
+                              bottomRight: Radius.circular(30.0)),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black26,
@@ -47,7 +49,9 @@ class DrinkView extends StatelessWidget {
                         child: Hero(
                           tag: drink.data.strDrinkThumb,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(30.0),
+                                bottomRight: Radius.circular(30.0)),
                             child: Image(
                               image: NetworkImage(drink.data.strDrinkThumb),
                               fit: BoxFit.cover,
