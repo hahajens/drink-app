@@ -6,41 +6,63 @@ import 'package:provider/provider.dart';
 class MyFavoritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'My Favorites',
-          textAlign: TextAlign.center,
-        ),
-        backgroundColor: Colors.black,
+    return Consumer<Model>(
+      builder: (context, state, child) => Scaffold(
+        body: _myFavorites(state.favoriteList),
+        bottomNavigationBar: CustomNavigationBar(),
       ),
-      body: MyFavorites(),
-      bottomNavigationBar: CustomNavigationBar(),
     );
   }
-}
 
-class MyFavorites extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget _myFavorites(favoriteList) {
     return Consumer<Model>(
-        builder: (context, state, child) => ListView.builder(
-            itemCount: state.favoriteList.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundImage:
-                      NetworkImage(state.favoriteList[index].strDrinkThumb),
-                ),
-                title: Text("${state.favoriteList[index].strDrink}"),
-                trailing: IconButton(
-                  icon: Icon(Icons.favorite, color: Colors.black),
-                  onPressed: () {
-                    state.removeFavorite(state.favoriteList[index]);
-                    state.myFlutterToast('Removed drink from favorites');
-                  },
-                ),
-              );
-            }));
+        builder: (context, state, child) => Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: GridView.count(
+                crossAxisCount: 2,
+                children: List.generate(
+                    favoriteList.length,
+                    (index) => Stack(children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Image(
+                          image: NetworkImage(
+                              Provider.of<Model>(context, listen: false)
+                                  .favoriteList[index]
+                                  .strDrinkThumb),
+                        ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete, color: Colors.white, size: 30.0),
+                        onPressed: () {
+                          state.removeFavorite(state.favoriteList[index]);
+                        },
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                        "${favoriteList[index].strDrink}",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 35.0,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1.2,
+                          shadows: <Shadow>[
+                         Shadow(
+                           offset: Offset(4.0, 3.0),
+                           blurRadius: 15.0,
+                           color: Color.fromARGB(255, 0, 0, 0),
+                         ),
+                          ],
+                        ),
+                      ),
+                      )
+
+                    ])),
+              ),
+            ));
   }
 }
