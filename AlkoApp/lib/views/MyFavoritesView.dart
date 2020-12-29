@@ -44,10 +44,3 @@ class MyFavorites extends StatelessWidget {
             }));
   }
 }
-
-// List<Model> _favoriteList(favoriteList, setFavorite) {
-//   if (setFavorite == Icon(Icons.favorite)) return favoriteList;
-//   if (setFavorite == Icon(Icons.favorite_border_outlined))
-//     return (favoriteList.where(
-//         (drink) => drink.isFavorite == Icon(Icons.favorite_border_outlined)));
-// }

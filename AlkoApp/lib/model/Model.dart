@@ -117,7 +117,7 @@ class Model extends ChangeNotifier {
   myFlutterToast(input) {
     return Fluttertoast.showToast(
       msg: input,
-      toastLength: Toast.LENGTH_SHORT,
+      toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: Colors.grey.shade300,
       textColor: Colors.black,
@@ -142,7 +142,8 @@ class Model extends ChangeNotifier {
   void removeFavorite(AlkoObject drink) {
     drink.isFavorite = false;
     favoriteList.remove(drink);
-    DB.removeFromFavoriteListData(drink.idDrink);
+    int idDrink = int.parse(drink.idDrink.toString());
+    DB.removeFromFavoriteListData(idDrink);
     notifyListeners();
   }
 
