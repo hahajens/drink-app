@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:AlkoApp/model/Model.dart';
 import 'package:flutter/material.dart';
 
 class AgeView extends StatelessWidget {

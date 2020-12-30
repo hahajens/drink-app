@@ -1,7 +1,6 @@
 import 'package:AlkoApp/views/AgeView.dart';
 import 'package:AlkoApp/views/ChooseFilterView.dart';
 import 'package:AlkoApp/views/DrinkView.dart';
-import 'package:AlkoApp/views/MyDrinksView.dart';
 import 'package:AlkoApp/views/MyFavoritesView.dart';
 import 'package:AlkoApp/views/MyFilterView.dart';
 import 'package:AlkoApp/views/MySearchView.dart';

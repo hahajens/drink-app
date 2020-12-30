@@ -242,7 +242,7 @@ Widget _ingredientsWidget(
           child: ListTile(
             leading: Image(
                 image: NetworkImage(
-                    "https://www.thecocktaildb.com/images/ingredients/${k}-Small.png")), //Provider.of<Model>(context, listen: false).getIngredientImage(parameterList[s]))),
+                    "https://www.thecocktaildb.com/images/ingredients/$k-Small.png")), //Provider.of<Model>(context, listen: false).getIngredientImage(parameterList[s]))),
             visualDensity: VisualDensity(horizontal: 0, vertical: 0),
             title: Text(
               "$k",
