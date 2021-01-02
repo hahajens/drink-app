@@ -51,6 +51,7 @@ class CreateDrinkContainer extends StatelessWidget {
                         "${parameterList.keys}",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
+                        style: TextStyle(color: Colors.grey),
                       )
                       // for (var k in parameterList.keys)
                       //   Text(
