@@ -142,7 +142,9 @@ class Model extends ChangeNotifier {
   void removeFavorite(AlkoObject drink) {
     drink.isFavorite = false;
     favoriteList.remove(drink);
-    DB.removeFromFavoriteListData(drink.idDrink);
+    var myInt = int.parse(drink.idDrink);
+
+    DB.removeFromFavoriteListData(myInt);
     notifyListeners();
   }
 

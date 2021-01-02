@@ -26,7 +26,7 @@ class MyFavoritesView extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(20.0),
                           child: Image(
                           image: NetworkImage(
                               Provider.of<Model>(context, listen: false)
@@ -35,11 +35,15 @@ class MyFavoritesView extends StatelessWidget {
                         ),
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.delete, color: Colors.white, size: 30.0),
-                        onPressed: () {
-                          state.removeFavorite(state.favoriteList[index]);
-                        },
+                      Positioned(
+                        top: 10,
+                        right: 10,
+                          child: IconButton(
+                          icon: Icon(Icons.delete, color: Colors.white, size: 30.0),
+                          onPressed: () {
+                            state.removeFavorite(state.favoriteList[index]);
+                          },
+                        ),
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
