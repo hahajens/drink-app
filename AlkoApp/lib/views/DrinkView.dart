@@ -30,10 +30,8 @@ class DrinkView extends StatelessWidget {
                   Stack(
                     children: <Widget>[
                       Container(
-                        // height: 100,
-                        // width: 100,
-
                         width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.5,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(30.0),
