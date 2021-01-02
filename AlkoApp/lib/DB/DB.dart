@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:AlkoApp/model/IngredientObject.dart';
 import 'package:AlkoApp/model/Model.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:AlkoApp/model/AlkoObject.dart';
@@ -209,7 +208,6 @@ class DB {
       return queryURL;
     } else {
       return "https://www.thecocktaildb.com/images/ingredients/vodka-Small.png";
-      print("Knas med ingredient image");
     }
   }
 
@@ -232,8 +230,6 @@ class DB {
   }
 
   static removeFromFavoriteListData(int idDrink) async {
-    List<AlkoObject> list;
-
     String queryURL =
         'https://secret-springs-79454.herokuapp.com/removeObject?idDrink=$idDrink';
 
