@@ -117,7 +117,7 @@ class Model extends ChangeNotifier {
   myFlutterToast(input) {
     return Fluttertoast.showToast(
       msg: input,
-      toastLength: Toast.LENGTH_SHORT,
+      toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: Colors.grey.shade300,
       textColor: Colors.black,
@@ -142,9 +142,7 @@ class Model extends ChangeNotifier {
   void removeFavorite(AlkoObject drink) {
     drink.isFavorite = false;
     favoriteList.remove(drink);
-    var myInt = int.parse(drink.idDrink);
-
-    DB.removeFromFavoriteListData(myInt);
+    DB.removeFromFavoriteListData(idDrink);
     notifyListeners();
   }
 
@@ -198,5 +196,24 @@ class Model extends ChangeNotifier {
 
   getIngredientImage(String ingredient) async {
     return await DB.getIngredientImage(ingredient);
+
+  }
+
+  Map getIngredientList(AlkoObject drink) {
+    Map<String, String> parameterList = {
+      drink.strIngredient1: drink.strMeasure1,
+      drink.strIngredient2: drink.strMeasure2,
+      drink.strIngredient3: drink.strMeasure3,
+      drink.strIngredient4: drink.strMeasure4,
+      drink.strIngredient5: drink.strMeasure5,
+      drink.strIngredient6: drink.strMeasure6,
+      drink.strIngredient7: drink.strMeasure7,
+      drink.strIngredient8: drink.strMeasure8,
+      drink.strIngredient9: drink.strMeasure9,
+    };
+    parameterList.removeWhere((String value, String key) => value == null);
+    parameterList.removeWhere((String value, String key) => value == "");
+
+    return parameterList;
   }
 }

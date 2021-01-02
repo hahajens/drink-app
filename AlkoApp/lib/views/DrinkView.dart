@@ -30,11 +30,12 @@ class DrinkView extends StatelessWidget {
                   Stack(
                     children: <Widget>[
                       Container(
-                        // height: 100,
-                        // width: 100,
-                        height: MediaQuery.of(context).size.width,
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.5,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(30.0),
+                              bottomRight: Radius.circular(30.0)),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black26,
@@ -46,7 +47,9 @@ class DrinkView extends StatelessWidget {
                         child: Hero(
                           tag: drink.data.strDrinkThumb,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(30.0),
+                                bottomRight: Radius.circular(30.0)),
                             child: Image(
                               image: NetworkImage(drink.data.strDrinkThumb),
                               fit: BoxFit.cover,
@@ -130,6 +133,7 @@ class DrinkView extends StatelessWidget {
                                 ),
                               ),
                               _ingredientsWidget(
+                                drink.data,
                                 context,
                                 measure1: drink.data.strMeasure1,
                                 ingredient1: drink.data.strIngredient1,
@@ -174,11 +178,13 @@ Future<AlkoObject> _getDrink(context, id) async {
 
   //print(drink.strIngredient1 + drink.strIngredient2 + drink.strIngredient3 + drink.strIngredient4 + drink.strIngredient5 + drink.strIngredient6);
   print("id");
+  print(drink);
 
   return drink;
 }
 
 Widget _ingredientsWidget(
+  AlkoObject drink,
   context, {
   String measure1,
   String ingredient1,
@@ -199,21 +205,23 @@ Widget _ingredientsWidget(
   String measure9,
   String ingredient9,
 }) {
-  Map<String, String> parameterList = {
-    ingredient1: measure1,
-    ingredient2: measure2,
-    ingredient3: measure3,
-    ingredient4: measure4,
-    ingredient5: measure5,
-    ingredient6: measure6,
-    ingredient7: measure7,
-    ingredient8: measure8,
-    ingredient9: measure9,
-  };
+  // Map<String, String> parameterList = {
+  //   ingredient1: measure1,
+  //   ingredient2: measure2,
+  //   ingredient3: measure3,
+  //   ingredient4: measure4,
+  //   ingredient5: measure5,
+  //   ingredient6: measure6,
+  //   ingredient7: measure7,
+  //   ingredient8: measure8,
+  //   ingredient9: measure9,
+  // };
 
-  parameterList.removeWhere((String value, String key) => value == null);
-  parameterList.removeWhere((String value, String key) => value == "");
-  print(parameterList);
+  // parameterList.removeWhere((String value, String key) => value == null);
+  // parameterList.removeWhere((String value, String key) => value == "");
+  // print(parameterList);
+  Map<String, String> parameterList =
+      Provider.of<Model>(context, listen: false).getIngredientList(drink);
 
   return Column(children: [
     Container(
@@ -232,7 +240,7 @@ Widget _ingredientsWidget(
           child: ListTile(
             leading: Image(
                 image: NetworkImage(
-                    "https://www.thecocktaildb.com/images/ingredients/${k}-Small.png")), //Provider.of<Model>(context, listen: false).getIngredientImage(parameterList[s]))),
+                    "https://www.thecocktaildb.com/images/ingredients/$k-Small.png")), //Provider.of<Model>(context, listen: false).getIngredientImage(parameterList[s]))),
             visualDensity: VisualDensity(horizontal: 0, vertical: 0),
             title: Text(
               "$k",
