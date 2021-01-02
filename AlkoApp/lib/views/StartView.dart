@@ -13,30 +13,32 @@ class StartView extends StatelessWidget {
         body: ListView(
           children: [
             PopularDrinkCarousel(),
-            Container(
-              height: 80,
-              width: 500,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(80, 0, 80, 20),
-                child: _supriseButton(context, state),
-              ),
-            ),
+            // Container(
+            //   height: 80,
+            //   width: 500,
+            //   child: Padding(
+            //     padding: EdgeInsets.fromLTRB(80, 0, 80, 20),
+            //     child: _supriseButton(context, state),
+            //   ),
+            // ),
             LatestDrinksCarousel(),
           ],
         ),
         bottomNavigationBar: CustomNavigationBar(),
+        floatingActionButton: _surpriseButton(context, state),
       ),
     );
   }
 
-  Widget _supriseButton(BuildContext context, state) {
-    return ElevatedButton(
+  Widget _surpriseButton(BuildContext context, state) {
+    return FloatingActionButton.extended(
       onPressed: () {
         state.randomDrink();
         Navigator.pushNamed(context, '/DrinkView',
             arguments: state.randomList[0].idDrink);
       },
-      child: Text("Surprise Me!", style: TextStyle(fontSize: 22.0)),
+      label: Text("Surprise Me!", style: TextStyle(fontSize: 22.0)),
+      icon: Icon(Icons.local_drink_outlined),
     );
   }
 }

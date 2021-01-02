@@ -48,7 +48,7 @@ class CreateDrinkContainer extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "${parameterList.keys}",
+                        "${parameterList.keys.join(', ')}",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: TextStyle(color: Colors.grey),
