@@ -30,12 +30,12 @@ class DrinkView extends StatelessWidget {
                   Stack(
                     children: <Widget>[
                       Container(
-                        // height: 100,
-                        // width: 100,
-
                         width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.5,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(30.0),
+                              bottomRight: Radius.circular(30.0)),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black26,
@@ -47,7 +47,9 @@ class DrinkView extends StatelessWidget {
                         child: Hero(
                           tag: drink.data.strDrinkThumb,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(30.0),
+                                bottomRight: Radius.circular(30.0)),
                             child: Image(
                               image: NetworkImage(drink.data.strDrinkThumb),
                               fit: BoxFit.cover,
@@ -238,7 +240,7 @@ Widget _ingredientsWidget(
           child: ListTile(
             leading: Image(
                 image: NetworkImage(
-                    "https://www.thecocktaildb.com/images/ingredients/${k}-Small.png")), //Provider.of<Model>(context, listen: false).getIngredientImage(parameterList[s]))),
+                    "https://www.thecocktaildb.com/images/ingredients/$k-Small.png")), //Provider.of<Model>(context, listen: false).getIngredientImage(parameterList[s]))),
             visualDensity: VisualDensity(horizontal: 0, vertical: 0),
             title: Text(
               "$k",
