@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 class AgeView extends StatelessWidget {
@@ -37,7 +38,9 @@ class AgeView extends StatelessWidget {
                 child: RaisedButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {},
+                  onPressed: () {
+                    exit(0);
+                  },
                   textColor: Colors.black,
                   child: Text('Jag är under 20år'),
                   color: Colors.white,

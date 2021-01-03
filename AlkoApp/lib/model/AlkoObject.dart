@@ -177,8 +177,6 @@ class AlkoObject {
     dateModified = json['dateModified'];
   }
 
-  
-
   Map<dynamic, dynamic> toJson() {
     final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
     data['idDrink'] = this.idDrink;

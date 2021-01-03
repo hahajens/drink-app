@@ -13,7 +13,9 @@ class Model extends ChangeNotifier {
   List listToFilterOn = new List();
   bool _isLoading = false;
   List<AlkoObject> _latestList = new List();
+  List _filteredList = List();
 
+  List get filteredList => _filteredList;
   List get alkoList => _alkoList;
   List get favoriteList => _favoriteList;
   List get popularList => _popularList;
@@ -27,17 +29,36 @@ class Model extends ChangeNotifier {
     syncLists();
     getPopularList();
     latestDrinks();
+    getFavoriteListData();
+  }
+
+  void setFilteredList(List input) {
+    _filteredList = List.from(input);
+  }
+
+  getFavoriteListData() async {
+    _favoriteList = await DB.getFavoriteListData();
+    notifyListeners();
     randomDrink();
   }
 
   void syncLists() async {
-    print("Loading...");
+    //print("Loading...");
     _isLoading = true;
     notifyListeners();
     _alkoList = await DB.getData();
     _isLoading = false;
     notifyListeners();
-    print("DONE!");
+    //print("DONE!");
+  }
+
+  getCocktailsByString(String input, context) async {
+    List list = List();
+    _isLoading = true;
+    list = await DB.getCocktailsByString(input, context);
+    _isLoading = false;
+    _alkoList = List.from(list);
+    notifyListeners();
   }
 
   void setFilterColor(object) {
@@ -69,6 +90,7 @@ class Model extends ChangeNotifier {
       notifyListeners();
     } else {
       _alkoList = await DB.getData();
+      _isLoading = false;
       notifyListeners();
     }
   }
@@ -95,7 +117,7 @@ class Model extends ChangeNotifier {
   myFlutterToast(input) {
     return Fluttertoast.showToast(
       msg: input,
-      toastLength: Toast.LENGTH_SHORT,
+      toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: Colors.grey.shade300,
       textColor: Colors.black,
@@ -111,6 +133,7 @@ class Model extends ChangeNotifier {
     } else {
       drink.isFavorite = true;
       favoriteList.add(drink);
+      DB.addToFavoriteListData(drink);
       myFlutterToast('Added to favorites');
     }
     notifyListeners();
@@ -119,6 +142,8 @@ class Model extends ChangeNotifier {
   void removeFavorite(AlkoObject drink) {
     drink.isFavorite = false;
     favoriteList.remove(drink);
+    var myInt = int.parse(drink.idDrink);
+    DB.removeFromFavoriteListData(myInt);
     notifyListeners();
   }
 
@@ -160,7 +185,7 @@ class Model extends ChangeNotifier {
     notifyListeners();
   }
 
-    void latestDrinks() async {
+  void latestDrinks() async {
     _isLoading = true;
     notifyListeners();
     _latestList = await DB.getLatestDrinks();
@@ -170,10 +195,26 @@ class Model extends ChangeNotifier {
     print(_latestList[0].strDrink);
   }
 
-   getIngredientImage(String ingredient) async {
-   
+  getIngredientImage(String ingredient) async {
     return await DB.getIngredientImage(ingredient);
 
-  
+  }
+
+  Map getIngredientList(AlkoObject drink) {
+    Map<String, String> parameterList = {
+      drink.strIngredient1: drink.strMeasure1,
+      drink.strIngredient2: drink.strMeasure2,
+      drink.strIngredient3: drink.strMeasure3,
+      drink.strIngredient4: drink.strMeasure4,
+      drink.strIngredient5: drink.strMeasure5,
+      drink.strIngredient6: drink.strMeasure6,
+      drink.strIngredient7: drink.strMeasure7,
+      drink.strIngredient8: drink.strMeasure8,
+      drink.strIngredient9: drink.strMeasure9,
+    };
+    parameterList.removeWhere((String value, String key) => value == null);
+    parameterList.removeWhere((String value, String key) => value == "");
+
+    return parameterList;
   }
 }
