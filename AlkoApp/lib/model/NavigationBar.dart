@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomNavigationBar extends StatelessWidget {
-  final Color _mainColor = Colors.blue;
+  final Color _mainColor = Colors.white;//Color(0xFFE5E5E5); //Colors.blueGrey;
   final Color _iconColor = Colors.black;
   final double _iconSize = 40;
   final double _fontSize = 18;
@@ -21,12 +21,23 @@ class CustomNavigationBar extends StatelessWidget {
             Column(
               children: [
                 IconButton(
-                    icon: Icon(Icons.home_outlined,
+                    icon: Icon(Icons.lightbulb_outline, //home_outlined,
                         size: _iconSize, color: _iconColor),
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, '/StartView');
                     }),
-                Text(" Home", style: TextStyle(fontSize: _fontSize)),
+                Text(" Inspiration", style: TextStyle(fontSize: _fontSize)),
+              ],
+            ),
+            Column(
+              children: [
+                IconButton(
+                    icon: Icon(Icons.explore_outlined,
+                        size: _iconSize, color: _iconColor),
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/MySearchView');
+                    }),
+                Text(" Explore", style: TextStyle(fontSize: _fontSize)),
               ],
             ),
             Column(
@@ -35,7 +46,7 @@ class CustomNavigationBar extends StatelessWidget {
                     icon:
                         Icon(Icons.search, size: _iconSize, color: _iconColor),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/MySearchView');
+                      Navigator.pushReplacementNamed(context, '/MyDrinksView');
                     }),
                 Text(" Search", style: TextStyle(fontSize: _fontSize)),
               ],
@@ -50,17 +61,6 @@ class CustomNavigationBar extends StatelessWidget {
                           context, '/MyFavoritesView');
                     }),
                 Text(" Favorites", style: TextStyle(fontSize: _fontSize)),
-              ],
-            ),
-            Column(
-              children: [
-                IconButton(
-                    icon: Icon(Icons.no_drinks_outlined,
-                        size: _iconSize, color: _iconColor),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/MyDrinksView');
-                    }),
-                Text(" My Drinks", style: TextStyle(fontSize: _fontSize)),
               ],
             ),
           ]),
