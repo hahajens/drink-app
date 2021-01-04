@@ -175,8 +175,8 @@ Future<AlkoObject> _getDrink(context, id) async {
       await Provider.of<Model>(context, listen: false).getSingleObjectByID(id);
 
   //print(drink.strIngredient1 + drink.strIngredient2 + drink.strIngredient3 + drink.strIngredient4 + drink.strIngredient5 + drink.strIngredient6);
-  print("id");
-  print(drink);
+  //print("id");
+  //print(drink);
 
   return drink;
 }
