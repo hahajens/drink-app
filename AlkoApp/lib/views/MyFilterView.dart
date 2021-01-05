@@ -51,7 +51,7 @@ class MyFilterView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
         child: Text(
-          "Valda ingredienser: ${state.listToFilterOn.join(" ,").toString()}",
+          "Chosen ingredients: ${state.listToFilterOn.join(", ").toString()}",
           style: TextStyle(fontSize: 15),
         ),
       ),
@@ -104,16 +104,18 @@ class MyFilterView extends StatelessWidget {
 
     //TextEditingController editingController = TextEditingController();
 
-    Widget filterButton = FlatButton(
-      child: Text("Filtrera"),
+    Widget filterButton = RaisedButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
+      child: Text("Apply filter"),
       onPressed: () {
         Navigator.pop(context);
         state.setListByIngredient(state.listToFilterOn, context);
       },
     );
 
-    Widget cancelButton = FlatButton(
-      child: Text("Rensa filter"),
+    Widget cancelButton = RaisedButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
+      child: Text("Clear filter", style: TextStyle(fontSize: 16)),
       onPressed: () {
         Navigator.pop(context);
         state.listToFilterOn.clear();
@@ -126,7 +128,16 @@ class MyFilterView extends StatelessWidget {
       builder: (BuildContext context) {
         return Consumer<Model>(
           builder: (context, state, child) => AlertDialog(
-            title: Text("Filtermeny"),
+            backgroundColor: Colors.blueGrey[100],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            //elevation: 20,
+            title: Center(
+                child: Text(
+              "Filter ingredients",
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+            )),
             content: Column(
               children: [
                 Expanded(
@@ -139,6 +150,9 @@ class MyFilterView extends StatelessWidget {
                         children:
                             List.generate(listOfIngredients.length, (index) {
                           return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
                             child: GestureDetector(
                               onTap: () {
                                 state.setFilterColor(listOfIngredients[index]);
@@ -188,14 +202,21 @@ class MyFilterView extends StatelessWidget {
                 Divider(
                   color: Colors.black,
                 ),
-                Text("Filtrerad på: ${state.listToFilterOn.join(" ,")}"),
+                Text(
+                  "Filters: ${state.listToFilterOn.join(", ")}",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 //_filterMenuSearchBar(editingController),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    cancelButton,
+                    SizedBox(width: 10),
+                    filterButton,
+                  ],
+                ),
               ],
             ),
-            actions: [
-              cancelButton,
-              filterButton,
-            ],
           ),
         );
       },

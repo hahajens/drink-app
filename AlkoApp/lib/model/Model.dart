@@ -73,10 +73,10 @@ class Model extends ChangeNotifier {
 
   Color getFilterColor(object) {
     if (object.getCheck == false) {
-      _filterColor = Colors.grey[300];
+      _filterColor = Colors.white;
       return _filterColor;
     } else {
-      _filterColor = Colors.grey[600];
+      _filterColor = Colors.grey[400];
       return _filterColor;
     }
   }
