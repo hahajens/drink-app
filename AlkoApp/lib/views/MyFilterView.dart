@@ -47,7 +47,7 @@ class MyFilterView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
         child: Text(
-          "Valda ingredienser: ${state.listToFilterOn.toString()}",
+          "Valda ingredienser: ${state.listToFilterOn.join(" ,").toString()}",
           style: TextStyle(fontSize: 15),
         ),
       ),
@@ -207,7 +207,7 @@ class MyFilterView extends StatelessWidget {
                 Divider(
                   color: Colors.black,
                 ),
-                Text("Filtrerad på: ${state.listToFilterOn}"),
+                Text("Filtrerad på: ${state.listToFilterOn.join(" ,")}"),
                 //_filterMenuSearchBar(editingController),
               ],
             ),
@@ -220,35 +220,6 @@ class MyFilterView extends StatelessWidget {
       },
     );
   }
-
-  // Widget _filterMenuSearchBar(editingController) {
-  //   return TextField(
-  //     controller: editingController,
-  //     decoration: InputDecoration(
-  //       hintText: "Search",
-  //       prefixIcon: Icon(Icons.search),
-  //       suffixIcon: IconButton(
-  //         onPressed: () => editingController.clear(),
-  //         icon: Icon(Icons.clear),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // _filterMenuFilter(list, editingController) {
-  //   if (editingController.text != null && editingController.text != "") {
-  //     List filterMenuList = list
-  //         .where((s) => s.strIngredient1
-  //             .toString()
-  //             .toLowerCase()
-  //             .contains(editingController.text.toLowerCase()))
-  //         .toList();
-  //     print(filterMenuList);
-  //     return filterMenuList;
-  //   } else {
-  //     return list;
-  //   }
-  // }
 
   Widget _searchBar(BuildContext context, state, editingController) {
     return Expanded(
@@ -318,7 +289,7 @@ class MyFilterView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(25),
+            borderRadius: BorderRadius.circular(20),
             child: FadeInImage.assetNetwork(
               placeholder: "assets/images/spinningwheel.gif",
               image: (list[index].strDrinkThumb == null)
@@ -334,7 +305,7 @@ class MyFilterView extends StatelessWidget {
             child: Container(
               width: 180,
               decoration: BoxDecoration(
-                color: const Color(0xFF607D8B).withOpacity(0.7),
+                // color: const Color(0xFF607D8B).withOpacity(0.7),
                 borderRadius: BorderRadius.circular(25),
               ),
               height: 35,
