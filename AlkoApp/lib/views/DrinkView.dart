@@ -36,20 +36,45 @@ class DrinkView extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.arrow_back),
-                              iconSize: 30.0,
-                              color: Colors.white,
-                              onPressed: () => Navigator.pop(context),
+                            Container(
+                                                        decoration: BoxDecoration(
+   
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black26,
+          offset: Offset(0.0, 2.0),
+          blurRadius: 30.0,
+        ),
+      ],
+    ),
+                              child: IconButton(
+                                icon: Icon(Icons.arrow_back),
+                                iconSize: 30.0,
+                                color: Colors.white,
+                                onPressed: () => Navigator.pop(context),
+                              ),
                             ),
                             Consumer<Model>(
-                              builder: (context, state, child) => IconButton(
-                                icon: state.getFavoriteIcon(drink.data),
-                                iconSize: 34,
-                                onPressed: () {
-                                  state.setFavoriteIcon(drink.data);
-                                  state.editFavorite(drink.data);
-                                },
+                              builder: (context, state, child) => Container(
+                                decoration: BoxDecoration(
+   
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black26,
+          offset: Offset(0.0, 2.0),
+          blurRadius: 30.0,
+        ),
+      ],
+    ),
+
+                                                              child: IconButton(
+                                  icon: state.getFavoriteIcon(drink.data),
+                                  iconSize: 34,
+                                  onPressed: () {
+                                    state.setFavoriteIcon(drink.data);
+                                    state.editFavorite(drink.data);
+                                  },
+                                ),
                               ),
                             )
                           ],

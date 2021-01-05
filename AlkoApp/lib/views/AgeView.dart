@@ -1,5 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:AlkoApp/model/Model.dart';
+import 'package:provider/provider.dart';
 
 class AgeView extends StatelessWidget {
   @override
@@ -39,7 +40,8 @@ class AgeView extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   onPressed: () {
-                    exit(0);
+                    Provider.of<Model>(context, listen: false)
+                        .myFlutterToast('Sorry, to young...');
                   },
                   textColor: Colors.black,
                   child: Text('Jag är under 20år'),
