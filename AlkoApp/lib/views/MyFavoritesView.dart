@@ -35,13 +35,20 @@ class MyFavoritesView extends StatelessWidget {
 
   Widget _deleteButton(state, index) {
     return Positioned(
-      left: 15,
+      right: 15,
       top: 10,
-      child: IconButton(
-        icon: Icon(Icons.delete, color: Colors.blueGrey, size: 30.0),
-        onPressed: () {
-          state.removeFavorite(state.favoriteList[index]);
-        },
+      child: Container(
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              color: Colors.black26, offset: Offset(0.0, 2.0), blurRadius: 30.0)
+        ]),
+        child: IconButton(
+          icon:
+              Icon(Icons.highlight_remove, color: Colors.white, size: 40.0),
+          onPressed: () {
+            state.removeFavorite(state.favoriteList[index]);
+          },
+        ),
       ),
     );
   }

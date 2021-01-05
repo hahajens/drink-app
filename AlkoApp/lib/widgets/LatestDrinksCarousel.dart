@@ -13,6 +13,7 @@ class LatestDrinksCarousel extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: Container(
+            margin: EdgeInsets.only(bottom: 20.0),
             alignment: Alignment.topLeft,
             child: Text(
               'Recently added drinks',
