@@ -10,6 +10,7 @@ class StartView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<Model>(
       builder: (context, state, child) => Scaffold(
+        backgroundColor: Colors.blueGrey[50],
         body: ListView(
           children: [
             PopularDrinkCarousel(),

@@ -3,17 +3,21 @@ import 'package:flutter/material.dart';
 import 'MediaSize.dart';
 
 class CustomNavigationBar extends StatelessWidget {
+
   final Color _mainColor =
       Colors.white; //Color(0xFFE5E5E5); //Colors.blueGrey; //white
   final Color _iconColor = Colors.blueGrey[400]; //blueGrey[400]
   final double _iconSize = 40; //0.05
+
   final double _fontSize = 18;
 
   Widget build(BuildContext context) {
     return Container(
+
       height: Platform.isAndroid
           ? displayHeight(context) * 0.1
           : displayHeight(context) * 0.12, //80,
+
       decoration: BoxDecoration(
         color: _mainColor,
         borderRadius: BorderRadius.only(

@@ -118,10 +118,10 @@ class Model extends ChangeNotifier {
     return Fluttertoast.showToast(
       msg: input,
       toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
+      gravity: ToastGravity.CENTER,
       backgroundColor: Colors.grey.shade300,
       textColor: Colors.black,
-      fontSize: 16.0,
+      fontSize: 20.0,
     );
   }
 
@@ -211,6 +211,7 @@ class Model extends ChangeNotifier {
       drink.strIngredient8: drink.strMeasure8,
       drink.strIngredient9: drink.strMeasure9,
     };
+
     parameterList.removeWhere((String value, String key) => value == null);
     parameterList.removeWhere((String value, String key) => value == "");
 
