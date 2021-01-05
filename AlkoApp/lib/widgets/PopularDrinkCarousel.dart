@@ -28,10 +28,11 @@ class PopularDrinkCarousel extends StatelessWidget {
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount:
-                  Provider.of<Model>(context, listen: false).alkoList.length,
+                  Provider.of<Model>(context, listen: false).popularList.length,
               itemBuilder: (BuildContext context, int index) {
                 return CreateDrinkContainer(
-                    Provider.of<Model>(context, listen: false).alkoList[index]);
+                    Provider.of<Model>(context, listen: false)
+                        .popularList[index]);
               }),
         ),
       ],

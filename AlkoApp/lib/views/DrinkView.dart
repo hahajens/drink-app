@@ -30,57 +30,9 @@ class DrinkView extends StatelessWidget {
                   Stack(
                     children: <Widget>[
                       _imageWidget(drink, context),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 40.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                                                        decoration: BoxDecoration(
-   
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black26,
-          offset: Offset(0.0, 2.0),
-          blurRadius: 30.0,
-        ),
-      ],
-    ),
-                              child: IconButton(
-                                icon: Icon(Icons.arrow_back),
-                                iconSize: 30.0,
-                                color: Colors.white,
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                            ),
-                            Consumer<Model>(
-                              builder: (context, state, child) => Container(
-                                decoration: BoxDecoration(
-   
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black26,
-          offset: Offset(0.0, 2.0),
-          blurRadius: 30.0,
-        ),
-      ],
-    ),
+                      _customAppbar(drink, context),
+                      _titleWidget(drink, context),
 
-                                                              child: IconButton(
-                                  icon: state.getFavoriteIcon(drink.data),
-                                  iconSize: 34,
-                                  onPressed: () {
-                                    state.setFavoriteIcon(drink.data);
-                                    state.editFavorite(drink.data);
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      _customAppbar(drink),
                     ],
                   ),
                   Expanded(
@@ -142,7 +94,8 @@ class DrinkView extends StatelessWidget {
   }
 }
 
-Widget _customAppbar(AsyncSnapshot<AlkoObject> drink) {
+_titleWidget(AsyncSnapshot<AlkoObject> drink, BuildContext context) {
+  // TITEL
   return Positioned(
     left: 20.0,
     bottom: 20.0,
@@ -165,6 +118,55 @@ Widget _customAppbar(AsyncSnapshot<AlkoObject> drink) {
             ],
           ),
         ),
+      ],
+    ),
+  );
+}
+
+Widget _customAppbar(AsyncSnapshot<AlkoObject> drink, context) {
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0.0, 2.0),
+                blurRadius: 30.0,
+              ),
+            ],
+          ),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            iconSize: 30.0,
+            color: Colors.white,
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+        Consumer<Model>(
+          builder: (context, state, child) => Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(0.0, 2.0),
+                  blurRadius: 30.0,
+                ),
+              ],
+            ),
+            child: IconButton(
+              icon: state.getFavoriteIcon(drink.data),
+              iconSize: 34,
+              onPressed: () {
+                state.setFavoriteIcon(drink.data);
+                state.editFavorite(drink.data);
+              },
+            ),
+          ),
+        )
       ],
     ),
   );
@@ -259,7 +261,7 @@ Widget _ingredientsWidget(
                   letterSpacing: 0.3),
             ),
             subtitle: Text(
-              "${parameterList[k]}",
+              parameterList[k] == null ? "" : "${parameterList[k]}",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ))

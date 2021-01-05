@@ -47,6 +47,7 @@ class CreateDrinkContainer extends StatelessWidget {
               offset: Offset(0.0, 2.0),
               blurRadius: 6.0,
             ),
+
           ],
         ),
       ),
@@ -86,6 +87,7 @@ class CreateDrinkContainer extends StatelessWidget {
                     fontSize: 24.0,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
+
                   ),
                 ),
               ),
