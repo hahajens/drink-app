@@ -191,13 +191,12 @@ class Model extends ChangeNotifier {
     _latestList = await DB.getLatestDrinks();
     _isLoading = false;
     notifyListeners();
-    print("latest drinks");
-    print(_latestList[0].strDrink);
+    //print("latest drinks");
+    //print(_latestList[0].strDrink);
   }
 
   getIngredientImage(String ingredient) async {
     return await DB.getIngredientImage(ingredient);
-
   }
 
   Map getIngredientList(AlkoObject drink) {

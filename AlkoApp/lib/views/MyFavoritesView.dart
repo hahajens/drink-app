@@ -82,22 +82,8 @@ class MyFavoritesView extends StatelessWidget {
                 ])),
       ),
     );
+
   }
 }
 
-// class MyFavoritesView extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Expanded(
-//       child: Consumer<Model>(
-//           builder: (context, state, child) => (state.isLoading == true)
-//               ? Spinner()
-//               : GridView.count(
-//                   crossAxisCount: 2,
-//                   children: List.generate(state.favoriteList.length, (index) {
-//                     return CreateDrinkContainer(state.favoriteList[index]);
-//                   }),
-//                 )),
-//     );
-//   }
-// }
+
