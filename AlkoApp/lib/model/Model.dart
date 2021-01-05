@@ -217,4 +217,32 @@ class Model extends ChangeNotifier {
 
     return parameterList;
   }
+
+  Color _inspirationColor = Colors.blueGrey[400];
+  Color _exploreColor = Colors.blueGrey[400];
+  Color _favoritesColor = Colors.blueGrey[400];
+
+  void setIconColor(item) {
+    _inspirationColor = Colors.blueGrey[400];
+    _exploreColor = Colors.blueGrey[400];
+    _favoritesColor = Colors.blueGrey[400];
+    if (item == 0) {
+      _inspirationColor = Colors.blueGrey[900];
+    } else if (item == 1) {
+      _exploreColor = Colors.blueGrey[900];
+    } else {
+      _favoritesColor = Colors.blueGrey[900];
+    }
+    notifyListeners();
+  }
+
+  Color getIconColor(item) {
+    if (item == 0) {
+      return _inspirationColor;
+    } else if (item == 1) {
+      return _exploreColor;
+    } else {
+      return _favoritesColor;
+    }
+  }
 }
