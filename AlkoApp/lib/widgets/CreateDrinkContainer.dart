@@ -116,7 +116,7 @@ class CreateDrinkContainer extends StatelessWidget {
             ),
           ),
           Container(
-            width: MediaQuery.of(context).size.height / 5,
+            width: MediaQuery.of(context).size.height / 4,
             child: Text(
               "${parameterList.keys.join(', ')}",
               overflow: TextOverflow.ellipsis,
