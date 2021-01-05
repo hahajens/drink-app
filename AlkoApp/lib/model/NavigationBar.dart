@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'MediaSize.dart';
 
 class CustomNavigationBar extends StatelessWidget {
+
   final Color _mainColor =
-      Colors.white; 
+
+  Colors.white; 
   final Color _iconColor = Colors.blueGrey[400]; 
   final double _iconSize = 0.05; //
   final double _fontSize = 0.025;
