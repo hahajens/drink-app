@@ -1,6 +1,8 @@
+
 import 'dart:io';
 import 'package:AlkoApp/model/Model.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
 class AgeView extends StatelessWidget {
@@ -17,15 +19,17 @@ class AgeView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+
           Container(
             decoration: BoxDecoration(
                 border: Border.all(
                     width: 1,
                     color: Colors
-                        .transparent), //color is transparent so that it does not blend with the actual color specified
+                        .transparent), 
                 borderRadius: BorderRadius.all(Radius.circular(25.0)),
                 color: Color.fromRGBO(0, 0, 0,
-                    0.5) // Specifies the background color and the opacity
+                    0.5) 
+
                 ),
             child: Text("AlkoList \n - Listan med alkohol",
                 style: TextStyle(

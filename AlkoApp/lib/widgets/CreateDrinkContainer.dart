@@ -79,12 +79,15 @@ class CreateDrinkContainer extends StatelessWidget {
                   Hero(
                     tag: drink.strDrinkThumb,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: Image(
+                      borderRadius: BorderRadius.circular(20),
+                      child: FadeInImage.assetNetwork(
                         height: 180.0,
                         width: 180.0,
-                        image: NetworkImage(drink.strDrinkThumb),
                         fit: BoxFit.cover,
+                        placeholder: "assets/images/spinningwheel.gif",
+                        image: (drink.strDrinkThumb == null)
+                            ? "assets/images/noimage.png"
+                            : drink.strDrinkThumb,
                       ),
                     ),
                   ),

@@ -143,7 +143,7 @@ class Model extends ChangeNotifier {
     drink.isFavorite = false;
     favoriteList.remove(drink);
     var myInt = int.parse(drink.idDrink);
-    DB.removeFromFavoriteListData(myInt);
+    DB.removeFromFavoriteListData(myInt).toString();
     notifyListeners();
   }
 
@@ -191,8 +191,8 @@ class Model extends ChangeNotifier {
     _latestList = await DB.getLatestDrinks();
     _isLoading = false;
     notifyListeners();
-    print("latest drinks");
-    print(_latestList[0].strDrink);
+    //print("latest drinks");
+    //print(_latestList[0].strDrink);
   }
 
   getIngredientImage(String ingredient) async {
