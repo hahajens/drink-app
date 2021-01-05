@@ -1,45 +1,65 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'MediaSize.dart';
 
 class CustomNavigationBar extends StatelessWidget {
-  final Color _mainColor = Colors.blue;
-  final Color _iconColor = Colors.black;
-  final double _iconSize = 40;
+  final Color _mainColor =
+      Colors.white; //Color(0xFFE5E5E5); //Colors.blueGrey; //white
+  final Color _iconColor = Colors.blueGrey[400]; //blueGrey[400]
+  final double _iconSize = 40; //0.05
   final double _fontSize = 18;
 
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
+      height: Platform.isAndroid
+          ? displayHeight(context) * 0.1
+          : displayHeight(context) * 0.12, //80,
       decoration: BoxDecoration(
         color: _mainColor,
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            topLeft: Radius.circular(20), topRight: Radius.circular(20)),
       ),
       child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
               children: [
                 IconButton(
-                    icon: Icon(Icons.home_outlined,
-                        size: _iconSize, color: _iconColor),
+                    icon: Icon(Icons.lightbulb_outline, //home_outlined,
+                        size: displayHeight(context) * 0.05,
+                        color: _iconColor),
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, '/StartView');
                     }),
-                Text(" Home", style: TextStyle(fontSize: _fontSize)),
+
+                Text("Inspiration",
+                    style: TextStyle(
+                        fontSize: displayHeight(context) * 0.025)) //_fontSize
               ],
             ),
             Column(
+              children: [
+                IconButton(
+                    icon: Icon(Icons.explore_outlined,
+                        size: _iconSize, color: _iconColor),
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/MyFilterView');
+                    }),
+                Text(" Explore", style: TextStyle(fontSize: _fontSize)),
+              ],
+            ),
+            /*Column(
               children: [
                 IconButton(
                     icon:
                         Icon(Icons.search, size: _iconSize, color: _iconColor),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/MyFilterView');
+                      Navigator.pushReplacementNamed(context, '/MySearchView');
                     }),
                 Text(" Search", style: TextStyle(fontSize: _fontSize)),
               ],
-            ),
+            ),*/
             Column(
               children: [
                 IconButton(
@@ -49,18 +69,7 @@ class CustomNavigationBar extends StatelessWidget {
                       Navigator.pushReplacementNamed(
                           context, '/MyFavoritesView');
                     }),
-                Text(" Favorites", style: TextStyle(fontSize: _fontSize)),
-              ],
-            ),
-            Column(
-              children: [
-                IconButton(
-                    icon: Icon(Icons.no_drinks_outlined,
-                        size: _iconSize, color: _iconColor),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/MyDrinksView');
-                    }),
-                Text(" My Drinks", style: TextStyle(fontSize: _fontSize)),
+                Text("   Favorites   ", style: TextStyle(fontSize: _fontSize)),
               ],
             ),
           ]),
