@@ -37,16 +37,15 @@ class DrinkView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
-                                                        decoration: BoxDecoration(
-   
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black26,
-          offset: Offset(0.0, 2.0),
-          blurRadius: 30.0,
-        ),
-      ],
-    ),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    offset: Offset(0.0, 2.0),
+                                    blurRadius: 30.0,
+                                  ),
+                                ],
+                              ),
                               child: IconButton(
                                 icon: Icon(Icons.arrow_back),
                                 iconSize: 30.0,
@@ -57,17 +56,15 @@ class DrinkView extends StatelessWidget {
                             Consumer<Model>(
                               builder: (context, state, child) => Container(
                                 decoration: BoxDecoration(
-   
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black26,
-          offset: Offset(0.0, 2.0),
-          blurRadius: 30.0,
-        ),
-      ],
-    ),
-
-                                                              child: IconButton(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      offset: Offset(0.0, 2.0),
+                                      blurRadius: 30.0,
+                                    ),
+                                  ],
+                                ),
+                                child: IconButton(
                                   icon: state.getFavoriteIcon(drink.data),
                                   iconSize: 34,
                                   onPressed: () {
@@ -259,7 +256,7 @@ Widget _ingredientsWidget(
                   letterSpacing: 0.3),
             ),
             subtitle: Text(
-              "${parameterList[k]}",
+              parameterList[k] == null ? "" : "${parameterList[k]}",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ))
