@@ -32,6 +32,7 @@ class DrinkView extends StatelessWidget {
                       _imageWidget(drink, context),
                       _customAppbar(drink, context),
                       _titleWidget(drink, context),
+
                     ],
                   ),
                   Expanded(
@@ -260,7 +261,7 @@ Widget _ingredientsWidget(
                   letterSpacing: 0.3),
             ),
             subtitle: Text(
-              "${parameterList[k]}",
+              parameterList[k] == null ? "" : "${parameterList[k]}",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ))
