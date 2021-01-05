@@ -5,16 +5,20 @@ import 'MediaSize.dart';
 import 'Model.dart';
 
 class CustomNavigationBar extends StatelessWidget {
+
   final Color _mainColor = Colors.white;
   final double _iconSize = 0.05; //
   final double _fontSize = 0.025;
+
+
 
   Widget build(BuildContext context) {
     var provider = Provider.of<Model>(context);
     return Container(
       height: Platform.isAndroid
           ? displayHeight(context) * 0.1
-          : displayHeight(context) * 0.1, //80,
+          : displayHeight(context) * 0.12, //80,
+
       decoration: BoxDecoration(
         color: _mainColor,
         borderRadius: BorderRadius.only(
@@ -24,6 +28,7 @@ class CustomNavigationBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+
             Container(
               width: displayWidth(context) * 0.3,
               child: Column(

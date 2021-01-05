@@ -14,10 +14,12 @@ class MyFilterView extends StatelessWidget {
 
     return Consumer<Model>(
       builder: (context, state, child) => Scaffold(
-        appBar: _myHomeAppbar(),
-        drawer: _myHomeDrawer(),
+        backgroundColor: Colors.blueGrey[50],
         body: Column(
           children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 15,
+            ),
             Row(
               children: [
                 _searchBar(context, state, editingController),
@@ -52,29 +54,6 @@ class MyFilterView extends StatelessWidget {
           "Valda ingredienser: ${state.listToFilterOn.join(" ,").toString()}",
           style: TextStyle(fontSize: 15),
         ),
-      ),
-    );
-  }
-
-  Widget _myHomeAppbar() {
-    return AppBar(
-      title: Text("Söksida/filtrering"),
-    );
-  }
-
-  Widget _myHomeDrawer() {
-    return Drawer(
-      child: ListView(
-        children: [
-          ListTile(
-            title: Text("bens"),
-            onTap: () {
-              //Navigator eller routes
-            },
-          ),
-          ListTile(title: Text("knens")),
-          ListTile(title: Text("slens")),
-        ],
       ),
     );
   }
@@ -274,16 +253,10 @@ class MyFilterView extends StatelessWidget {
           } else {
             return GridView.count(
               crossAxisCount: 2,
-              childAspectRatio: MediaQuery.of(context).size.height / 1150,
+              childAspectRatio: 0.65,
               children: List.generate(list.length, (index) {
                 return Container(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/DrinkView',
-                          arguments: list[index].idDrink);
-                    },
-                    child: CreateDrinkContainer(list[index]),
-                  ),
+                  child: CreateDrinkContainer(list[index]),
                 );
               }),
             );
