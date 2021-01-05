@@ -256,13 +256,7 @@ class MyFilterView extends StatelessWidget {
               childAspectRatio: MediaQuery.of(context).size.height / 1150,
               children: List.generate(list.length, (index) {
                 return Container(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/DrinkView',
-                          arguments: list[index].idDrink);
-                    },
-                    child: CreateDrinkContainer(list[index]),
-                  ),
+                  child: CreateDrinkContainer(list[index]),
                 );
               }),
             );
