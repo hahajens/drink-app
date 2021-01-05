@@ -34,10 +34,10 @@ class CreateDrinkContainer extends StatelessWidget {
 
   Widget backgroundContainer(context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(6, 80, 8, 50),
+      padding: const EdgeInsets.fromLTRB(6, 80, 6, 50),
       child: Container(
-        height: MediaQuery.of(context).size.height / 3.3,
-        width: MediaQuery.of(context).size.height / 4,
+        height: MediaQuery.of(context).size.height * 0.25,
+        width: 200,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20.0),
@@ -98,7 +98,7 @@ class CreateDrinkContainer extends StatelessWidget {
 
   Widget ingredientList(parameterList, context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(18, 0, 0, 0),
+      padding: EdgeInsets.fromLTRB(18, 0, 18, 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,7 @@ class CreateDrinkContainer extends StatelessWidget {
             ),
           ),
           Container(
-            width: MediaQuery.of(context).size.height / 4,
+            width: MediaQuery.of(context).size.height,
             child: Text(
               "${parameterList.keys.join(', ')}",
               overflow: TextOverflow.ellipsis,
