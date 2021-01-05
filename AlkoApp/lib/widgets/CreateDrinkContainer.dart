@@ -106,6 +106,13 @@ class CreateDrinkContainer extends StatelessWidget {
                               fontSize: 24.0,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.2,
+                              shadows: <Shadow>[
+                                Shadow(
+                                  offset: Offset(4.0, 3.0),
+                                  blurRadius: 15.0,
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                ),
+                              ],
                             ),
                           ),
                         ),
