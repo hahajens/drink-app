@@ -32,7 +32,6 @@ class DrinkView extends StatelessWidget {
                       _imageWidget(drink, context),
                       _customAppbar(drink, context),
                       _titleWidget(drink, context),
-
                     ],
                   ),
                   Expanded(

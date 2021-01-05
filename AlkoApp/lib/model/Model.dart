@@ -73,10 +73,10 @@ class Model extends ChangeNotifier {
 
   Color getFilterColor(object) {
     if (object.getCheck == false) {
-      _filterColor = Colors.grey[300];
+      _filterColor = Colors.white;
       return _filterColor;
     } else {
-      _filterColor = Colors.grey[600];
+      _filterColor = Colors.grey[400];
       return _filterColor;
     }
   }
@@ -126,9 +126,11 @@ class Model extends ChangeNotifier {
   }
 
   void editFavorite(AlkoObject drink) {
-    if (favoriteList.contains(drink)) {
+    if (favoriteList.contains(drink.idDrink)) {
       drink.isFavorite = false;
-      removeFavorite(drink);
+      favoriteList.remove(drink);
+      var myInt = int.parse(drink.idDrink);
+      DB.removeFromFavoriteListData(myInt).toString();
       myFlutterToast('Removed from favorites');
     } else {
       drink.isFavorite = true;
@@ -142,8 +144,8 @@ class Model extends ChangeNotifier {
   void removeFavorite(AlkoObject drink) {
     drink.isFavorite = false;
     favoriteList.remove(drink);
-    var myInt = int.parse(drink.idDrink);
-    DB.removeFromFavoriteListData(myInt).toString();
+    int myInt = int.parse(drink.idDrink);
+    DB.removeFromFavoriteListData(myInt);
     notifyListeners();
   }
 

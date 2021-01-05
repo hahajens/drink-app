@@ -106,7 +106,7 @@ class DB {
     List list;
 
     String queryURL =
-        "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list";
+        "https://www.thecocktaildb.com/api/json/v2/9973533/list.php?i=list";
     String picURL = "https://www.thecocktaildb.com/images/ingredients";
 
     http.Response qResponse = await http.get(queryURL);

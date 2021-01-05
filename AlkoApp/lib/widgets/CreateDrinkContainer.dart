@@ -47,7 +47,6 @@ class CreateDrinkContainer extends StatelessWidget {
               offset: Offset(0.0, 2.0),
               blurRadius: 6.0,
             ),
-
           ],
         ),
       ),
@@ -75,6 +74,7 @@ class CreateDrinkContainer extends StatelessWidget {
         Positioned(
           left: 10.0,
           bottom: 10.0,
+          right: 10,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -87,7 +87,13 @@ class CreateDrinkContainer extends StatelessWidget {
                     fontSize: 24.0,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
-
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(4.0, 3.0),
+                        blurRadius: 13.0,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ],
                   ),
                 ),
               ),
