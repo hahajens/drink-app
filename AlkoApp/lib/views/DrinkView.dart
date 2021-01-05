@@ -98,6 +98,7 @@ _titleWidget(AsyncSnapshot<AlkoObject> drink, BuildContext context) {
   return Positioned(
     left: 20.0,
     bottom: 20.0,
+    right: 5,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
