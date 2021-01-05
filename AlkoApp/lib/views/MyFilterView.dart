@@ -1,6 +1,7 @@
 import 'package:AlkoApp/model/Model.dart';
 import 'package:AlkoApp/model/NavigationBar.dart';
 import 'package:AlkoApp/model/IngredientObject.dart';
+import 'package:AlkoApp/widgets/CreateDrinkContainer.dart';
 import 'package:AlkoApp/widgets/Spinner.dart';
 
 import 'package:flutter/material.dart';
@@ -34,7 +35,8 @@ class MyFilterView extends StatelessWidget {
               color: Colors.black,
             ),
             _myCustomListView(
-                _filter(state.alkoList, state, editingController, context)),
+                _filter(state.alkoList, state, editingController, context),
+                context),
           ],
         ),
         bottomNavigationBar: CustomNavigationBar(),
@@ -47,7 +49,7 @@ class MyFilterView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
         child: Text(
-          "Valda ingredienser: ${state.listToFilterOn.toString()}",
+          "Valda ingredienser: ${state.listToFilterOn.join(" ,").toString()}",
           style: TextStyle(fontSize: 15),
         ),
       ),
@@ -207,7 +209,7 @@ class MyFilterView extends StatelessWidget {
                 Divider(
                   color: Colors.black,
                 ),
-                Text("Filtrerad på: ${state.listToFilterOn}"),
+                Text("Filtrerad på: ${state.listToFilterOn.join(" ,")}"),
                 //_filterMenuSearchBar(editingController),
               ],
             ),
@@ -220,35 +222,6 @@ class MyFilterView extends StatelessWidget {
       },
     );
   }
-
-  // Widget _filterMenuSearchBar(editingController) {
-  //   return TextField(
-  //     controller: editingController,
-  //     decoration: InputDecoration(
-  //       hintText: "Search",
-  //       prefixIcon: Icon(Icons.search),
-  //       suffixIcon: IconButton(
-  //         onPressed: () => editingController.clear(),
-  //         icon: Icon(Icons.clear),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // _filterMenuFilter(list, editingController) {
-  //   if (editingController.text != null && editingController.text != "") {
-  //     List filterMenuList = list
-  //         .where((s) => s.strIngredient1
-  //             .toString()
-  //             .toLowerCase()
-  //             .contains(editingController.text.toLowerCase()))
-  //         .toList();
-  //     print(filterMenuList);
-  //     return filterMenuList;
-  //   } else {
-  //     return list;
-  //   }
-  // }
 
   Widget _searchBar(BuildContext context, state, editingController) {
     return Expanded(
@@ -289,69 +262,34 @@ class MyFilterView extends StatelessWidget {
     }
   }
 
-  Widget _myCustomListView(list) {
-    return (list.length == 0)
-        ? Center(child: Text("No results:(", style: TextStyle(fontSize: 20)))
-        : Expanded(
-            child: Consumer<Model>(
-                builder: (context, state, child) => (state.isLoading == true)
-                    ? Spinner()
-                    : GridView.count(
-                        crossAxisCount: 2,
-                        children: List.generate(list.length, (index) {
-                          return Container(
-                            child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/DrinkView',
-                                      arguments: list[index].idDrink);
-                                },
-                                child: _myCustomListTile(list, index)),
-                          );
-                        }),
-                      )),
-          );
-  }
-
-  Widget _myCustomListTile(list, index) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(25),
-            child: FadeInImage.assetNetwork(
-              placeholder: "assets/images/spinningwheel.gif",
-              image: (list[index].strDrinkThumb == null)
-                  ? "assets/images/noimage.png"
-                  : list[index].strDrinkThumb,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 18),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: 180,
-              decoration: BoxDecoration(
-                color: const Color(0xFF607D8B).withOpacity(0.7),
-                borderRadius: BorderRadius.circular(25),
-              ),
-              height: 35,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(5, 3, 1, 1),
-                child: Text(
-                  "${list[index].strDrink}",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24.0,
+  Widget _myCustomListView(list, context) {
+    return Expanded(
+      child: Consumer<Model>(
+        builder: (context, state, child) {
+          if (state.isLoading == false && list.length == 0) {
+            print(list);
+            return Text("No Results:(");
+          } else if (state.isLoading == true) {
+            return Spinner();
+          } else {
+            return GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: MediaQuery.of(context).size.height / 1150,
+              children: List.generate(list.length, (index) {
+                return Container(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/DrinkView',
+                          arguments: list[index].idDrink);
+                    },
+                    child: CreateDrinkContainer(list[index]),
                   ),
-                ),
-              ),
-            ),
-          ),
-        )
-      ],
+                );
+              }),
+            );
+          }
+        },
+      ),
     );
   }
 }

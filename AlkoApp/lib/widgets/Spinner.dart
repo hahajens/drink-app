@@ -5,10 +5,12 @@ class Spinner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: SpinKitFadingCircle(
-      color: Colors.blueGrey,
-      size: 70.0,
-    )));
+      body: Center(
+        child: SpinKitFadingCircle(
+          color: Colors.blueGrey,
+          size: 70.0,
+        ),
+      ),
+    );
   }
 }
