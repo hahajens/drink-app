@@ -7,13 +7,13 @@ class CustomNavigationBar extends StatelessWidget {
       Colors.white; //Color(0xFFE5E5E5); //Colors.blueGrey; //white
   final Color _iconColor = Colors.blueGrey[400]; //blueGrey[400]
   final double _iconSize = 40; //0.05
-  final double _fontSize = 18;
+  final double _fontSize = 0.025;
 
   Widget build(BuildContext context) {
     return Container(
       height: Platform.isAndroid
           ? displayHeight(context) * 0.1
-          : displayHeight(context) * 0.12, //80,
+          : displayHeight(context) * 0.1, //80,
       decoration: BoxDecoration(
         color: _mainColor,
         borderRadius: BorderRadius.only(
@@ -35,7 +35,7 @@ class CustomNavigationBar extends StatelessWidget {
 
                 Text("Inspiration",
                     style: TextStyle(
-                        fontSize: displayHeight(context) * 0.025)) //_fontSize
+                        fontSize: displayHeight(context) * _fontSize)) //_fontSize
               ],
             ),
             Column(
@@ -46,7 +46,7 @@ class CustomNavigationBar extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, '/MyFilterView');
                     }),
-                Text(" Explore", style: TextStyle(fontSize: _fontSize)),
+                Text(" Explore", style: TextStyle(fontSize: displayHeight(context) * _fontSize)),
               ],
             ),
             /*Column(
@@ -69,7 +69,7 @@ class CustomNavigationBar extends StatelessWidget {
                       Navigator.pushReplacementNamed(
                           context, '/MyFavoritesView');
                     }),
-                Text("   Favorites   ", style: TextStyle(fontSize: _fontSize)),
+                Text("    Favorites ", style: TextStyle(fontSize: displayHeight(context) * _fontSize)),
               ],
             ),
           ]),
