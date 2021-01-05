@@ -1,6 +1,5 @@
 import 'package:AlkoApp/model/NavigationBar.dart';
 import 'package:AlkoApp/widgets/CreateDrinkContainer.dart';
-import 'package:AlkoApp/widgets/Spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:AlkoApp/model/Model.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +15,7 @@ class MyFavoritesView extends StatelessWidget {
                 child: Text("No saved favorites"),
               )
             : GridView.count(
+                padding: EdgeInsets.only(top: 60),
                 crossAxisCount: 2,
                 childAspectRatio: 0.65,
                 children: List.generate(state.favoriteList.length, (index) {
@@ -43,8 +43,7 @@ class MyFavoritesView extends StatelessWidget {
               color: Colors.black26, offset: Offset(0.0, 2.0), blurRadius: 30.0)
         ]),
         child: IconButton(
-          icon:
-              Icon(Icons.highlight_remove, color: Colors.white, size: 40.0),
+          icon: Icon(Icons.highlight_remove, color: Colors.white, size: 40.0),
           onPressed: () {
             state.removeFavorite(state.favoriteList[index]);
           },
