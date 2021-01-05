@@ -13,6 +13,7 @@ class PopularDrinkCarousel extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: Container(
             alignment: Alignment.topLeft,
+            margin: EdgeInsets.only(top: 20, bottom: 20),
             child: Text(
               'Popular Drinks',
               style: TextStyle(
