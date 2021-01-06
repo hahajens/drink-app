@@ -1,4 +1,4 @@
-import 'package:AlkoApp/model/Model.dart';
+/*import 'package:AlkoApp/model/Model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -144,3 +144,4 @@ class PopularIngredientsCarousel extends StatelessWidget {
     );
   }
 }
+*/

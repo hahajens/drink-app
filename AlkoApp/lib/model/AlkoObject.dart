@@ -1,4 +1,5 @@
 //Är satt till dynamic,dynamic <-- om krångel ändra till String,dynamic
+//Ett helt AlkoObject, from & to Json
 
 class AlkoObject {
   var idDrink;
