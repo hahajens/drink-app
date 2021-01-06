@@ -124,14 +124,24 @@ class Model extends ChangeNotifier {
     );
   }
 
+  bool isDrinkInFavorite(drink) {
+    for (int i = 0; i < favoriteList.length; i++) {
+      if (favoriteList[i].idDrink.toString() == drink.idDrink.toString()) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   void editFavorite(AlkoObject drink) {
-    if (favoriteList.contains(drink)) {
+    if (isDrinkInFavorite(drink) == true) {
       drink.isFavorite = false;
       favoriteList.remove(drink);
       var myInt = int.parse(drink.idDrink);
       DB.removeFromFavoriteListData(myInt).toString();
       myFlutterToast('Removed from favorites');
-    } else if (!favoriteList.contains(drink)) {
+    } else {
       drink.isFavorite = true;
       favoriteList.add(drink);
       DB.addToFavoriteListData(drink);
@@ -155,7 +165,7 @@ class Model extends ChangeNotifier {
   }
 
   Icon getFavoriteIcon(AlkoObject drink) {
-    if (favoriteList.contains(drink)) {
+    if (isDrinkInFavorite(drink) == true) {
       var filledIcon = Icon(Icons.favorite, color: Colors.white);
       return filledIcon;
     } else {
