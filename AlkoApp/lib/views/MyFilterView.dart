@@ -63,9 +63,9 @@ class MyFilterView extends StatelessWidget {
       height: MediaQuery.of(context).size.width * 0.1,
       width: MediaQuery.of(context).size.width * 0.18,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(3, 0, 10, 0),
+        padding: EdgeInsets.fromLTRB(3, 0, 7, 0),
         child: FlatButton(
-          color: Colors.blue[200],
+          color: Colors.blueGrey,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           child: Icon(Icons.clear),
@@ -85,7 +85,7 @@ class MyFilterView extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.fromLTRB(10, 0, 7, 0),
         child: FlatButton(
-          color: Colors.blue[200],
+          color: Colors.blueGrey,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           child: Icon(Icons.filter_alt),

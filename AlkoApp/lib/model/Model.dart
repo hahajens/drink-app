@@ -126,12 +126,14 @@ class Model extends ChangeNotifier {
 
   bool isDrinkInFavorite(drink) {
     for (int i = 0; i < favoriteList.length; i++) {
-      if (favoriteList[i].idDrink.toString() == drink.idDrink.toString()) {
+      if (favoriteList[i]
+          .idDrink
+          .toString()
+          .contains(drink.idDrink.toString())) {
         return true;
-      } else {
-        return false;
       }
     }
+    return false;
   }
 
   void editFavorite(AlkoObject drink) {
@@ -164,7 +166,7 @@ class Model extends ChangeNotifier {
     notifyListeners();
   }
 
-  Icon getFavoriteIcon(AlkoObject drink) {
+  Icon getFavoriteIcon({AlkoObject drink}) {
     if (isDrinkInFavorite(drink) == true) {
       var filledIcon = Icon(Icons.favorite, color: Colors.white);
       return filledIcon;
