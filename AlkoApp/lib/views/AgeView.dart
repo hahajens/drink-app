@@ -17,7 +17,7 @@ class AgeView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _welcomeText(),
+          //_welcomeText(),
           _ageControl(context),
         ],
       ),
@@ -25,23 +25,23 @@ class AgeView extends StatelessWidget {
   }
 
   //Widget för huvudrubriken
-  Widget _welcomeText() {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(width: 1, color: Colors.transparent),
-          borderRadius: BorderRadius.all(Radius.circular(25.0)),
-          color: Color.fromRGBO(0, 0, 0, 0.5)),
-      child: Text("AlkoList \n - Listan med alkohol",
-          style: TextStyle(
-              fontSize: 36, fontWeight: FontWeight.bold, color: Colors.white)),
-    );
-  }
+  // Widget _welcomeText() {
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //         border: Border.all(width: 1, color: Colors.transparent),
+  //         borderRadius: BorderRadius.all(Radius.circular(25.0)),
+  //         color: Color.fromRGBO(0, 0, 0, 0.5)),
+  //     child: Text("AlkoList \n - Listan med alkohol",
+  //         style: TextStyle(
+  //             fontSize: 36, fontWeight: FontWeight.bold, color: Colors.white)),
+  //   );
+  // }
 
   //Widget för de två knapparna för ålderkontroll
   _ageControl(context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.35,
-        width: MediaQuery.of(context).size.width * 0.8,
+        height: MediaQuery.of(context).size.height * 0.75,
+        width: MediaQuery.of(context).size.width * 0.9,
         //padding: EdgeInsets.symmetric(horizontal: 0, vertical: 50),
         decoration: BoxDecoration(
             border: Border.all(width: 1, color: Colors.transparent),
@@ -50,40 +50,55 @@ class AgeView extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 30.0),
+              child: Image(
+                height: MediaQuery.of(context).size.height * 0.3,
+                image: AssetImage("assets/images/Logo.png"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30),
               child: Text(
                 "This app contains alcoholic content and you need to be over 20 years to access it.",
+                textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               ),
             ),
-            RaisedButton(
-              elevation: 10,
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(60)),
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/StartView');
-              },
-              textColor: Colors.black,
-              child: Text('I am at least 20 years old',
-                  style: TextStyle(fontSize: 16)),
-              color: Colors.white,
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.7,
+              child: RaisedButton(
+                elevation: 10,
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60)),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/StartView');
+                },
+                textColor: Colors.black,
+                child: Text('I am at least 20 years old',
+                    style:
+                        TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
+                color: Colors.white,
+              ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            RaisedButton(
-              elevation: 10,
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(60)),
-              onPressed: () {
-                Provider.of<Model>(context, listen: false).myFlutterToast(
-                    "You need to be at least 20 years old to use this app, try again ;)");
-              },
-              textColor: Colors.black,
-              child: Text('I am younger than 20 years old',
-                  style: TextStyle(fontSize: 16)),
-              color: Colors.white,
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.7,
+              child: RaisedButton(
+                elevation: 10,
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60)),
+                onPressed: () {
+                  Provider.of<Model>(context, listen: false).myFlutterToast(
+                      "You need to be at least 20 years old to use this app, try again ;)");
+                },
+                textColor: Colors.black,
+                child: Text('I am younger than 20 years old',
+                    style:
+                        TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
+                color: Colors.white,
+              ),
             ),
           ],
         ));
