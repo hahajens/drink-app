@@ -110,7 +110,6 @@ class Model extends ChangeNotifier {
     List<AlkoObject> list = await DB.getSingleObjectByID(id);
     AlkoObject obj = list[0];
     _isLoading = false;
-    //print(obj);
     return obj;
   }
 
@@ -126,16 +125,13 @@ class Model extends ChangeNotifier {
   }
 
   void editFavorite(AlkoObject drink) {
-    print(drink.isFavorite);
     if (favoriteList.contains(drink)) {
       drink.isFavorite = false;
-      //print(favoriteList[0].getIsFavorite);
       favoriteList.remove(drink);
-      //(print(favoriteList[0].getIsFavorite);
       var myInt = int.parse(drink.idDrink);
       DB.removeFromFavoriteListData(myInt).toString();
       myFlutterToast('Removed from favorites');
-    } else {
+    } else if (!favoriteList.contains(drink)) {
       drink.isFavorite = true;
       favoriteList.add(drink);
       DB.addToFavoriteListData(drink);
@@ -202,8 +198,6 @@ class Model extends ChangeNotifier {
     _latestList = await DB.getLatestDrinks();
     _isLoading = false;
     notifyListeners();
-    //print("latest drinks");
-    //print(_latestList[0].strDrink);
   }
 
   getIngredientImage(String ingredient) async {
