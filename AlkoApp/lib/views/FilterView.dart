@@ -7,7 +7,7 @@ import 'package:AlkoApp/widgets/Spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MyFilterView extends StatelessWidget {
+class FilterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController editingController = TextEditingController();
@@ -18,7 +18,7 @@ class MyFilterView extends StatelessWidget {
         body: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height / 15,
+              height: MediaQuery.of(context).size.height / 20,
             ),
             Row(
               children: [
@@ -101,8 +101,7 @@ class MyFilterView extends StatelessWidget {
     List<IngredientObject> listOfIngredients = await state.getIngredientsList();
     listOfIngredients
         .sort((a, b) => a.strIngredient1.compareTo(b.strIngredient1));
-
-    //TextEditingController editingController = TextEditingController();
+    //Sorterar i bokstavsordning
 
     Widget filterButton = RaisedButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
@@ -267,7 +266,6 @@ class MyFilterView extends StatelessWidget {
       child: Consumer<Model>(
         builder: (context, state, child) {
           if (state.isLoading == false && list.length == 0) {
-            print(list);
             return Text("No Results:(");
           } else if (state.isLoading == true) {
             return Spinner();

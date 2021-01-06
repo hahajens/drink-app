@@ -1,17 +1,19 @@
-import 'package:AlkoApp/model/AlkoObject.dart';
-import 'package:AlkoApp/model/Model.dart';
-import 'package:AlkoApp/widgets/Spinner.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/rendering.dart';
 
-import 'package:provider/provider.dart';
+import 'package:AlkoApp/model/AlkoObject.dart';
+import 'package:AlkoApp/model/Model.dart';
 import 'package:AlkoApp/model/NavigationBar.dart';
+import 'package:AlkoApp/widgets/Spinner.dart';
 
 class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //Ser till att drinkobjektet hämtas
     var id = ModalRoute.of(context).settings.arguments;
-//Objektet heter nu drink.data
+
+    //Objektet heter nu drink.data
     return FutureBuilder<AlkoObject>(
       future: _getDrink(context, id),
       builder: (BuildContext context, AsyncSnapshot<AlkoObject> drink) {
@@ -40,7 +42,6 @@ class DrinkView extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
-                            //crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
                                 padding: EdgeInsets.only(bottom: 20),
@@ -53,29 +54,9 @@ class DrinkView extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              _ingredientsWidget(
-                                drink.data,
-                                context,
-                                measure1: drink.data.strMeasure1,
-                                ingredient1: drink.data.strIngredient1,
-                                measure2: drink.data.strMeasure2,
-                                ingredient2: drink.data.strIngredient2,
-                                measure3: drink.data.strMeasure3,
-                                ingredient3: drink.data.strIngredient3,
-                                measure4: drink.data.strMeasure4,
-                                ingredient4: drink.data.strIngredient4,
-                                measure5: drink.data.strMeasure5,
-                                ingredient5: drink.data.strIngredient5,
-                                measure6: drink.data.strMeasure6,
-                                ingredient6: drink.data.strIngredient6,
-                                measure7: drink.data.strMeasure7,
-                                ingredient7: drink.data.strIngredient7,
-                                measure8: drink.data.strMeasure8,
-                                ingredient8: drink.data.strIngredient8,
-                                measure9: drink.data.strMeasure9,
-                                ingredient9: drink.data.strIngredient9,
-                              ),
-                              //_customDivider(),
+                              _customDivider(),
+                              _ingredientsWidget(drink.data, context),
+                              _customDivider(),
                               _instructionWidget(drink.data.strInstructions),
                             ],
                           ),
@@ -93,6 +74,7 @@ class DrinkView extends StatelessWidget {
   }
 }
 
+//Namnet på drinken
 _titleWidget(AsyncSnapshot<AlkoObject> drink, BuildContext context) {
   // TITEL
   return Positioned(
@@ -123,6 +105,7 @@ _titleWidget(AsyncSnapshot<AlkoObject> drink, BuildContext context) {
   );
 }
 
+//Tillbaka och hjärtikonen på en drinkView
 Widget _customAppbar(AsyncSnapshot<AlkoObject> drink, context) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
@@ -164,7 +147,7 @@ Widget _customAppbar(AsyncSnapshot<AlkoObject> drink, context) {
                 state.setFavoriteIcon(drink.data);
                 state.editFavorite(drink.data);
 
-                // if (state.getFavoriteIcon() ==
+                // TODO if (state.getFavoriteIcon() ==
                 //     Icon(Icons.favorite, color: Colors.white)) {
                 //   state.getFavoriteListData();
                 //   Navigator.pop(context);
@@ -178,6 +161,7 @@ Widget _customAppbar(AsyncSnapshot<AlkoObject> drink, context) {
   );
 }
 
+//Bilden på drink
 Widget _imageWidget(AsyncSnapshot<AlkoObject> drink, context) {
   return Container(
     width: MediaQuery.of(context).size.width,
@@ -209,36 +193,20 @@ Widget _imageWidget(AsyncSnapshot<AlkoObject> drink, context) {
   );
 }
 
+//Kallar på metod som hämtar ett objekt m.h.a. ID
 Future<AlkoObject> _getDrink(context, id) async {
   AlkoObject drink =
       await Provider.of<Model>(context, listen: false).getSingleObjectByID(id);
   return drink;
 }
 
+//Widget för att ta emot alla ingredients, bilder  och measures för en drink och mappa ihop dem
 Widget _ingredientsWidget(
   AlkoObject drink,
-  context, {
-  String measure1,
-  String ingredient1,
-  String measure2,
-  String ingredient2,
-  String measure3,
-  String ingredient3,
-  String measure4,
-  String ingredient4,
-  String measure5,
-  String ingredient5,
-  String measure6,
-  String ingredient6,
-  String measure7,
-  String ingredient7,
-  String measure8,
-  String ingredient8,
-  String measure9,
-  String ingredient9,
-}) {
+  context,
+) {
   Map<String, String> parameterList =
-      Provider.of<Model>(context, listen: false).getIngredientList(drink);
+      Provider.of<Model>(context, listen: false).getDrinkIngredientList(drink);
 
   return Column(children: [
     Container(
@@ -252,6 +220,7 @@ Widget _ingredientsWidget(
       ),
     ),
     for (var k in parameterList.keys)
+      //TODO eventuellt flytta hämta bild till model
       Container(
           alignment: Alignment.topLeft,
           child: ListTile(
@@ -274,6 +243,7 @@ Widget _ingredientsWidget(
   ]);
 }
 
+//Horisontell linje som används i ListView
 Widget _customDivider() {
   return Divider(
     height: 25,
@@ -284,6 +254,7 @@ Widget _customDivider() {
   );
 }
 
+//Visar vilket glass som rekommenderas
 Widget _glassWidget(String glass) {
   return Expanded(
     child: Column(
@@ -313,6 +284,7 @@ Widget _glassWidget(String glass) {
   );
 }
 
+//Om den är alkoholhaltig eller inte
 Widget _alcoholWidget(String alcohol) {
   return Expanded(
     child: Column(
@@ -342,6 +314,7 @@ Widget _alcoholWidget(String alcohol) {
   );
 }
 
+//Vilken kategori drinken tillhör
 Widget _categoryWidget(String category) {
   return Expanded(
     child: Column(
@@ -371,6 +344,7 @@ Widget _categoryWidget(String category) {
   );
 }
 
+//Instruktionerna som visas om en drink
 Widget _instructionWidget(String instruction) {
   return Column(
     children: [
@@ -396,29 +370,4 @@ Widget _instructionWidget(String instruction) {
       ),
     ],
   );
-}
-// VILL VI ANVÄNDA TAGS NEDAN???
-
-Widget _tagWidget(String tag) {
-  if (tag == null) {
-    return Text("", style: TextStyle(fontSize: 32));
-  } else {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(
-            width: 2,
-            color: Colors.grey,
-          ),
-          borderRadius: BorderRadius.circular(15)),
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 17),
-      padding: EdgeInsets.all(5),
-      // TAGGAR, finns i strTags.
-      child: Text(tag,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey[600],
-          )),
-    );
-  }
 }
