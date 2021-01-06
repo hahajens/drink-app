@@ -5,12 +5,9 @@ import 'MediaSize.dart';
 import 'Model.dart';
 
 class CustomNavigationBar extends StatelessWidget {
-
   final Color _mainColor = Colors.white;
   final double _iconSize = 0.05; //
   final double _fontSize = 0.025;
-
-
 
   Widget build(BuildContext context) {
     var provider = Provider.of<Model>(context);
@@ -28,7 +25,6 @@ class CustomNavigationBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
             Container(
               width: displayWidth(context) * 0.3,
               child: Column(
@@ -82,15 +78,19 @@ class CustomNavigationBar extends StatelessWidget {
                           color: provider.getIconColor(
                               2)), //provider.getColor()),//_iconColor),
                       onPressed: () {
+                        Provider.of<Model>(context, listen: false)
+                            .getFavoriteListData();
                         Navigator.pushReplacementNamed(
                             context, '/MyFavoritesView');
                         //provider.setIconColor(2);
                         provider.setIconColor(2);
                       }),
-                  Text("Favorites",
-                      style: TextStyle(
-                          fontSize: displayHeight(context) * _fontSize,
-                          color: provider.getIconColor(2)))
+                  Text(
+                    "Favorites",
+                    style: TextStyle(
+                        fontSize: displayHeight(context) * _fontSize,
+                        color: provider.getIconColor(2)),
+                  )
                 ],
               ),
             ),

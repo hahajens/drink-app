@@ -39,7 +39,7 @@ class Model extends ChangeNotifier {
   getFavoriteListData() async {
     _favoriteList = await DB.getFavoriteListData();
     notifyListeners();
-    randomDrink();
+    //randomDrink();
   }
 
   void syncLists() async {
@@ -126,9 +126,12 @@ class Model extends ChangeNotifier {
   }
 
   void editFavorite(AlkoObject drink) {
-    if (favoriteList.contains(drink.idDrink)) {
+    print(drink.isFavorite);
+    if (favoriteList.contains(drink)) {
       drink.isFavorite = false;
+      //print(favoriteList[0].getIsFavorite);
       favoriteList.remove(drink);
+      //(print(favoriteList[0].getIsFavorite);
       var myInt = int.parse(drink.idDrink);
       DB.removeFromFavoriteListData(myInt).toString();
       myFlutterToast('Removed from favorites');
@@ -144,13 +147,19 @@ class Model extends ChangeNotifier {
   void removeFavorite(AlkoObject drink) {
     drink.isFavorite = false;
     favoriteList.remove(drink);
-    int myInt = int.parse(drink.idDrink);
+    int myInt;
+    if (drink.idDrink is String) {
+      myInt = int.parse(drink.idDrink);
+    } else {
+      myInt = drink.idDrink;
+    }
+
     DB.removeFromFavoriteListData(myInt);
     notifyListeners();
   }
 
   Icon getFavoriteIcon(AlkoObject drink) {
-    if (drink.isFavorite == true) {
+    if (favoriteList.contains(drink)) {
       var filledIcon = Icon(Icons.favorite, color: Colors.white);
       return filledIcon;
     } else {
