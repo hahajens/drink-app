@@ -158,11 +158,17 @@ Widget _customAppbar(AsyncSnapshot<AlkoObject> drink, context) {
               ],
             ),
             child: IconButton(
-              icon: state.getFavoriteIcon(drink.data),
+              icon: state.getFavoriteIcon(drink: drink.data),
               iconSize: 34,
               onPressed: () {
                 state.setFavoriteIcon(drink.data);
                 state.editFavorite(drink.data);
+
+                // if (state.getFavoriteIcon() ==
+                //     Icon(Icons.favorite, color: Colors.white)) {
+                //   state.getFavoriteListData();
+                //   Navigator.pop(context);
+                // }
               },
             ),
           ),
