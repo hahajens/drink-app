@@ -39,7 +39,7 @@ class Model extends ChangeNotifier {
   getFavoriteListData() async {
     _favoriteList = await DB.getFavoriteListData();
     notifyListeners();
-    randomDrink();
+    //randomDrink();
   }
 
   void syncLists() async {
@@ -129,9 +129,9 @@ class Model extends ChangeNotifier {
     print(drink.isFavorite);
     if (favoriteList.contains(drink)) {
       drink.isFavorite = false;
-      print(favoriteList[0].getIsFavorite);
+      //print(favoriteList[0].getIsFavorite);
       favoriteList.remove(drink);
-      print(favoriteList[0].getIsFavorite);
+      //(print(favoriteList[0].getIsFavorite);
       var myInt = int.parse(drink.idDrink);
       DB.removeFromFavoriteListData(myInt).toString();
       myFlutterToast('Removed from favorites');
