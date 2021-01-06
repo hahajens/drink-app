@@ -39,7 +39,7 @@ class Model extends ChangeNotifier {
   getFavoriteListData() async {
     _favoriteList = await DB.getFavoriteListData();
     notifyListeners();
-    randomDrink();
+    //randomDrink();
   }
 
   void syncLists() async {
@@ -110,7 +110,6 @@ class Model extends ChangeNotifier {
     List<AlkoObject> list = await DB.getSingleObjectByID(id);
     AlkoObject obj = list[0];
     _isLoading = false;
-    //print(obj);
     return obj;
   }
 
@@ -125,8 +124,18 @@ class Model extends ChangeNotifier {
     );
   }
 
+  bool isDrinkInFavorite(drink) {
+    for (int i = 0; i < favoriteList.length; i++) {
+      if (favoriteList[i].idDrink.toString() == drink.idDrink.toString()) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   void editFavorite(AlkoObject drink) {
-    if (favoriteList.contains(drink.idDrink)) {
+    if (isDrinkInFavorite(drink) == true) {
       drink.isFavorite = false;
       favoriteList.remove(drink);
       var myInt = int.parse(drink.idDrink);
@@ -144,13 +153,19 @@ class Model extends ChangeNotifier {
   void removeFavorite(AlkoObject drink) {
     drink.isFavorite = false;
     favoriteList.remove(drink);
-    int myInt = int.parse(drink.idDrink);
+    int myInt;
+    if (drink.idDrink is String) {
+      myInt = int.parse(drink.idDrink);
+    } else {
+      myInt = drink.idDrink;
+    }
+
     DB.removeFromFavoriteListData(myInt);
     notifyListeners();
   }
 
   Icon getFavoriteIcon(AlkoObject drink) {
-    if (drink.isFavorite == true) {
+    if (isDrinkInFavorite(drink) == true) {
       var filledIcon = Icon(Icons.favorite, color: Colors.white);
       return filledIcon;
     } else {
@@ -193,8 +208,6 @@ class Model extends ChangeNotifier {
     _latestList = await DB.getLatestDrinks();
     _isLoading = false;
     notifyListeners();
-    //print("latest drinks");
-    //print(_latestList[0].strDrink);
   }
 
   getIngredientImage(String ingredient) async {

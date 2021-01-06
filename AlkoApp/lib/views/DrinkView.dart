@@ -10,7 +10,7 @@ import 'package:AlkoApp/model/NavigationBar.dart';
 class DrinkView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String id = ModalRoute.of(context).settings.arguments;
+    var id = ModalRoute.of(context).settings.arguments;
 //Objektet heter nu drink.data
     return FutureBuilder<AlkoObject>(
       future: _getDrink(context, id),

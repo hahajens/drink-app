@@ -6,7 +6,7 @@ class Spinner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SpinKitFadingCircle(
+        child: SpinKitRing(
           color: Colors.blueGrey,
           size: 70.0,
         ),
