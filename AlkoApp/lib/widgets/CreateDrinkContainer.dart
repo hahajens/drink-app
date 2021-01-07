@@ -9,7 +9,8 @@ class CreateDrinkContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<String, String> parameterList =
-        Provider.of<Model>(context, listen: false).getDrinkIngredientList(drink);
+        Provider.of<Model>(context, listen: false)
+            .getDrinkIngredientList(drink);
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/DrinkView', arguments: drink.idDrink);
@@ -34,7 +35,7 @@ class CreateDrinkContainer extends StatelessWidget {
 
   Widget backgroundContainer(context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(6, 80, 6, 50),
+      padding: const EdgeInsets.fromLTRB(6, 80, 6, 10),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.25,
         width: 200,

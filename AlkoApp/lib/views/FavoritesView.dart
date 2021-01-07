@@ -19,7 +19,7 @@ class FavoritesView extends StatelessWidget {
             : GridView.count(
                 padding: EdgeInsets.only(top: 60),
                 crossAxisCount: 2,
-                childAspectRatio: 0.65,
+                childAspectRatio: 0.75,
                 children: List.generate(state.favoriteList.length, (index) {
                   return Container(
                     child: Stack(
