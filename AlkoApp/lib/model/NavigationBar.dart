@@ -6,7 +6,7 @@ import 'Model.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   final Color _mainColor = Colors.white;
-  final double _iconSize = 0.05; 
+  final double _iconSize = 0.05;
   final double _fontSize = 0.025;
 
   Widget build(BuildContext context) {
@@ -15,9 +15,16 @@ class CustomNavigationBar extends StatelessWidget {
       //Android eller iPhone
       height: Platform.isAndroid
           ? MediaQuery.of(context).size.height * 0.1
-          : MediaQuery.of(context).size.height * 0.12, 
+          : MediaQuery.of(context).size.height * 0.11,
 
       decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            offset: Offset(0.0, -10.0),
+            blurRadius: 20.0,
+          ),
+        ],
         color: _mainColor,
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20), topRight: Radius.circular(20)),
@@ -31,7 +38,7 @@ class CustomNavigationBar extends StatelessWidget {
               child: Column(
                 children: [
                   IconButton(
-                      icon: Icon(Icons.lightbulb_outline, 
+                      icon: Icon(Icons.lightbulb_outline,
                           size: MediaQuery.of(context).size.height * _iconSize,
                           color: provider.getIconColor(0)),
                       onPressed: () {
@@ -40,7 +47,8 @@ class CustomNavigationBar extends StatelessWidget {
                       }),
                   Text("Inspiration",
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height * _fontSize,
+                          fontSize:
+                              MediaQuery.of(context).size.height * _fontSize,
                           color: provider.getIconColor(0)))
                 ],
               ),
@@ -53,7 +61,8 @@ class CustomNavigationBar extends StatelessWidget {
                     children: [
                       IconButton(
                           icon: Icon(Icons.explore_outlined,
-                              size: MediaQuery.of(context).size.height * _iconSize,
+                              size: MediaQuery.of(context).size.height *
+                                  _iconSize,
                               color: provider.getIconColor(1)), //_iconColor),
                           onPressed: () {
                             Navigator.pushReplacementNamed(
@@ -62,7 +71,8 @@ class CustomNavigationBar extends StatelessWidget {
                           }),
                       Text("Explore",
                           style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height * _fontSize,
+                              fontSize: MediaQuery.of(context).size.height *
+                                  _fontSize,
                               color: provider.getIconColor(1)))
                     ],
                   ),
@@ -89,7 +99,8 @@ class CustomNavigationBar extends StatelessWidget {
                   Text(
                     "Favorites",
                     style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * _fontSize,
+                        fontSize:
+                            MediaQuery.of(context).size.height * _fontSize,
                         color: provider.getIconColor(2)),
                   )
                 ],
