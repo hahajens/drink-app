@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:AlkoApp/model/Model.dart';
-import 'package:AlkoApp/model/NavigationBar.dart';
+import 'package:AlkoApp/widgets/NavigationBar.dart';
 import 'package:AlkoApp/widgets/DrinkCarousel.dart';
 
 class StartView extends StatelessWidget {
@@ -22,13 +22,13 @@ class StartView extends StatelessWidget {
           ],
         ),
         bottomNavigationBar: CustomNavigationBar(),
-        floatingActionButton: _surpriseButton(context, state),
+        //floatingActionButton: _surpriseButton(context, state),
       ),
     );
   }
 
   //Widget för "random-knappen", använder listan randomList med ett random element
-  Widget _surpriseButton(BuildContext context, state) {
+  /*Widget _surpriseButton(BuildContext context, state) {
     return FloatingActionButton.extended(
       backgroundColor: Colors.blueGrey,
       onPressed: () {
@@ -39,5 +39,5 @@ class StartView extends StatelessWidget {
       label: Text("Surprise Me!", style: TextStyle(fontSize: 22.0)),
       icon: Icon(Icons.local_drink_outlined),
     );
-  }
+  }*/
 }

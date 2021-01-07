@@ -54,7 +54,7 @@ class AgeView extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 30),
+          padding: const EdgeInsets.only(bottom: 30, right: 15, left: 15),
           child: Text(
             "This app contains alcoholic content and you need to be over 20 years to access it.",
             textAlign: TextAlign.center,

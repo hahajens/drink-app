@@ -2,7 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:AlkoApp/model/Model.dart';
-import 'package:AlkoApp/model/NavigationBar.dart';
+import 'package:AlkoApp/widgets/NavigationBar.dart';
 import 'package:AlkoApp/widgets/CreateDrinkContainer.dart';
 
 class FavoritesView extends StatelessWidget {
