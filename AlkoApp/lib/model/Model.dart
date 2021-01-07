@@ -143,6 +143,7 @@ class Model extends ChangeNotifier {
       FavoriteDB.removeFromFavoriteListData(myInt).toString();
       myFlutterToast('Removed from favorites');
     } else {
+      print(drink.strIngredient1);
       drink.isFavorite = true;
       favoriteList.add(drink);
       FavoriteDB.addToFavoriteListData(drink);
@@ -251,7 +252,7 @@ class Model extends ChangeNotifier {
     }
     notifyListeners();
   }
-  
+
   Color getIconColor(item) {
     if (item == 0) {
       return _inspirationColor;
