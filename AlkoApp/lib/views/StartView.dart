@@ -13,9 +13,11 @@ class StartView extends StatelessWidget {
         backgroundColor: Colors.blueGrey[50],
         body: ListView(
           children: [
-            DrinkCarousel(title: 'Popular Drinks', list: 
-                Provider.of<Model>(context, listen: false).popularList),
-            DrinkCarousel(title: 'Latest Drinks',
+            DrinkCarousel(
+                title: 'Popular Drinks',
+                list: Provider.of<Model>(context, listen: false).popularList),
+            DrinkCarousel(
+                title: 'Latest Drinks',
                 list: Provider.of<Model>(context, listen: false).latestList),
           ],
         ),
@@ -28,6 +30,7 @@ class StartView extends StatelessWidget {
   //Widget för "random-knappen", använder listan randomList med ett random element
   Widget _surpriseButton(BuildContext context, state) {
     return FloatingActionButton.extended(
+      backgroundColor: Colors.blueGrey,
       onPressed: () {
         state.randomDrink();
         Navigator.pushNamed(context, '/DrinkView',
