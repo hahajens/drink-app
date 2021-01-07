@@ -1,9 +1,9 @@
-import 'package:AlkoApp/model/Model.dart';
-import 'package:AlkoApp/widgets/LatestDrinksCarousel.dart';
-import 'package:AlkoApp/widgets/PopularDrinkCarousel.dart';
 import 'package:flutter/material.dart';
-import 'package:AlkoApp/model/NavigationBar.dart';
 import 'package:provider/provider.dart';
+
+import 'package:AlkoApp/model/Model.dart';
+import 'package:AlkoApp/model/NavigationBar.dart';
+import 'package:AlkoApp/widgets/DrinkCarousel.dart';
 
 class StartView extends StatelessWidget {
   @override
@@ -13,16 +13,10 @@ class StartView extends StatelessWidget {
         backgroundColor: Colors.blueGrey[50],
         body: ListView(
           children: [
-            PopularDrinkCarousel(),
-            // Container(
-            //   height: 80,
-            //   width: 500,
-            //   child: Padding(
-            //     padding: EdgeInsets.fromLTRB(80, 0, 80, 20),
-            //     child: _supriseButton(context, state),
-            //   ),
-            // ),
-            LatestDrinksCarousel(),
+            DrinkCarousel(title: 'Popular Drinks', list: 
+                Provider.of<Model>(context, listen: false).popularList),
+            DrinkCarousel(title: 'Latest Drinks',
+                list: Provider.of<Model>(context, listen: false).latestList),
           ],
         ),
         bottomNavigationBar: CustomNavigationBar(),
@@ -31,6 +25,7 @@ class StartView extends StatelessWidget {
     );
   }
 
+  //Widget för "random-knappen", använder listan randomList med ett random element
   Widget _surpriseButton(BuildContext context, state) {
     return FloatingActionButton.extended(
       onPressed: () {

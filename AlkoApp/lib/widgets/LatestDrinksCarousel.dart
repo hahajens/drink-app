@@ -7,7 +7,6 @@ import 'CreateDrinkContainer.dart';
 class LatestDrinksCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //Provider.of<Model>(context, listen: false).latestDrinks();
     return Column(
       children: <Widget>[
         Padding(

@@ -9,7 +9,7 @@ class CreateDrinkContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<String, String> parameterList =
-        Provider.of<Model>(context, listen: false).getIngredientList(drink);
+        Provider.of<Model>(context, listen: false).getDrinkIngredientList(drink);
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/DrinkView', arguments: drink.idDrink);

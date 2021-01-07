@@ -1,4 +1,6 @@
+//Klass som används i getIngredientsList i DB för att hämta listan med alla ingredients
 class IngredientObject {
+  //Variabler för; namn, status i filtrering & url till bild
   String strIngredient1;
   bool checked;
   String pic;

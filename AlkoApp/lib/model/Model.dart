@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'package:AlkoApp/DB/CocktailDB.dart';
+import 'package:AlkoApp/DB/FavoriteDB.dart';
 import 'package:AlkoApp/model/AlkoObject.dart';
 import 'package:AlkoApp/model/IngredientObject.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:AlkoApp/DB/DB.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Model extends ChangeNotifier {
@@ -37,25 +39,22 @@ class Model extends ChangeNotifier {
   }
 
   getFavoriteListData() async {
-    _favoriteList = await DB.getFavoriteListData();
+    _favoriteList = await FavoriteDB.getFavoriteListData();
     notifyListeners();
-    //randomDrink();
   }
 
   void syncLists() async {
-    //print("Loading...");
     _isLoading = true;
     notifyListeners();
-    _alkoList = await DB.getData();
+    _alkoList = await CocktailDB.getData();
     _isLoading = false;
     notifyListeners();
-    //print("DONE!");
   }
 
   getCocktailsByString(String input, context) async {
     List list = List();
     _isLoading = true;
-    list = await DB.getCocktailsByString(input, context);
+    list = await CocktailDB.getCocktailsByString(input, context);
     _isLoading = false;
     _alkoList = List.from(list);
     notifyListeners();
@@ -85,11 +84,11 @@ class Model extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     if (listToFilterOn.length > 0) {
-      _alkoList = await DB.getDataByIngredient(listToFilterOn, context);
+      _alkoList = await CocktailDB.getDataByIngredient(listToFilterOn, context);
       _isLoading = false;
       notifyListeners();
     } else {
-      _alkoList = await DB.getData();
+      _alkoList = await CocktailDB.getData();
       _isLoading = false;
       notifyListeners();
     }
@@ -99,7 +98,7 @@ class Model extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     List<IngredientObject> listOfIngredients = new List();
-    listOfIngredients = await DB.getIngredientsList();
+    listOfIngredients = await CocktailDB.getIngredientsList();
     _isLoading = false;
     notifyListeners();
     return listOfIngredients;
@@ -107,7 +106,7 @@ class Model extends ChangeNotifier {
 
   getSingleObjectByID(id) async {
     _isLoading = true;
-    List<AlkoObject> list = await DB.getSingleObjectByID(id);
+    List<AlkoObject> list = await CocktailDB.getSingleObjectByID(id);
     AlkoObject obj = list[0];
     _isLoading = false;
     return obj;
@@ -126,12 +125,14 @@ class Model extends ChangeNotifier {
 
   bool isDrinkInFavorite(drink) {
     for (int i = 0; i < favoriteList.length; i++) {
-      if (favoriteList[i].idDrink.toString() == drink.idDrink.toString()) {
+      if (favoriteList[i]
+          .idDrink
+          .toString()
+          .contains(drink.idDrink.toString())) {
         return true;
-      } else {
-        return false;
       }
     }
+    return false;
   }
 
   void editFavorite(AlkoObject drink) {
@@ -139,12 +140,12 @@ class Model extends ChangeNotifier {
       drink.isFavorite = false;
       favoriteList.remove(drink);
       var myInt = int.parse(drink.idDrink);
-      DB.removeFromFavoriteListData(myInt).toString();
+      FavoriteDB.removeFromFavoriteListData(myInt).toString();
       myFlutterToast('Removed from favorites');
     } else {
       drink.isFavorite = true;
       favoriteList.add(drink);
-      DB.addToFavoriteListData(drink);
+      FavoriteDB.addToFavoriteListData(drink);
       myFlutterToast('Added to favorites');
     }
     notifyListeners();
@@ -160,11 +161,11 @@ class Model extends ChangeNotifier {
       myInt = drink.idDrink;
     }
 
-    DB.removeFromFavoriteListData(myInt);
+    FavoriteDB.removeFromFavoriteListData(myInt);
     notifyListeners();
   }
 
-  Icon getFavoriteIcon(AlkoObject drink) {
+  Icon getFavoriteIcon({AlkoObject drink}) {
     if (isDrinkInFavorite(drink) == true) {
       var filledIcon = Icon(Icons.favorite, color: Colors.white);
       return filledIcon;
@@ -188,16 +189,16 @@ class Model extends ChangeNotifier {
   void getPopularList() async {
     _isLoading = true;
     notifyListeners();
-    _popularList = await DB.getPopularDrinks();
+    _popularList = await CocktailDB.getPopularDrinks();
     _isLoading = false;
     notifyListeners();
   }
 
-  //Används för att hämta en random, används på startview
+  //Används för att hämta en random drink, används på startview
   void randomDrink() async {
     _isLoading = true;
     notifyListeners();
-    _randomList = await DB.getRandomDrink();
+    _randomList = await CocktailDB.getRandomDrink();
     _isLoading = false;
     notifyListeners();
   }
@@ -205,16 +206,16 @@ class Model extends ChangeNotifier {
   void latestDrinks() async {
     _isLoading = true;
     notifyListeners();
-    _latestList = await DB.getLatestDrinks();
+    _latestList = await CocktailDB.getLatestDrinks();
     _isLoading = false;
     notifyListeners();
   }
 
   getIngredientImage(String ingredient) async {
-    return await DB.getIngredientImage(ingredient);
+    return await CocktailDB.getIngredientImage(ingredient);
   }
 
-  Map getIngredientList(AlkoObject drink) {
+  Map getDrinkIngredientList(AlkoObject drink) {
     Map<String, String> parameterList = {
       drink.strIngredient1: drink.strMeasure1,
       drink.strIngredient2: drink.strMeasure2,
@@ -250,7 +251,7 @@ class Model extends ChangeNotifier {
     }
     notifyListeners();
   }
-
+  
   Color getIconColor(item) {
     if (item == 0) {
       return _inspirationColor;
