@@ -17,7 +17,6 @@ class CustomNavigationBar extends StatelessWidget {
       height: Platform.isAndroid
           ? MediaQuery.of(context).size.height * 0.1
           : MediaQuery.of(context).size.height * 0.11,
-
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -66,7 +65,7 @@ class CustomNavigationBar extends StatelessWidget {
                                   _iconSize,
                               color: provider.getIconColor(1)), //_iconColor),
                           onPressed: () {
-                            Navigator.pushReplacementNamed(
+                            Navigator.pushNamed(
                                 context, '/FilterView');
                             provider.setIconColor(1);
                           }),
@@ -117,7 +116,7 @@ class CustomNavigationBar extends StatelessWidget {
                           color: provider.getIconColor(3)),
                       onPressed: () {
                         provider.randomDrink();
-                        Navigator.pushNamed(context, '/DrinkView',
+                        Navigator.pushReplacementNamed(context, '/DrinkView',
                             arguments: provider.randomList[0].idDrink);
                         provider.setIconColor(3);
                       }),

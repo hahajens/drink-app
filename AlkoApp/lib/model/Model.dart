@@ -28,6 +28,7 @@ class Model extends ChangeNotifier {
   Color _filterColor;
 
   Model() {
+    randomDrink();
     syncLists();
     getPopularList();
     latestDrinks();
