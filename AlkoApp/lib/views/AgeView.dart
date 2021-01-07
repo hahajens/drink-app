@@ -38,7 +38,7 @@ class AgeView extends StatelessWidget {
     );
   }
 
-// Alkolist-loggan
+//logo
   Widget _logo(context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30.0),
