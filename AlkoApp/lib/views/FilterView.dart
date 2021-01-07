@@ -1,5 +1,5 @@
 import 'package:AlkoApp/model/Model.dart';
-import 'package:AlkoApp/model/NavigationBar.dart';
+import 'package:AlkoApp/widgets/NavigationBar.dart';
 import 'package:AlkoApp/model/IngredientObject.dart';
 import 'package:AlkoApp/widgets/CreateDrinkContainer.dart';
 import 'package:AlkoApp/widgets/Spinner.dart';

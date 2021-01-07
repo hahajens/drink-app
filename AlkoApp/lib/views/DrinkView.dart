@@ -4,8 +4,10 @@ import 'package:flutter/rendering.dart';
 
 import 'package:AlkoApp/model/AlkoObject.dart';
 import 'package:AlkoApp/model/Model.dart';
-import 'package:AlkoApp/model/NavigationBar.dart';
+import 'package:AlkoApp/widgets/NavigationBar.dart';
 import 'package:AlkoApp/widgets/Spinner.dart';
+
+
 
 class DrinkView extends StatelessWidget {
   @override
@@ -225,8 +227,11 @@ Widget _ingredientsWidget(
           alignment: Alignment.topLeft,
           child: ListTile(
             leading: Image(
-                image: NetworkImage(
+                image: //CachedNetworkImage(imageURL:"https://www.thecocktaildb.com/images/ingredients/vodka-Small.png",
+                  //placeholder: (context, url) => {return Image.asset('assets/img/Logo.png')},                )),
+                NetworkImage(
                     "https://www.thecocktaildb.com/images/ingredients/$k-Small.png")), //Provider.of<Model>(context, listen: false).getIngredientImage(parameterList[s]))),
+                    //Provider.of<Model>(context, listen: false).getIngredientImage("$k"))),
             visualDensity: VisualDensity(horizontal: 0, vertical: 0),
             title: Text(
               "$k",
