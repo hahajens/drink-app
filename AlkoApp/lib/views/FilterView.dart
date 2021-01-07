@@ -272,7 +272,7 @@ class FilterView extends StatelessWidget {
           } else {
             return GridView.count(
               crossAxisCount: 2,
-              childAspectRatio: 0.65,
+              childAspectRatio: 0.75,
               children: List.generate(list.length, (index) {
                 return Container(
                   child: CreateDrinkContainer(list[index]),

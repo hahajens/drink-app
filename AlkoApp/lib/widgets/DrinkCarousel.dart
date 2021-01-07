@@ -5,14 +5,14 @@ import 'CreateDrinkContainer.dart';
 class DrinkCarousel extends StatelessWidget {
   final String title;
   final List list;
-  DrinkCarousel({this.title, this.list}); 
+  DrinkCarousel({this.title, this.list});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          padding: EdgeInsets.fromLTRB(20, 20, 20, 5),
           child: Container(
             alignment: Alignment.topLeft,
             child: Text(
@@ -26,7 +26,7 @@ class DrinkCarousel extends StatelessWidget {
           ),
         ),
         Container(
-          height: 300.0,
+          height: 255.0,
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: list.length,
