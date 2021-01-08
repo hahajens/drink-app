@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:math';
-import 'package:AlkoApp/model/IngredientObject.dart';
+import 'package:AlkoApp/model/FilterModel.dart';
+import 'package:AlkoApp/objects/IngredientObject.dart';
 import 'package:AlkoApp/model/Model.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:AlkoApp/model/AlkoObject.dart';
+import 'package:AlkoApp/objects/AlkoObject.dart';
 import 'package:provider/provider.dart';
 
 class CocktailDB {
@@ -70,7 +71,7 @@ class CocktailDB {
       if (input.isEmpty) {
         Provider.of<Model>(context, listen: false)
             .myFlutterToast("Couldn't find a matching drink :(");
-        return Provider.of<Model>(context, listen: false).alkoList;
+        return Provider.of<FilterModel>(context, listen: false).alkoList;
       }
 
       http.Response nResponse =
@@ -84,7 +85,7 @@ class CocktailDB {
         print("ERROR: getdatabyingredient(): $e");
         Provider.of<Model>(context, listen: false)
             .myFlutterToast("Couldn't find a matching drink :(");
-        return Provider.of<Model>(context, listen: false).alkoList;
+        return Provider.of<FilterModel>(context, listen: false).alkoList;
       }
 
       Provider.of<Model>(context, listen: false).myFlutterToast(
@@ -190,16 +191,5 @@ class CocktailDB {
     }
   }
 
-  static Future<String> getIngredientImage(String ingredient) async {
-    String queryURL =
-        "https://www.thecocktaildb.com/images/ingredients/$ingredient-Small.png";
 
-    http.Response response = await http.get(queryURL);
-
-    if (response.statusCode == 200) {
-      return queryURL;
-    } else {
-      return "https://www.thecocktaildb.com/images/ingredients/vodka-Small.png";
-    }
-  }
 }

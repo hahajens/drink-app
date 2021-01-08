@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:AlkoApp/model/AlkoObject.dart';
+import 'package:AlkoApp/objects/AlkoObject.dart';
 
 class FavoriteDB {
   static getFavoriteListData() async {
