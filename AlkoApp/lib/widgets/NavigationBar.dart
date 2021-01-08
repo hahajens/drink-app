@@ -1,17 +1,13 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'package:AlkoApp/model/Model.dart';
+import 'NavigationBarObject.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   final Color _mainColor = Colors.white;
-  final double _iconSize = 0.05;
-  final double _fontSize = 0.020;
 
   Widget build(BuildContext context) {
-    var provider = Provider.of<Model>(context);
     return Container(
       //Android eller iPhone
       height: Platform.isAndroid
@@ -33,7 +29,28 @@ class CustomNavigationBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
+            NavigationBarObject(
+                item: 0,
+                route: '/StartView',
+                title: "Inspiration",
+                iconItem: Icons.lightbulb_outline),
+            NavigationBarObject(
+                item: 1,
+                route: '/FilterView',
+                title: "Explore",
+                iconItem: Icons.explore_outlined),
+            NavigationBarObject(
+                item: 2,
+                route: '/FavoritesView',
+                title: "Favorites",
+                iconItem: Icons.favorite_border_outlined),
+            NavigationBarObject(
+                item: 3,
+                route: '/DrinkView',
+                title: "Surprise",
+                iconItem: CupertinoIcons.gift),
+
+            /*Container(
               width: MediaQuery.of(context).size.width * 0.2,
               child: Column(
                 children: [
@@ -105,8 +122,8 @@ class CustomNavigationBar extends StatelessWidget {
                   )
                 ],
               ),
-            ),
-            Container(
+            ),*/
+            /*Container(
               width: MediaQuery.of(context).size.width * 0.2,
               child: Column(
                 children: [
@@ -129,7 +146,7 @@ class CustomNavigationBar extends StatelessWidget {
                   )
                 ],
               ),
-            ),
+            ),*/
           ]),
     );
   }

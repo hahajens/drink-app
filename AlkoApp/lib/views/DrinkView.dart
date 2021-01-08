@@ -1,13 +1,12 @@
+import 'package:AlkoApp/model/FavoriteModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/rendering.dart';
 
-import 'package:AlkoApp/model/AlkoObject.dart';
+import 'package:AlkoApp/objects/AlkoObject.dart';
 import 'package:AlkoApp/model/Model.dart';
 import 'package:AlkoApp/widgets/NavigationBar.dart';
 import 'package:AlkoApp/widgets/Spinner.dart';
-
-
 
 class DrinkView extends StatelessWidget {
   @override
@@ -125,13 +124,15 @@ Widget _customAppbar(AsyncSnapshot<AlkoObject> drink, context) {
             ],
           ),
           child: IconButton(
-            icon: Icon(Icons.arrow_back),
-            iconSize: 30.0,
-            color: Colors.white,
-            onPressed: () => Navigator.pop(context),
-          ),
+              icon: Icon(Icons.arrow_back),
+              iconSize: 30.0,
+              color: Colors.white,
+              onPressed: () {
+                Provider.of<Model>(context, listen: false).setIconColor(4);
+                Navigator.pop(context);
+              }),
         ),
-        Consumer<Model>(
+        Consumer<FavoriteModel>(
           builder: (context, state, child) => Container(
             decoration: BoxDecoration(
               boxShadow: [
@@ -227,11 +228,8 @@ Widget _ingredientsWidget(
           alignment: Alignment.topLeft,
           child: ListTile(
             leading: Image(
-                image: //CachedNetworkImage(imageURL:"https://www.thecocktaildb.com/images/ingredients/vodka-Small.png",
-                  //placeholder: (context, url) => {return Image.asset('assets/img/Logo.png')},                )),
-                NetworkImage(
-                    "https://www.thecocktaildb.com/images/ingredients/$k-Small.png")), //Provider.of<Model>(context, listen: false).getIngredientImage(parameterList[s]))),
-                    //Provider.of<Model>(context, listen: false).getIngredientImage("$k"))),
+                image: NetworkImage(
+                    "https://www.thecocktaildb.com/images/ingredients/$k-Small.png")),
             visualDensity: VisualDensity(horizontal: 0, vertical: 0),
             title: Text(
               "$k",
