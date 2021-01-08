@@ -1,14 +1,14 @@
+import 'package:AlkoApp/model/FavoriteModel.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:AlkoApp/model/Model.dart';
 import 'package:AlkoApp/widgets/NavigationBar.dart';
 import 'package:AlkoApp/widgets/CreateDrinkContainer.dart';
 
 class FavoritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Model>(
+    return Consumer<FavoriteModel>(
       builder: (context, state, child) => Scaffold(
         bottomNavigationBar: CustomNavigationBar(),
         body: Column(
@@ -73,7 +73,7 @@ class FavoritesView extends StatelessWidget {
         child: IconButton(
           icon: Icon(Icons.highlight_remove, color: Colors.white, size: 40.0),
           onPressed: () {
-            state.removeFavorite(state.favoriteList[index]);
+            state.editFavorite(state.favoriteList[index]);
           },
         ),
       ),

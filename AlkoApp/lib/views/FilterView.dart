@@ -1,6 +1,6 @@
-import 'package:AlkoApp/model/Model.dart';
+import 'package:AlkoApp/model/FilterModel.dart';
 import 'package:AlkoApp/widgets/NavigationBar.dart';
-import 'package:AlkoApp/model/IngredientObject.dart';
+import 'package:AlkoApp/objects/IngredientObject.dart';
 import 'package:AlkoApp/widgets/CreateDrinkContainer.dart';
 import 'package:AlkoApp/widgets/Spinner.dart';
 
@@ -12,7 +12,7 @@ class FilterView extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController editingController = TextEditingController();
 
-    return Consumer<Model>(
+    return Consumer<FilterModel>(
       builder: (context, state, child) => Scaffold(
         backgroundColor: Colors.blueGrey[50],
         body: Column(
@@ -125,7 +125,7 @@ class FilterView extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Consumer<Model>(
+        return Consumer<FilterModel>(
           builder: (context, state, child) => AlertDialog(
             backgroundColor: Colors.blueGrey[100],
             shape: RoundedRectangleBorder(
@@ -263,7 +263,7 @@ class FilterView extends StatelessWidget {
 
   Widget _myCustomListView(list, context) {
     return Expanded(
-      child: Consumer<Model>(
+      child: Consumer<FilterModel>(
         builder: (context, state, child) {
           if (state.isLoading == false && list.length == 0) {
             return Text("No Results:(");

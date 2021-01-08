@@ -22,22 +22,7 @@ class StartView extends StatelessWidget {
           ],
         ),
         bottomNavigationBar: CustomNavigationBar(),
-        //floatingActionButton: _surpriseButton(context, state),
       ),
     );
   }
-
-  //Widget för "random-knappen", använder listan randomList med ett random element
-  /*Widget _surpriseButton(BuildContext context, state) {
-    return FloatingActionButton.extended(
-      backgroundColor: Colors.blueGrey,
-      onPressed: () {
-        state.randomDrink();
-        Navigator.pushNamed(context, '/DrinkView',
-            arguments: state.randomList[0].idDrink);
-      },
-      label: Text("Surprise Me!", style: TextStyle(fontSize: 22.0)),
-      icon: Icon(Icons.local_drink_outlined),
-    );
-  }*/
 }
