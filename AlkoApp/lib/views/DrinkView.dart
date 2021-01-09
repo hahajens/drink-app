@@ -159,7 +159,7 @@ Widget _customAppbar(AsyncSnapshot<AlkoObject> drink, context) {
               },
             ),
           ),
-        )
+        ),
       ],
     ),
   );

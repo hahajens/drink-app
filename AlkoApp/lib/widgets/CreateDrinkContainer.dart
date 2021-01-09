@@ -130,7 +130,7 @@ class CreateDrinkContainer extends StatelessWidget {
               "${parameterList.keys.join(', ')}",
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: Colors.grey, fontSize: 15),
             ),
           )
         ],
