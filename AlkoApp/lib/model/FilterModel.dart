@@ -8,7 +8,6 @@ import 'package:AlkoApp/objects/IngredientObject.dart';
 class FilterModel extends ChangeNotifier {
   List<AlkoObject> _alkoList = new List();
   List listToFilterOn = new List();
-
   List _filteredList = List();
 
   bool _isLoading = false;

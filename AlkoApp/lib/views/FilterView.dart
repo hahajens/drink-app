@@ -90,6 +90,8 @@ class FilterView extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           child: Icon(Icons.filter_alt),
           onPressed: () {
+            state.listToFilterOn.clear();
+
             _filterDialog(context, state);
           },
         ),
