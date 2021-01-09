@@ -150,12 +150,6 @@ Widget _customAppbar(AsyncSnapshot<AlkoObject> drink, context) {
               onPressed: () {
                 state.setFavoriteIcon(drink.data);
                 state.editFavorite(drink.data);
-
-                // TODO if (state.getFavoriteIcon() ==
-                //     Icon(Icons.favorite, color: Colors.white)) {
-                //   state.getFavoriteListData();
-                //   Navigator.pop(context);
-                // }
               },
             ),
           ),
@@ -226,24 +220,23 @@ Widget _ingredientsWidget(
     for (var k in parameterList.keys)
       //TODO eventuellt flytta hämta bild till model
       Container(
-          alignment: Alignment.topLeft,
-          child: ListTile(
-            leading: Image(
-                image: NetworkImage(
-                    "https://www.thecocktaildb.com/images/ingredients/$k-Small.png")),
-            visualDensity: VisualDensity(horizontal: 0, vertical: 0),
-            title: Text(
-              "$k",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.3),
-            ),
-            subtitle: Text(
-              parameterList[k] == null ? "" : "${parameterList[k]}",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-          ))
+        alignment: Alignment.topLeft,
+        child: ListTile(
+          leading: Image(
+              image: NetworkImage(
+                  "https://www.thecocktaildb.com/images/ingredients/$k-Small.png")),
+          visualDensity: VisualDensity(horizontal: 0, vertical: 0),
+          title: Text(
+            "$k",
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w700, letterSpacing: 0.3),
+          ),
+          subtitle: Text(
+            parameterList[k] == null ? "" : "${parameterList[k]}",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+        ),
+      )
   ]);
 }
 
