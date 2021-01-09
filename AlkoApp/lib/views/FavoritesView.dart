@@ -10,54 +10,55 @@ class FavoritesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<FavoriteModel>(
       builder: (context, state, child) => Scaffold(
-        bottomNavigationBar: CustomNavigationBar(),
-        body: Column(
-          children: [
-            Padding(
-          padding: EdgeInsets.fromLTRB(20, 40, 20, 5),
-          child: Row(
+          backgroundColor: Colors.blueGrey[50],
+          bottomNavigationBar: CustomNavigationBar(),
+          body: Column(
             children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'My Favorites',
-                  style: TextStyle(
-                    fontSize: 26.0,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.5,
-                  ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 40, 20, 5),
+                child: Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'My Favorites',
+                        style: TextStyle(
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-            (state.favoriteList.length == 0)
-            ? Center(
-                child:
-                    Padding(
-                      padding: const EdgeInsets.only(top: 250.0),
-                      child: Text("No saved favorites", style: TextStyle(fontSize: 30)),
-                    ),
-              )
-            : Expanded(
-                          child: GridView.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.75,
-                  children: List.generate(state.favoriteList.length, (index) {
-                    return Container(
-                      child: Stack(
-                        children: [
-                          CreateDrinkContainer(state.favoriteList[index]),
-                          _deleteButton(state, index)
-                        ],
+              (state.favoriteList.length == 0)
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 250.0),
+                        child: Text("No saved favorites",
+                            style: TextStyle(fontSize: 30)),
                       ),
-                    );
-                  }),
-                ),
-            ),
-
-        ],)
-      ),
+                    )
+                  : Expanded(
+                      child: GridView.count(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.75,
+                        children:
+                            List.generate(state.favoriteList.length, (index) {
+                          return Container(
+                            child: Stack(
+                              children: [
+                                CreateDrinkContainer(state.favoriteList[index]),
+                                _deleteButton(state, index)
+                              ],
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+            ],
+          )),
     );
   }
 

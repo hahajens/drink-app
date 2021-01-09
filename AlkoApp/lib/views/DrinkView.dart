@@ -20,6 +20,7 @@ class DrinkView extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<AlkoObject> drink) {
         if (drink.connectionState == ConnectionState.waiting) {
           return Scaffold(
+            backgroundColor: Colors.blueGrey[50],
             body: Spinner(),
           );
         } else {
