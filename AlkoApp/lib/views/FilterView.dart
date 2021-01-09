@@ -1,4 +1,5 @@
 import 'package:AlkoApp/model/FilterModel.dart';
+import 'package:AlkoApp/model/Model.dart';
 import 'package:AlkoApp/widgets/NavigationBar.dart';
 import 'package:AlkoApp/objects/IngredientObject.dart';
 import 'package:AlkoApp/widgets/CreateDrinkContainer.dart';
@@ -91,7 +92,6 @@ class FilterView extends StatelessWidget {
           child: Icon(Icons.filter_alt),
           onPressed: () {
             state.listToFilterOn.clear();
-
             _filterDialog(context, state);
           },
         ),
@@ -106,6 +106,7 @@ class FilterView extends StatelessWidget {
     //Sorterar i bokstavsordning
 
     Widget filterButton = RaisedButton(
+      color: Colors.blueGrey,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
       child: Text("Apply filter"),
       onPressed: () {
@@ -115,6 +116,7 @@ class FilterView extends StatelessWidget {
     );
 
     Widget cancelButton = RaisedButton(
+      color: Colors.blueGrey,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
       child: Text("Clear filter", style: TextStyle(fontSize: 16)),
       onPressed: () {
@@ -134,11 +136,25 @@ class FilterView extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.0),
             ),
             //elevation: 20,
-            title: Center(
-                child: Text(
-              "Filter ingredients",
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
-            )),
+            title: Row(
+              children: [
+                Text(
+                  "Filter ingredients",
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+                ),
+                SizedBox(width: 30),
+                ButtonTheme(
+                  minWidth: 5,
+                  child: FlatButton(
+                    color: Colors.transparent,
+                    child: Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                )
+              ],
+            ),
             content: Column(
               children: [
                 Expanded(
