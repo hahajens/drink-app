@@ -1,3 +1,4 @@
+import 'package:AlkoApp/model/FavoriteModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,8 @@ class NavigationBarObject extends StatelessWidget {
                       arguments: provider.randomList[0].idDrink);
                 } else {
                   Navigator.pushReplacementNamed(context, route);
+                  Provider.of<FavoriteModel>(context, listen: false)
+                      .getFavoriteListData();
                 }
                 provider.setIconColor(item);
               }),
