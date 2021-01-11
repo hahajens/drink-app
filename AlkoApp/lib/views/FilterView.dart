@@ -51,9 +51,20 @@ class FilterView extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
-        child: Text(
-          "Chosen ingredients: ${state.listToFilterOn.join(", ").toString()}",
-          style: TextStyle(fontSize: 15),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Chosen ingredients: ",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            Expanded(
+              child: Text(
+                "${state.listToFilterOn.join(", ").toString()}",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -106,9 +117,10 @@ class FilterView extends StatelessWidget {
     //Sorterar i bokstavsordning
 
     Widget filterButton = RaisedButton(
-      color: Colors.blueGrey,
+      color: Colors.blueGrey[400],
+      elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
-      child: Text("Apply filter"),
+      child: Text("Apply filter", style: TextStyle(fontSize: 16)),
       onPressed: () {
         Navigator.pop(context);
         state.setListByIngredient(state.listToFilterOn, context);
@@ -116,9 +128,10 @@ class FilterView extends StatelessWidget {
     );
 
     Widget cancelButton = RaisedButton(
-      color: Colors.blueGrey,
+      color: Colors.white,
+      elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
-      child: Text("Clear filter", style: TextStyle(fontSize: 16)),
+      child: Text("Clear all", style: TextStyle(fontSize: 16)),
       onPressed: () {
         Navigator.pop(context);
         state.listToFilterOn.clear();
@@ -138,11 +151,13 @@ class FilterView extends StatelessWidget {
             //elevation: 20,
             title: Row(
               children: [
-                Text(
-                  "Filter ingredients",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+                Expanded(
+                  child: Text(
+                    "Filter ingredients",
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+                  ),
                 ),
-                SizedBox(width: 30),
+                SizedBox(width: 8),
                 ButtonTheme(
                   minWidth: 5,
                   child: FlatButton(
@@ -219,9 +234,17 @@ class FilterView extends StatelessWidget {
                 Divider(
                   color: Colors.black,
                 ),
-                Text(
-                  "Filters: ${state.listToFilterOn.join(", ")}",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Filters: ",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Expanded(
+                      child: Text(
+                        "${state.listToFilterOn.join(", ")}",
+                      ),
+                    ),
+                  ],
                 ),
                 //_filterMenuSearchBar(editingController),
                 Row(

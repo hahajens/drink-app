@@ -49,7 +49,6 @@ class FavoriteModel extends ChangeNotifier {
       getFavoriteListData();
       myFlutterToast('Removed from favorites');
     } else {
-      print(drink.strIngredient1);
       drink.isFavorite = true;
       favoriteList.add(drink);
       FavoriteDB.addToFavoriteListData(drink);
