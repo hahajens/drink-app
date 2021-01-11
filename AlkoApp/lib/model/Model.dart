@@ -50,7 +50,7 @@ class Model extends ChangeNotifier {
     notifyListeners();
   }
 
-  //Hämtatr ett objekt mha ID, används i DrinkView
+  //Hämtar ett objekt mha ID, används i DrinkView
   getSingleObjectByID(id) async {
     _isLoading = true;
     List<AlkoObject> list = await CocktailDB.getSingleObjectByID(id);

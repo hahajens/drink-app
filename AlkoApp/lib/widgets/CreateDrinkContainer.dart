@@ -21,7 +21,6 @@ class CreateDrinkContainer extends StatelessWidget {
           Container(
             width: 210.0,
             child: Column(
-              //alignment: Alignment.topCenter,
               children: <Widget>[
                 picContainer(),
                 ingredientList(parameterList, context),
@@ -116,7 +115,6 @@ class CreateDrinkContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            //padding: EdgeInsets.only(top: 30),
             alignment: Alignment.topLeft,
             child: Text(
               'Ingredients',
@@ -141,5 +139,3 @@ class CreateDrinkContainer extends StatelessWidget {
     );
   }
 }
-
-//parameterList[k] == null ? "" : "${parameterList[k]}",
