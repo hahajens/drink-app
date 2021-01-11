@@ -29,26 +29,38 @@ class CustomNavigationBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            NavigationBarObject(
-                item: 0,
-                route: '/StartView',
-                title: "Inspiration",
-                iconItem: Icons.lightbulb_outline),
-            NavigationBarObject(
-                item: 1,
-                route: '/FilterView',
-                title: "Explore",
-                iconItem: Icons.explore_outlined),
-            NavigationBarObject(
-                item: 2,
-                route: '/FavoritesView',
-                title: "Favorites",
-                iconItem: Icons.favorite_border_outlined),
-            NavigationBarObject(
-                item: 3,
-                route: '/DrinkView',
-                title: "Surprise",
-                iconItem: CupertinoIcons.gift),
+            Expanded(
+              flex: 1,
+              child: NavigationBarObject(
+                  item: 0,
+                  route: '/StartView',
+                  title: "Inspiration",
+                  iconItem: Icons.lightbulb_outline),
+            ),
+            Expanded(
+              flex: 1,
+              child: NavigationBarObject(
+                  item: 1,
+                  route: '/FilterView',
+                  title: "Explore",
+                  iconItem: Icons.explore_outlined),
+            ),
+            Expanded(
+              flex: 1,
+              child: NavigationBarObject(
+                  item: 2,
+                  route: '/FavoritesView',
+                  title: "Favorites",
+                  iconItem: Icons.favorite_border_outlined),
+            ),
+            Expanded(
+              flex: 1,
+              child: NavigationBarObject(
+                  item: 3,
+                  route: '/DrinkView',
+                  title: "Surprise",
+                  iconItem: CupertinoIcons.gift),
+            ),
           ]),
     );
   }

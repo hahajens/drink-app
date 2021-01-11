@@ -105,7 +105,10 @@ class CreateDrinkContainer extends StatelessWidget {
     );
   }
 
-  Widget ingredientList(parameterList, context) {
+  Widget ingredientList(Map parameterList, context) {
+    parameterList.removeWhere((key, value) =>
+        key == "null" || value == "null" || key == null || value == null);
+
     return Padding(
       padding: EdgeInsets.fromLTRB(18, 0, 18, 0),
       child: Column(
@@ -130,7 +133,7 @@ class CreateDrinkContainer extends StatelessWidget {
               "${parameterList.keys.join(', ')}",
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: Colors.grey, fontSize: 15),
             ),
           )
         ],
@@ -138,3 +141,5 @@ class CreateDrinkContainer extends StatelessWidget {
     );
   }
 }
+
+//parameterList[k] == null ? "" : "${parameterList[k]}",

@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:AlkoApp/DB/CocktailDB.dart';
 import 'package:AlkoApp/objects/AlkoObject.dart';
 import 'package:AlkoApp/objects/IngredientObject.dart';
+import 'package:provider/provider.dart';
+
+import 'Model.dart';
 
 class FilterModel extends ChangeNotifier {
   List<AlkoObject> _alkoList = new List();
   List listToFilterOn = new List();
-
   List _filteredList = List();
 
   bool _isLoading = false;
@@ -74,7 +76,16 @@ class FilterModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     if (listToFilterOn.length > 0) {
-      _alkoList = await CocktailDB.getDataByIngredient(listToFilterOn, context);
+      List tempList = [];
+      tempList = await CocktailDB.getDataByIngredient(listToFilterOn, context);
+
+      _alkoList.clear();
+
+      for (int i = 0; i < tempList.length; i++) {
+        _alkoList.add(await Provider.of<Model>(context, listen: false)
+            .getSingleObjectByID(tempList[i].idDrink));
+      }
+
       _isLoading = false;
       notifyListeners();
     } else {
@@ -83,6 +94,11 @@ class FilterModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  /*
+    var apa = await Provider.of<Model>(context, listen: false)
+        .getSingleObjectByID(178334);
+  */
 
   //Getter för ovan
   getIngredientsList() async {

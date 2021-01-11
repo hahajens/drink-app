@@ -1,4 +1,5 @@
 import 'package:AlkoApp/model/FilterModel.dart';
+import 'package:AlkoApp/model/Model.dart';
 import 'package:AlkoApp/widgets/NavigationBar.dart';
 import 'package:AlkoApp/objects/IngredientObject.dart';
 import 'package:AlkoApp/widgets/CreateDrinkContainer.dart';
@@ -50,9 +51,20 @@ class FilterView extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
-        child: Text(
-          "Chosen ingredients: ${state.listToFilterOn.join(", ").toString()}",
-          style: TextStyle(fontSize: 15),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Chosen ingredients: ",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            Expanded(
+              child: Text(
+                "${state.listToFilterOn.join(", ").toString()}",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -90,6 +102,7 @@ class FilterView extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           child: Icon(Icons.filter_alt),
           onPressed: () {
+            state.listToFilterOn.clear();
             _filterDialog(context, state);
           },
         ),
@@ -104,8 +117,10 @@ class FilterView extends StatelessWidget {
     //Sorterar i bokstavsordning
 
     Widget filterButton = RaisedButton(
+      color: Colors.blueGrey[400],
+      elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
-      child: Text("Apply filter"),
+      child: Text("Apply filter", style: TextStyle(fontSize: 16)),
       onPressed: () {
         Navigator.pop(context);
         state.setListByIngredient(state.listToFilterOn, context);
@@ -113,8 +128,10 @@ class FilterView extends StatelessWidget {
     );
 
     Widget cancelButton = RaisedButton(
+      color: Colors.white,
+      elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
-      child: Text("Clear filter", style: TextStyle(fontSize: 16)),
+      child: Text("Clear all", style: TextStyle(fontSize: 16)),
       onPressed: () {
         Navigator.pop(context);
         state.listToFilterOn.clear();
@@ -132,11 +149,27 @@ class FilterView extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.0),
             ),
             //elevation: 20,
-            title: Center(
-                child: Text(
-              "Filter ingredients",
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
-            )),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    "Filter ingredients",
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                SizedBox(width: 8),
+                ButtonTheme(
+                  minWidth: 5,
+                  child: FlatButton(
+                    color: Colors.transparent,
+                    child: Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                )
+              ],
+            ),
             content: Column(
               children: [
                 Expanded(
@@ -201,9 +234,17 @@ class FilterView extends StatelessWidget {
                 Divider(
                   color: Colors.black,
                 ),
-                Text(
-                  "Filters: ${state.listToFilterOn.join(", ")}",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Filters: ",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Expanded(
+                      child: Text(
+                        "${state.listToFilterOn.join(", ")}",
+                      ),
+                    ),
+                  ],
                 ),
                 //_filterMenuSearchBar(editingController),
                 Row(

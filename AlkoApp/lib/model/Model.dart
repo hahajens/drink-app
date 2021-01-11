@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:AlkoApp/DB/CocktailDB.dart';
 import 'package:AlkoApp/objects/AlkoObject.dart';
 import 'package:fluttertoast/fluttertoast.dart';
