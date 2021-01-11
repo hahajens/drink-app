@@ -148,7 +148,6 @@ class FilterView extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
-            //elevation: 20,
             title: Row(
               children: [
                 Expanded(
@@ -246,7 +245,6 @@ class FilterView extends StatelessWidget {
                     ),
                   ],
                 ),
-                //_filterMenuSearchBar(editingController),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
