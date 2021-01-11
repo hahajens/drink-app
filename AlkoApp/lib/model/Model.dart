@@ -10,12 +10,22 @@ class Model extends ChangeNotifier {
   List<AlkoObject> _popularList = new List();
   List<AlkoObject> _latestList = new List();
 
+  //Färgerna för navigationBar
+  Color _inspirationColor = Colors.blueGrey[900];
+  Color _exploreColor = Colors.blueGrey[400];
+  Color _favoritesColor = Colors.blueGrey[400];
+  Color _supriseColor = Colors.blueGrey[400];
+
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;
-  List get randomList => _randomList;
+
   List get latestList => _latestList;
   List get popularList => _popularList;
+  List get randomList {
+    randomDrink();
+    return _randomList;
+  }
 
   Model() {
     randomDrink();
@@ -70,7 +80,6 @@ class Model extends ChangeNotifier {
     return parameterList;
   }
 
-  //
   myFlutterToast(input) {
     return Fluttertoast.showToast(
       msg: input,
@@ -89,12 +98,6 @@ class Model extends ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
-
-  //Allt med navigationbar
-  Color _inspirationColor = Colors.blueGrey[900];
-  Color _exploreColor = Colors.blueGrey[400];
-  Color _favoritesColor = Colors.blueGrey[400];
-  Color _supriseColor = Colors.blueGrey[400];
 
   void setIconColor(item) {
     _inspirationColor = Colors.blueGrey[400];
