@@ -7,7 +7,7 @@ import 'package:AlkoApp/model/Model.dart';
 
 class NavigationBarObject extends StatelessWidget {
   final double _iconSize = 0.05;
-  final double _fontSize = 0.020;
+  final double _fontSize = 0.018;
 
   final int item;
   final String route;
